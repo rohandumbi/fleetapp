@@ -7,27 +7,15 @@
         mc:Ignorable="d"
         Width="800" Height="550"
         Background="#d9e2cc" MinWidth="600" MinHeight="400"
-        WindowStyle="None" FontFamily="Verdana">
+        WindowStyle="None">
     <Grid Margin="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="287*"/>
-            <ColumnDefinition Width="89*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Right" Width="200" Grid.ColumnSpan="2">
-            <Label Content="Name"   HorizontalAlignment="Left"/>
-            <TextBox x:Name="projName" Height="17" HorizontalAlignment="Right" TextWrapping="Wrap"  Width="90" />
-            <Label Content="Description"/>
-            <TextBox x:Name="projDescription"  Height="88"  TextWrapping="Wrap" Width="90"/>
-
-            <Button x:Name="submit" Content="Save" Click="onSave" Background="#FF8E92E2"/>
-            <Button Content="Clear" Background="#FF8E92E2"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Left">
-            <TextBlock HorizontalAlignment="Left" Margin="20,23,0,0" TextWrapping="Wrap" Text="Available Projects" VerticalAlignment="Top" />
-        </StackPanel>
-
-
-
+        <TextBox x:Name="projName" HorizontalAlignment="Right" Height="17"  TextWrapping="Wrap" VerticalAlignment="Top" Width="90" />
+        <TextBox x:Name="projDescription" HorizontalAlignment="Left" Height="88" Margin="538,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.47,3.82"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="455,47,0,0" VerticalAlignment="Top" FontFamily="Verdana"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="455,85,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="submit" Content="Save" HorizontalAlignment="Left" Margin="472,219,0,0" VerticalAlignment="Top" Width="75" Click="onSave" Background="#FF8E92E2"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Margin="569,219,0,0" VerticalAlignment="Top" Width="75" Background="#FF8E92E2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="20,23,0,0" TextWrapping="Wrap" Text="Available Projects" VerticalAlignment="Top" FontFamily="Verdana"/>
 
     </Grid>
 </Window>
