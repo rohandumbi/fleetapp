@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace fleetapp.pages
+namespace fleetapp
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
@@ -21,7 +21,7 @@ namespace fleetapp.pages
     {
         public Window1()
         {
-            InitializeComponent();
+            
         }
     }
 }

@@ -3,23 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:fleetapp.pages"
+        xmlns:local="clr-namespace:fleetapp"
         WindowStyle="None"
         Title="Project Configuration" Height="450" Width="800">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel>
             <Border Background="#99FFFFFF" BorderBrush="#CCCCFF" BorderThickness="2" HorizontalAlignment="Left" Padding="20" Margin="20,10,0,0" Width="744" Height="430">
                 <TabControl Name="Tabs1" TabStripPlacement="Top" Background="LightGray" BorderBrush="Blue" Margin="10,10,0,5">
-                    <TabItem Header="Hubs" IsSelected="True" Background="Gray">
+                    <TabItem Header="Fleet List" IsSelected="True" Background="Gray">
                         
                     </TabItem>
-                    <TabItem Header="Name 2" Background="Gray">
+                    <TabItem Header="Hub Definition" Background="Gray">
                        
                     </TabItem>
-                    <TabItem Header="Pits" Background="Gray">
+                    <TabItem Header="Fleet Allocation to Hub" Background="Gray">
                         
                     </TabItem>
-                    <TabItem Header="Contact Us" Background="Gray">
+                    <TabItem Header="Scenarios" Background="Gray">
 
                     </TabItem>
                 </TabControl>
