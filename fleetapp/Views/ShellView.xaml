@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:fleetapp.Views"
         mc:Ignorable="d"
         Title="Fleet App" Height="600" Width="800" WindowStartupLocation="CenterScreen" Background="#fbf7f5">
+        
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -19,11 +21,41 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-            <Button x:Name="ShowProjectsViewScreen" Padding="5">Projects</Button>
-            <Button x:Name="ShowFleetListScreen" Padding="5">Fleet List</Button>
-            <Button x:Name="ShowHubDefinitionScreen" Padding="5">Hub Definition</Button>
-            <Button x:Name="ShowHubAllocationScreen" Padding="5">Fleet Allocation to Hub</Button>
-            <Button x:Name="ShowScenariosViewScreen" Padding="5">Scenario</Button>
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                    <Setter Property="Padding" Value="5" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="FontStyle" Value="Italic" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="Foreground" Value="#189ad3" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Opacity" Value="1.0" />
+                        </Trigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="1"></DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="0.2"></DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
+            <Button x:Name="ShowProjectsViewScreen">Projects</Button>
+            <Button x:Name="ShowFleetListScreen">Fleet List</Button>
+            <Button x:Name="ShowHubDefinitionScreen">Hub Definition</Button>
+            <Button x:Name="ShowHubAllocationScreen">Fleet Allocation to Hub</Button>
+            <Button x:Name="ShowScenariosViewScreen">Scenario</Button>
         </StackPanel>
         <ContentControl x:Name="ActiveItem" Grid.Row="2" Grid.Column="1"/>
     </Grid>
