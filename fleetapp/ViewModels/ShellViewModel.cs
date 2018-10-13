@@ -7,7 +7,36 @@ using System.Threading.Tasks;
 
 namespace fleetapp.ViewModels
 {
-    class ShellViewModel : Screen
+    class ShellViewModel : Conductor<Object>
     {
+
+        public ShellViewModel()
+        {
+            ActivateItem(new ProjectsViewModel());
+        }
+
+        public void ShowProjectsViewScreen()
+        {
+            ActivateItem(new ProjectsViewModel());
+        }
+        public void ShowFleetListScreen()
+        {
+            ActivateItem(new FleetListViewModel());
+        }
+
+        public void ShowHubDefinitionScreen()
+        {
+            ActivateItem(new HubDefinitionViewModel());
+        }
+
+        public void ShowHubAllocationScreen()
+        {
+            ActivateItem(new HubAllocationViewModel());
+        }
+
+        public void ShowScenariosViewScreen()
+        {
+            ActivateItem(new ScenariosViewModel());
+        }
     }
 }

@@ -14,25 +14,17 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <TabControl Name="appTabs" Grid.Column="1" Grid.Row="1">
-            <TabItem Header="Projects" IsSelected="True">
-
-            </TabItem>
-            <TabItem Header="Fleet List">
-
-            </TabItem>
-            <TabItem Header="Hub Definition">
-
-            </TabItem>
-            <TabItem Header="Fleet Allocation to Hub">
-
-            </TabItem>
-            <TabItem Header="Scenarios">
-
-            </TabItem>
-        </TabControl>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <Button x:Name="ShowProjectsViewScreen" Padding="5">Projects</Button>
+            <Button x:Name="ShowFleetListScreen" Padding="5">Fleet List</Button>
+            <Button x:Name="ShowHubDefinitionScreen" Padding="5">Hub Definition</Button>
+            <Button x:Name="ShowHubAllocationScreen" Padding="5">Fleet Allocation to Hub</Button>
+            <Button x:Name="ShowScenariosViewScreen" Padding="5">Scenario</Button>
+        </StackPanel>
+        <ContentControl x:Name="ActiveItem" Grid.Row="2" Grid.Column="1"/>
     </Grid>
 </Window>

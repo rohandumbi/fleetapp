@@ -70,7 +70,28 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="ViewModels\FleetListViewModel.cs" />
+    <Compile Include="ViewModels\HubAllocationViewModel.cs" />
+    <Compile Include="ViewModels\HubDefinitionViewModel.cs" />
+    <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\ScenariosViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\FleetListView.xaml.cs">
+      <DependentUpon>FleetListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HubAllocationView.xaml.cs">
+      <DependentUpon>HubAllocationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HubDefinitionView.xaml.cs">
+      <DependentUpon>HubDefinitionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectsView.xaml.cs">
+      <DependentUpon>ProjectsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScenariosView.xaml.cs">
+      <DependentUpon>ScenariosView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -106,12 +127,31 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Localization\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="db\install.sql" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\FleetListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HubAllocationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HubDefinitionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScenariosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
