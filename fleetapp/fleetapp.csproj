@@ -70,6 +70,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="ViewModels\FleetListViewModel.cs" />
     <Compile Include="ViewModels\HubAllocationViewModel.cs" />
