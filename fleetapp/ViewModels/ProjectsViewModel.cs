@@ -18,7 +18,5 @@ namespace fleetapp.ViewModels
             Projects.Add(new ProjectModel("Project1", "Project1 Desc"));
             Projects.Add(new ProjectModel("Project2", "Project1 Desc"));
         }
-
-        
     }
 }

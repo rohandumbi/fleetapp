@@ -51,11 +51,11 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Resources>
-            <Button x:Name="ShowProjectsViewScreen">Projects</Button>
-            <Button x:Name="ShowFleetListScreen">Fleet List</Button>
-            <Button x:Name="ShowHubDefinitionScreen">Hub Definition</Button>
-            <Button x:Name="ShowHubAllocationScreen">Fleet Allocation to Hub</Button>
-            <Button x:Name="ShowScenariosViewScreen">Scenario</Button>
+            <Button x:Name="ShowProjectsViewScreen" FontStyle="Normal" FontWeight="SemiBold">Projects</Button>
+            <Button x:Name="ShowFleetListScreen" FontStyle="Normal" FontWeight="SemiBold">Fleet List</Button>
+            <Button x:Name="ShowHubDefinitionScreen" FontStyle="Normal" FontWeight="SemiBold">Hub Definition</Button>
+            <Button x:Name="ShowHubAllocationScreen" FontStyle="Normal" FontWeight="SemiBold">Fleet Allocation to Hub</Button>
+            <Button x:Name="ShowScenariosViewScreen" FontStyle="Normal" FontWeight="SemiBold">Scenario</Button>
         </StackPanel>
         <ContentControl x:Name="ActiveItem" Grid.Row="2" Grid.Column="1"/>
     </Grid>
