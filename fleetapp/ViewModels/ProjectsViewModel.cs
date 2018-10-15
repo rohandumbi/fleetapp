@@ -14,9 +14,8 @@ namespace fleetapp.ViewModels
 
         public ProjectsViewModel()
         {
-            Projects = new BindableCollection<ProjectModel>();
-            Projects.Add(new ProjectModel("Project1", "Project1 Desc"));
-            Projects.Add(new ProjectModel("Project2", "Project1 Desc"));
+            DataAccess da = new DataAccess();
+            Projects = new BindableCollection<ProjectModel>(da.GetProjects());
         }
     }
 }

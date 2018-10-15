@@ -26,6 +26,17 @@ namespace fleetapp
             daysFromLowDate = (DateTime.Today - lowEndDate).Days;
         }
 
+        public List<ProjectModel> GetProjects()
+        {
+            List<ProjectModel> output = new List<ProjectModel>();
+            output.Add(new ProjectModel("Project 1", "Project 1 Desc. Lorem ipsum dolomite", "1/1/1971"));
+            output.Add(new ProjectModel("Project 2", "Project 2 Desc. Lorem ipsum dolomite", "1/1/1971"));
+            output.Add(new ProjectModel("Project 3", "Project 3 Desc. Lorem ipsum dolomite", "1/1/1971"));
+            output.Add(new ProjectModel("Project 4", "Project 4 Desc. Lorem ipsum dolomite", "1/1/1971"));
+
+            return output;
+        }
+
         public List<PersonModel> GetPeople(int total = 10)
         {
             List<PersonModel> output = new List<PersonModel>();
