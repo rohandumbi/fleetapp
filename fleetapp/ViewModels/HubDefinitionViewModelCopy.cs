@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace fleetapp.ViewModels
 {
-    public class HubDefinitionViewModel : Screen
+    public class HubDefinitionViewModelCopy : Screen
     {
-        public BindableCollection<HubDefinitionModel> HubDefinitions { get; set; }
+        public BindableCollection<PersonModel> People { get; set; }
 
-        public HubDefinitionViewModel()
+        public HubDefinitionViewModelCopy()
         {
             DataAccess da = new DataAccess();
-            HubDefinitions = new BindableCollection<HubDefinitionModel>(da.GetHubDefinitions());
+            People = new BindableCollection<PersonModel>(da.GetPeople());
         }
     }
 }

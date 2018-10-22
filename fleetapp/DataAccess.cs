@@ -37,6 +37,23 @@ namespace fleetapp
             return output;
         }
 
+        public List<HubDefinitionModel> GetHubDefinitions()
+        {
+            List<HubDefinitionModel> output = new List<HubDefinitionModel>();
+            output.Add(new HubDefinitionModel("1", "Hub A"));
+            output.Add(new HubDefinitionModel("2", "Hub B"));
+            output.Add(new HubDefinitionModel("3", "Hub C"));
+            output.Add(new HubDefinitionModel("4", "Hub D"));
+            output.Add(new HubDefinitionModel("5", "Hub E"));
+            output.Add(new HubDefinitionModel("6", "Hub F"));
+            output.Add(new HubDefinitionModel("7", "Hub G"));
+            output.Add(new HubDefinitionModel("8", "Hub H"));
+            output.Add(new HubDefinitionModel("9", "Hub I"));
+            output.Add(new HubDefinitionModel("10", "Hub J"));
+            
+            return output;
+        }
+
         public List<PersonModel> GetPeople(int total = 10)
         {
             List<PersonModel> output = new List<PersonModel>();
