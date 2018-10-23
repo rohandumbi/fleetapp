@@ -40,17 +40,26 @@ namespace fleetapp
         public List<HubDefinitionModel> GetHubDefinitions()
         {
             List<HubDefinitionModel> output = new List<HubDefinitionModel>();
-            output.Add(new HubDefinitionModel("1", "Hub A"));
-            output.Add(new HubDefinitionModel("2", "Hub B"));
-            output.Add(new HubDefinitionModel("3", "Hub C"));
-            output.Add(new HubDefinitionModel("4", "Hub D"));
-            output.Add(new HubDefinitionModel("5", "Hub E"));
-            output.Add(new HubDefinitionModel("6", "Hub F"));
-            output.Add(new HubDefinitionModel("7", "Hub G"));
-            output.Add(new HubDefinitionModel("8", "Hub H"));
-            output.Add(new HubDefinitionModel("9", "Hub I"));
-            output.Add(new HubDefinitionModel("10", "Hub J"));
+            output.Add(new HubDefinitionModel("1", "TP"));
+            output.Add(new HubDefinitionModel("2", "S10"));
+            output.Add(new HubDefinitionModel("3", "B1"));
             
+            return output;
+        }
+
+        public List<HubAllocationModel> GetHubAllocations()
+        {
+            List<HubAllocationModel> output = new List<HubAllocationModel>();
+            output.Add(new HubAllocationModel("830E", "TP", false, false));
+            output.Add(new HubAllocationModel("830E", "S10", true, false));
+            output.Add(new HubAllocationModel("830E", "B1", true, true));
+            output.Add(new HubAllocationModel("830DC", "TP", false, false));
+            output.Add(new HubAllocationModel("830DC", "S10", true, false));
+            output.Add(new HubAllocationModel("830DC", "B1", false, false));
+            output.Add(new HubAllocationModel("XEMC", "TP", true, false));
+            output.Add(new HubAllocationModel("XEMC", "S10", false, false));
+            output.Add(new HubAllocationModel("XEMC", "B1", false, false));
+
             return output;
         }
 

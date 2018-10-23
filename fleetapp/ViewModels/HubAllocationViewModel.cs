@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using fleetapp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,12 @@ namespace fleetapp.ViewModels
 {
     public class HubAllocationViewModel : Screen
     {
+        public BindableCollection<HubAllocationModel> HubAllocations { get; set; }
+
+        public HubAllocationViewModel()
+        {
+            DataAccess da = new DataAccess();
+            HubAllocations = new BindableCollection<HubAllocationModel>(da.GetHubAllocations());
+        }
     }
 }
