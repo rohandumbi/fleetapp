@@ -27,6 +27,32 @@ namespace fleetapp.DataAccessClasses
         }
 
 
+        public List<HubDefinitionModel> GetHubDefinitions()
+        {
+            List<HubDefinitionModel> output = new List<HubDefinitionModel>();
+            output.Add(new HubDefinitionModel("1", "TP"));
+            output.Add(new HubDefinitionModel("2", "S10"));
+            output.Add(new HubDefinitionModel("3", "B1"));
+            
+            return output;
+        }
+
+        public List<HubAllocationModel> GetHubAllocations()
+        {
+            List<HubAllocationModel> output = new List<HubAllocationModel>();
+            output.Add(new HubAllocationModel("830E", "TP", false, false));
+            output.Add(new HubAllocationModel("830E", "S10", true, false));
+            output.Add(new HubAllocationModel("830E", "B1", true, true));
+            output.Add(new HubAllocationModel("830DC", "TP", false, false));
+            output.Add(new HubAllocationModel("830DC", "S10", true, false));
+            output.Add(new HubAllocationModel("830DC", "B1", false, false));
+            output.Add(new HubAllocationModel("XEMC", "TP", true, false));
+            output.Add(new HubAllocationModel("XEMC", "S10", false, false));
+            output.Add(new HubAllocationModel("XEMC", "B1", false, false));
+
+            return output;
+        }
+
         public List<PersonModel> GetPeople(int total = 10)
         {
             List<PersonModel> output = new List<PersonModel>();

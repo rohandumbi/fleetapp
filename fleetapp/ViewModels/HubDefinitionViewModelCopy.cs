@@ -6,16 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace fleetapp.ViewModels
 {
-    public class HubAllocationViewModel : Screen
+    public class HubDefinitionViewModelCopy : Screen
     {
-        public BindableCollection<HubAllocationModel> HubAllocations { get; set; }
+        public BindableCollection<PersonModel> People { get; set; }
 
-        public HubAllocationViewModel()
+        public HubDefinitionViewModelCopy()
         {
             DataAccess da = new DataAccess();
-            HubAllocations = new BindableCollection<HubAllocationModel>(da.GetHubAllocations());
+            People = new BindableCollection<PersonModel>(da.GetPeople());
         }
     }
 }

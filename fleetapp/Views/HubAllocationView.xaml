@@ -7,6 +7,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TextBlock>Hub Allocation page is under construction</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DataGrid x:Name="HubAllocations" AlternatingRowBackground="LightCyan" CanUserAddRows="True"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Asset Model" Binding="{Binding Path=AssetModel}" />
+                <DataGridTextColumn Header="Hub Name" Binding="{Binding Path=HubName}" />
+                <DataGridCheckBoxColumn Header="Manned" Binding="{Binding Path=IsManned}" />
+                <DataGridCheckBoxColumn Header="AHS" Binding="{Binding Path=IsAHS}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
