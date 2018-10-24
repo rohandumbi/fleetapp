@@ -44,6 +44,7 @@
       <HintPath>..\packages\Caliburn.Micro.3.2.0\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -70,7 +71,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="DAOs\DataAccess.cs" />
+    <Compile Include="DAOs\ProjectDAO.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
