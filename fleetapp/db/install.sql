@@ -2,11 +2,11 @@ DROP TABLE IF EXISTS project;
 
 CREATE TABLE project (
    id INT IDENTITY(1,1) PRIMARY KEY,
-   name VARCHAR(100) NOT NULL,
-   description VARCHAR(400),
-   created_date	DATETIME,
-   modified_date DATETIME,
-   UNIQUE (name)
+   Name VARCHAR(50) NOT NULL,
+   Description VARCHAR(400),
+   CreatedDate	DATETIME,
+   ModifiedDate DATETIME,
+   UNIQUE (Name)
 );
 
 DROP TABLE IF EXISTS project_data_files;
