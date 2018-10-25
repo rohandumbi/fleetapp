@@ -12,12 +12,12 @@ namespace fleetapp.ViewModels
 {
     public class HubDefinitionViewModel : Screen
     {
-        public BindableCollection<HubDefinitionModel> HubDefinitions { get; set; }
+        public BindableCollection<HubModel> HubDefinitions { get; set; }
 
         public HubDefinitionViewModel()
         {
             DataAccess da = new DataAccess();
-            HubDefinitions = new BindableCollection<HubDefinitionModel>(da.GetHubDefinitions());
+            HubDefinitions = new BindableCollection<HubModel>(da.GetHubDefinitions());
         }
     }
 }

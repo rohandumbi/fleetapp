@@ -28,10 +28,10 @@
         <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" FontSize="36" Text="Fleet Plan" Margin="0,0,0,10"/>
         <TextBlock Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" FontSize="24" Text="Create new" Margin="0,0,0,10"/>
         <TextBlock Grid.Column="1" Grid.Row="3" FontFamily="Segoe UI" FontWeight="SemiBold" Text="Project Name"/>
-        <TextBox x:Name="projectNameText" Grid.Column="2" Grid.Row="3" Width="150" Margin="10,0,0,0"/>
+        <TextBox x:Name="ProjectName" Grid.Column="2" Grid.Row="3" Width="150" Margin="10,0,0,0"/>
         <TextBlock Grid.Column="1" Grid.Row="4" FontFamily="Segoe UI" FontWeight="SemiBold" Text="Description"  Margin="0,10,0,0"/>
-        <TextBox x:Name="projectDescriptionText" Grid.Column="2" Grid.Row="4" Width="150" Height="50" Margin="10,10,0,0"/>
-        <Button x:Name="submitButton" Content="Create" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Margin="10"/>
+        <TextBox x:Name="ProjectDescription" Grid.Column="2" Grid.Row="4" Width="150" Height="50" Margin="10,10,0,0"/>
+        <Button x:Name="CreateProject" Content="Create" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Margin="10"/>
         <TextBlock Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="3" FontSize="24" Text="Existing projects" Margin="200,0,0,0"/>
 
         <DataGrid  Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="3" Grid.RowSpan="3" x:Name="Projects" AlternatingRowBackground="LightCyan" CanUserAddRows="True"

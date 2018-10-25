@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace fleetapp.Models
 {
-    public class HubAllocationModel
+    public class HubModel
     {
         public int id { get; set; }
         public int ProjectID { get; set; }
-        public int HubID { get; set; }
-        public String AssestModel { get; set; }
+        public String Name { get; set; }
     }
 }

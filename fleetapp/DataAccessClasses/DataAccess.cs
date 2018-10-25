@@ -27,12 +27,12 @@ namespace fleetapp.DataAccessClasses
         }
 
 
-        public List<HubDefinitionModel> GetHubDefinitions()
+        public List<HubModel> GetHubDefinitions()
         {
-            List<HubDefinitionModel> output = new List<HubDefinitionModel>();
-            output.Add(new HubDefinitionModel("1", "TP"));
-            output.Add(new HubDefinitionModel("2", "S10"));
-            output.Add(new HubDefinitionModel("3", "B1"));
+            List<HubModel> output = new List<HubModel>();
+            //output.Add(new HubModel("1", "TP"));
+            //output.Add(new HubModel("2", "S10"));
+            //output.Add(new HubModel("3", "B1"));
             
             return output;
         }
@@ -40,63 +40,15 @@ namespace fleetapp.DataAccessClasses
         public List<HubAllocationModel> GetHubAllocations()
         {
             List<HubAllocationModel> output = new List<HubAllocationModel>();
-            output.Add(new HubAllocationModel("830E", "TP", false, false));
-            output.Add(new HubAllocationModel("830E", "S10", true, false));
-            output.Add(new HubAllocationModel("830E", "B1", true, true));
-            output.Add(new HubAllocationModel("830DC", "TP", false, false));
-            output.Add(new HubAllocationModel("830DC", "S10", true, false));
-            output.Add(new HubAllocationModel("830DC", "B1", false, false));
-            output.Add(new HubAllocationModel("XEMC", "TP", true, false));
-            output.Add(new HubAllocationModel("XEMC", "S10", false, false));
-            output.Add(new HubAllocationModel("XEMC", "B1", false, false));
-
-            return output;
-        }
-
-        public List<PersonModel> GetPeople(int total = 10)
-        {
-            List<PersonModel> output = new List<PersonModel>();
-
-            for (int i = 0; i < total; i++)
-            {
-
-                output.Add(GetPerson(i + 1));
-            }
-
-            return output;
-        }
-
-        private PersonModel GetPerson(int id)
-        {
-            PersonModel output = new PersonModel();
-
-            output.PersonId = id;
-            output.FirstName = GetRandomItem(firstNames);
-            output.LastName = GetRandomItem(lastNames);
-            output.IsAlive = GetRandomItem(aliveStatuses);
-            output.DateOfBirth = GetRandomDate();
-            output.Age = GetAgeInYears(output.DateOfBirth);
-            output.AccountBalance = ((decimal)rnd.Next(1, 1000000) / 100);
-
-            int addressCount = rnd.Next(1, 5);
-
-            for (int i = 0; i < addressCount; i++)
-            {
-                output.Addresses.Add(GetAddress(((id - 1) * 5) + i + 1));
-            }
-
-            return output;
-        }
-
-        private AddressModel GetAddress(int id)
-        {
-            AddressModel output = new AddressModel();
-
-            output.AddressId = id;
-            output.StreetAddress = GetRandomItem(streetAddresses);
-            output.City = GetRandomItem(cities);
-            output.State = GetRandomItem(states);
-            output.ZipCode = GetRandomItem(zipCodes);
+            //output.Add(new HubAllocationModel("830E", "TP", false, false));
+            //output.Add(new HubAllocationModel("830E", "S10", true, false));
+            //output.Add(new HubAllocationModel("830E", "B1", true, true));
+            //output.Add(new HubAllocationModel("830DC", "TP", false, false));
+            //output.Add(new HubAllocationModel("830DC", "S10", true, false));
+            //output.Add(new HubAllocationModel("830DC", "B1", false, false));
+            //output.Add(new HubAllocationModel("XEMC", "TP", true, false));
+            //output.Add(new HubAllocationModel("XEMC", "S10", false, false));
+            //output.Add(new HubAllocationModel("XEMC", "B1", false, false));
 
             return output;
         }

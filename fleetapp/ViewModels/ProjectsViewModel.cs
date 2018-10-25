@@ -12,12 +12,35 @@ namespace fleetapp.ViewModels
     class ProjectsViewModel : Screen
     {
         public BindableCollection<ProjectModel> Projects { get; set; }
-        private ProjectDAO _projectDAO;
+        private ProjectDataAccess _projectDAO;
+        private String _projectName;
+        private String _projectDescription;
 
+        private void LoadProjects()
+        {
+            Projects = new BindableCollection<ProjectModel>(_projectDAO.GetProjects());
+        }
         public ProjectsViewModel()
         {
-            _projectDAO = new ProjectDAO();
-            Projects = new BindableCollection<ProjectModel>(_projectDAO.GetProjects());
+            _projectDAO = new ProjectDataAccess();
+            LoadProjects();
+        }
+
+        public String ProjectName
+        {
+            set { _projectName = value; }
+        }
+
+        public String ProjectDescription
+        {
+            set { _projectDescription = value; }
+        }
+
+        public void CreateProject ()
+        {
+            _projectDAO.InsertProject(_projectName, _projectDescription);
+            LoadProjects();
+            NotifyOfPropertyChange("Projects");
         }
     }
 }

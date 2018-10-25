@@ -83,16 +83,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataAccessClasses\BaseDataAccess.cs" />
     <Compile Include="DataAccessClasses\DataAccess.cs" />
-    <Compile Include="DataAccessClasses\ProjectDAO.cs" />
-    <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="DataAccessClasses\HubAllocationDataAccess.cs" />
+    <Compile Include="DataAccessClasses\HubDataAccess.cs" />
+    <Compile Include="DataAccessClasses\ProjectDataAccess.cs" />
     <Compile Include="Models\HubAllocationModel.cs" />
-    <Compile Include="Models\HubDefinitionModel.cs" />
-    <Compile Include="Models\PersonModel.cs" />
+    <Compile Include="Models\HubModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="ViewModels\FleetListViewModel.cs" />
     <Compile Include="ViewModels\HubAllocationViewModel.cs" />
-    <Compile Include="ViewModels\HubDefinitionViewModelCopy.cs" />
     <Compile Include="ViewModels\HubDefinitionViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\ScenariosViewModel.cs" />
@@ -102,9 +102,6 @@
     </Compile>
     <Compile Include="Views\HubAllocationView.xaml.cs">
       <DependentUpon>HubAllocationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HubDefinitionViewCopy.xaml.cs">
-      <DependentUpon>HubDefinitionViewCopy.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HubDefinitionView.xaml.cs">
       <DependentUpon>HubDefinitionView.xaml</DependentUpon>
@@ -163,10 +160,6 @@
     <Page Include="Views\HubAllocationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\HubDefinitionViewCopy.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\HubDefinitionView.xaml">
       <SubType>Designer</SubType>

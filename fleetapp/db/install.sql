@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS project;
+DROP TABLE IF EXISTS Project;
 
-CREATE TABLE project (
+CREATE TABLE Project (
    id INT IDENTITY(1,1) PRIMARY KEY,
    Name VARCHAR(50) NOT NULL,
    Description VARCHAR(400),
@@ -9,41 +9,52 @@ CREATE TABLE project (
    UNIQUE (Name)
 );
 
-DROP TABLE IF EXISTS project_data_files;
+DROP TABLE IF EXISTS ProjectDataFile;
 
-CREATE TABLE project_data_files (
-   project_id INT NOT NULL,
-   file_name VARCHAR(200) NOT NULL,
-   UNIQUE ( project_id, file_name )
+CREATE TABLE ProjectDataFile (
+   ProjectID INT NOT NULL,
+   FileName VARCHAR(200) NOT NULL,
+   UNIQUE ( ProjectID, FileName )
 );
 
-DROP TABLE IF EXISTS scenario; 
+DROP TABLE IF EXISTS Scenario; 
 
-CREATE TABLE scenario (
+CREATE TABLE Scenario (
    id INT IDENTITY(1,1) PRIMARY KEY,
-   project_id INT NOT NULL,
-   name VARCHAR(100),
-   start_year INT,
-   time_period INT,
-   unique (project_id, name)
+   ProjectID INT NOT NULL,
+   Name VARCHAR(50),
+   StartYear INT,
+   TimePeriod INT,
+   unique (ProjectID, Name)
 );
 
-DROP TABLE IF EXISTS fleet; 
+DROP TABLE IF EXISTS Fleet; 
 
-CREATE TABLE fleet (
+CREATE TABLE Fleet (
    id INT IDENTITY(1,1) PRIMARY KEY,
-   project_id INT NOT NULL,
-   fleet_id VARCHAR(100) NOT NULL,
-   asset_type VARCHAR(100),
-   asset_model VARCHAR(100),
-   unique (project_id, fleet_id)
+   ProjectID INT NOT NULL,
+   FleetID VARCHAR(50) NOT NULL,
+   AssestType VARCHAR(50),
+   AssetModel VARCHAR(50),
+   unique (ProjectID, FleetID)
 );
 
-DROP TABLE IF EXISTS hub; 
+DROP TABLE IF EXISTS Hub; 
 
-CREATE TABLE hub (
+CREATE TABLE Hub (
    id INT IDENTITY(1,1) PRIMARY KEY,
-   project_id INT NOT NULL,
-   name VARCHAR(100),
-   unique (project_id, name)
+   ProjectID INT NOT NULL,
+   Name VARCHAR(50),
+   unique (ProjectID, Name)
+);
+
+
+DROP TABLE IF EXISTS HubAllocation; 
+
+CREATE TABLE HubAllocation (
+   id INT IDENTITY(1,1) PRIMARY KEY,
+   ProjectID INT NOT NULL,
+   HubID INT NOT NULL,
+   AssetModel VARCHAR(50),
+   unique (ProjectID, HubID, AssetModel)
 );
