@@ -11,7 +11,7 @@ namespace fleetapp.DataAccessClasses
 {
     public class HubDataAccess : BaseDataAccess
     {
-        public List<HubModel> GetHubAllocations()
+        public List<HubModel> GetHubs()
         {
             using (IDbConnection connection = getConnection())
             {

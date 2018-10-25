@@ -15,7 +15,7 @@ namespace fleetapp.ViewModels
 
         public HubAllocationViewModel()
         {
-            DataAccess da = new DataAccess();
+            HubAllocationDataAccess da = new HubAllocationDataAccess();
             HubAllocations = new BindableCollection<HubAllocationModel>(da.GetHubAllocations());
         }
     }

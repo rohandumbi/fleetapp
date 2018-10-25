@@ -84,7 +84,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataAccessClasses\BaseDataAccess.cs" />
-    <Compile Include="DataAccessClasses\DataAccess.cs" />
     <Compile Include="DataAccessClasses\HubAllocationDataAccess.cs" />
     <Compile Include="DataAccessClasses\HubDataAccess.cs" />
     <Compile Include="DataAccessClasses\ProjectDataAccess.cs" />

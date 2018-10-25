@@ -16,8 +16,8 @@ namespace fleetapp.ViewModels
 
         public HubDefinitionViewModel()
         {
-            DataAccess da = new DataAccess();
-            HubDefinitions = new BindableCollection<HubModel>(da.GetHubDefinitions());
+            HubDataAccess da = new HubDataAccess();
+            HubDefinitions = new BindableCollection<HubModel>(da.GetHubs());
         }
     }
 }
