@@ -36,6 +36,12 @@ namespace fleetapp.ViewModels
             set { _projectDescription = value; }
         }
 
+        public ProjectModel SelectedItem
+        {
+            set {
+                Context.ProjectID = value.id;
+            }
+        }
         public void CreateProject ()
         {
             _projectDAO.InsertProject(_projectName, _projectDescription);

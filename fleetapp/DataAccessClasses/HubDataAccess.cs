@@ -15,7 +15,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                return connection.Query<HubModel>("select * from hub").ToList();
+                return connection.Query<HubModel>($"select * from hub where ProjectID = { Context.ProjectID }").ToList();
             }
         }
     }

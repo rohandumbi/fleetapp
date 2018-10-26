@@ -83,10 +83,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Context.cs" />
     <Compile Include="DataAccessClasses\BaseDataAccess.cs" />
+    <Compile Include="DataAccessClasses\FleetDataAccess.cs" />
     <Compile Include="DataAccessClasses\HubAllocationDataAccess.cs" />
     <Compile Include="DataAccessClasses\HubDataAccess.cs" />
     <Compile Include="DataAccessClasses\ProjectDataAccess.cs" />
+    <Compile Include="Models\FleetModel.cs" />
     <Compile Include="Models\HubAllocationModel.cs" />
     <Compile Include="Models\HubModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
