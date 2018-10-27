@@ -8,18 +8,26 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="20"/>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="HubDefinitions" AlternatingRowBackground="LightCyan" CanUserAddRows="True"
-                  AutoGenerateColumns="False">
+        <TextBox x:Name="HubName" Grid.Row="1" Grid.Column="1" Width="150" Margin="0 0 5 10"/>
+        <Button x:Name="AddHub" Grid.Row="1" Grid.Column="2" Width="75" Margin="0 0 0 10">Add Hub</Button>
+
+
+        <DataGrid x:Name="HubDefinitions" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Hub Number" Binding="{Binding Path=HubNumber}" />
-                <DataGridTextColumn Header="Hub Name" Binding="{Binding Path=HubName}" />
+                <DataGridTextColumn Header="Hub Name" Binding="{Binding Path=Name}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
