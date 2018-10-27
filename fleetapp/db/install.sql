@@ -8,28 +8,6 @@ CREATE TABLE Project (
    ModifiedDate DATETIME,
    UNIQUE (Name)
 );
-
-DROP TABLE IF EXISTS Fleet;
-
-CREATE TABLE Fleet (
-   id INT IDENTITY(1,1) PRIMARY KEY,
-   ProjectID INT NOT NULL,
-   AssetType VARCHAR(50) NOT NULL,
-   AssetModel VARCHAR(50) NOT NULL,
-   FleetID VARCHAR(50) NOT NULL,
-   UNIQUE ( ProjectID, FleetID )
-);
-
-DROP TABLE IF EXISTS Project;
-
-CREATE TABLE Project (
-   id INT IDENTITY(1,1) PRIMARY KEY,
-   Name VARCHAR(50) NOT NULL,
-   Description VARCHAR(400),
-   CreatedDate	DATETIME,
-   ModifiedDate DATETIME,
-   UNIQUE (Name)
-);
 DROP TABLE IF EXISTS Scenario; 
 
 CREATE TABLE Scenario (
