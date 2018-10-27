@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:fleetapp.Views"
         mc:Ignorable="d"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="Fleet App" Height="600" Width="800" WindowStartupLocation="CenterScreen" Background="#fbf7f5">
+        Title="Fleet App" Height="600" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen" Background="#fbf7f5">
 
 
     <Grid>
