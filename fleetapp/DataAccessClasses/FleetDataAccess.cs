@@ -33,5 +33,13 @@ namespace fleetapp.DataAccessClasses
 
             return true;
         }
+
+        public void DeleteAll()
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                connection.Query<FleetModel>($"delete from Fleet where ProjectID = { Context.ProjectID }");
+            }
+        }
     }
 }

@@ -36,6 +36,7 @@ namespace fleetapp.ViewModels
         public void ImportFile()
         {
             IEnumerable<FleetModel> Fleets = ReadCSV(_fleetFileName);
+            _fleetDataAccess.DeleteAll();
             _fleetDataAccess.InsertFleets(Fleets);
             LoadFleetList();
             NotifyOfPropertyChange("Fleets");
