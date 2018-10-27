@@ -16,12 +16,15 @@ namespace fleetapp.ViewModels
         private String _projectName;
         private String _projectDescription;
 
+        private readonly IEventAggregator _eventAggregator;
+
         private void LoadProjects()
         {
             Projects = new BindableCollection<ProjectModel>(_projectDAO.GetProjects());
         }
-        public ProjectsViewModel()
+        public ProjectsViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             _projectDAO = new ProjectDataAccess();
             LoadProjects();
         }
@@ -40,8 +43,10 @@ namespace fleetapp.ViewModels
         {
             set {
                 Context.ProjectID = value.id;
+                _eventAggregator.PublishOnUIThread("loaded:project");
             }
         }
+
         public void CreateProject ()
         {
             _projectDAO.InsertProject(_projectName, _projectDescription);

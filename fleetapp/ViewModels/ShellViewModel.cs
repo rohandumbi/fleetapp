@@ -9,19 +9,26 @@ using System.Windows.Controls;
 
 namespace fleetapp.ViewModels
 {
-    class ShellViewModel : Conductor<Object>
+    class ShellViewModel : Conductor<Object>, IHandle<object>
     {
-        //public String ProjectButtonForeground;
-        //public String FleetListButtonForeground;
-        //public String HubDefinitionButtonForeground;
-        //public String HubAllocationButtonForeground;
-        //public String ScenarioButtonForeground;
-
         private String _projectButtonForeground;
         private String _fleetListButtonForeground;
         private String _hubDefinitionButtonForeground;
         private String _hubAllocationButtonForeground;
         private String _scenarioButtonForeground;
+        private bool _isProjectSelected;
+
+        private readonly IEventAggregator _eventAggregator;
+
+        public bool IsProjectSelected
+        {
+            get { return _isProjectSelected; }
+            set
+            {
+                _isProjectSelected = value;
+                NotifyOfPropertyChange(() => IsProjectSelected);
+            }
+        }
 
         public string ProjectButtonForeground
         {
@@ -75,9 +82,12 @@ namespace fleetapp.ViewModels
 
         public ShellViewModel()
         {
-            SetDefaultButtonForegrounds();
+            _eventAggregator = new EventAggregator();
+            _eventAggregator.Subscribe(this);
+            SetDisabledButtonForegrounds();
             ProjectButtonForeground = "#FF189AD3";
-            ActivateItem(new ProjectsViewModel());
+            IsProjectSelected = false;
+            ActivateItem(new ProjectsViewModel(_eventAggregator));
         }
 
         public void SetDefaultButtonForegrounds()
@@ -87,6 +97,14 @@ namespace fleetapp.ViewModels
             HubDefinitionButtonForeground = "#FF0E1A1F";
             HubAllocationButtonForeground = "#FF0E1A1F";
             ScenarioButtonForeground = "#FF0E1A1F";
+        }
+
+        public void SetDisabledButtonForegrounds()
+        {
+            FleetListButtonForeground = "#D3D3D3";
+            HubDefinitionButtonForeground = "#D3D3D3";
+            HubAllocationButtonForeground = "#D3D3D3";
+            ScenarioButtonForeground = "#D3D3D3";
         }
 
         public void ClickTab(object sender)
@@ -132,7 +150,7 @@ namespace fleetapp.ViewModels
 
         private void ShowProjectsViewScreen()
         {
-            ActivateItem(new ProjectsViewModel());
+            ActivateItem(new ProjectsViewModel(_eventAggregator));
         }
         private void ShowFleetListScreen()
         {
@@ -152,6 +170,14 @@ namespace fleetapp.ViewModels
         private void ShowScenariosViewScreen()
         {
             ActivateItem(new ScenariosViewModel());
+        }
+
+        public void Handle(object message)
+        {
+            //MessageBox.Show(message as String);
+            IsProjectSelected = true;
+            SetDefaultButtonForegrounds();
+            ProjectButtonForeground = "#FF189AD3";
         }
     }
 }
