@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:fleetapp.Views"
         mc:Ignorable="d"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="Fleet App" Height="600" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen" Background="#fbf7f5">
+        Title="Fleet App" Height="600" Width="800" WindowStartupLocation="CenterScreen" Background="#fbf7f5">
 
 
     <Grid>
@@ -26,22 +26,22 @@
                 <Style TargetType="Button">
                     <Setter Property="BorderBrush" Value="{x:Null}" />
                     <Setter Property="Padding" Value="5" />
-                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="FontSize" Value="16" />
                     <Setter Property="FontStyle" Value="Italic" />
-                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
                     <Setter Property="Foreground" Value="#189ad3" />
                     <Setter Property="Background" Value="Transparent" />
                 </Style>
             </StackPanel.Resources>
-            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]"  FontStyle="Normal" FontWeight="SemiBold" Content="Projects" BorderBrush="{x:Null}" Background="#00000000" Foreground="{Binding ProjectButtonForeground}" FontSize="18">
+            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Projects" Foreground="{Binding ProjectButtonForeground}">
             </Button>
-            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" FontStyle="Normal" FontWeight="SemiBold" Content="Fleet List" Background="Transparent" BorderBrush="{x:Null}" Foreground="{Binding FleetListButtonForeground}" FontSize="18">
+            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" Content="Fleet List" Foreground="{Binding FleetListButtonForeground}">
             </Button>
-            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" FontStyle="Normal" FontWeight="SemiBold" Content="Hub Definition" Background="Transparent" BorderBrush="{x:Null}" Foreground="{Binding HubDefinitionButtonForeground}" FontSize="18">
+            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" Content="Hub Definition" Foreground="{Binding HubDefinitionButtonForeground}">
             </Button>
-            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" FontStyle="Normal" FontWeight="SemiBold" Content="Hub Allocation" FontSize="18" Background="Transparent" Foreground="{Binding HubAllocationButtonForeground}" BorderBrush="{x:Null}">
+            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" Content="Hub Allocation" Foreground="{Binding HubAllocationButtonForeground}">
             </Button>
-            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" FontStyle="Normal" FontWeight="SemiBold" Content="Scenario" Foreground="{Binding ScenarioButtonForeground}" FontSize="18" BorderBrush="{x:Null}" Background="Transparent">
+            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" Content="Scenario" Foreground="{Binding ScenarioButtonForeground}">
             </Button>
         </StackPanel>
         <ContentControl x:Name="ActiveItem" Grid.Row="2" Grid.Column="1"/>
