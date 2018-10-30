@@ -88,11 +88,13 @@
     <Compile Include="DataAccessClasses\FleetDataAccess.cs" />
     <Compile Include="DataAccessClasses\HubAllocationDataAccess.cs" />
     <Compile Include="DataAccessClasses\HubDataAccess.cs" />
+    <Compile Include="DataAccessClasses\ScenarioDataAccess.cs" />
     <Compile Include="DataAccessClasses\ProjectDataAccess.cs" />
     <Compile Include="Models\FleetModel.cs" />
     <Compile Include="Models\HubAllocationModel.cs" />
     <Compile Include="Models\HubModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\ScenarioModel.cs" />
     <Compile Include="ViewModels\FleetListViewModel.cs" />
     <Compile Include="ViewModels\HubAllocationViewModel.cs" />
     <Compile Include="ViewModels\HubDefinitionViewModel.cs" />
