@@ -169,15 +169,24 @@ namespace fleetapp.ViewModels
 
         private void ShowScenariosViewScreen()
         {
-            ActivateItem(new ScenariosViewModel());
+            ActivateItem(new ScenariosViewModel(_eventAggregator));
         }
 
         public void Handle(object message)
         {
             //MessageBox.Show(message as String);
-            IsProjectSelected = true;
-            SetDefaultButtonForegrounds();
-            ProjectButtonForeground = "#FF189AD3";
+            String EventName = message as String;
+            if (EventName == "loaded:project")
+            {
+                IsProjectSelected = true;
+                SetDefaultButtonForegrounds();
+                ProjectButtonForeground = "#FF189AD3";
+            }
+            else if (EventName == "loaded:scenario")
+            {
+                //MessageBox.Show("Selected scenario");
+                ActivateItem(new ScenariosMainViewModel());
+            }
         }
     }
 }

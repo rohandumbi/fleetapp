@@ -18,12 +18,15 @@ namespace fleetapp.ViewModels
         private int _startYear;
         private int _timePeriod;
 
+        private readonly IEventAggregator _eventAggregator;
+
         private void LoadScenarios()
         {
             Scenarios = new BindableCollection<ScenarioModel>(_scenarioDataAccess.GetScenarios());
         }
-        public ScenariosViewModel()
+        public ScenariosViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             _scenarioDataAccess = new ScenarioDataAccess();
             LoadScenarios();
         }
@@ -49,6 +52,15 @@ namespace fleetapp.ViewModels
             _scenarioDataAccess.InsertScenario(_scenarioName, _startYear, _timePeriod);
             LoadScenarios();
             NotifyOfPropertyChange("Scenarios");
+        }
+
+        public ScenarioModel SelectedItem
+        {
+            set
+            {
+                Context.ScenarioID = value.id;
+                _eventAggregator.PublishOnUIThread("loaded:scenario");
+            }
         }
 
     }
