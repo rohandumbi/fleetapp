@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using fleetapp.DataAccessClasses;
+using fleetapp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +10,24 @@ using System.Windows;
 
 namespace fleetapp.ViewModels
 {
-    public class ScenariosViewModel : Screen
+    public class ScenariosViewModel : Conductor<Object>
     {
+        public BindableCollection<ScenarioModel> Scenarios { get; set; }
+        private ScenarioDataAccess _scenarioDataAccess;
         private String _scenarioName;
         private int _startYear;
         private int _timePeriod;
+
+        private void LoadScenarios()
+        {
+            Scenarios = new BindableCollection<ScenarioModel>(_scenarioDataAccess.GetScenarios());
+        }
+        public ScenariosViewModel()
+        {
+            _scenarioDataAccess = new ScenarioDataAccess();
+            LoadScenarios();
+        }
+
 
         public String ScenarioName
         {
@@ -31,10 +46,10 @@ namespace fleetapp.ViewModels
 
         public void CreateScenario()
         {
-            //_projectDAO.InsertProject(_projectName, _projectDescription);
-            //LoadProjects();
-            //NotifyOfPropertyChange("Projects");
-            MessageBox.Show("Create scenario");
+            _scenarioDataAccess.InsertScenario(_scenarioName, _startYear, _timePeriod);
+            LoadScenarios();
+            NotifyOfPropertyChange("Scenarios");
         }
+
     }
 }
