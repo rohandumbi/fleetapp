@@ -49,3 +49,26 @@ CREATE TABLE HubAllocation (
    AssetModel VARCHAR(50),
    unique (ProjectID, HubID, AssetModel)
 );
+
+
+DROP TABLE IF EXISTS TruckPayload; 
+
+CREATE TABLE TruckPayload (
+   id INT IDENTITY(1,1) PRIMARY KEY,
+   ScenarioID INT NOT NULL,
+   AssetModel VARCHAR(50),
+   MaterialType VARCHAR(10),
+   Payload INT NOT NULL,
+   unique (ScenarioID, AssetModel, MaterialType)
+);
+
+DROP TABLE IF EXISTS TruckGroup; 
+
+CREATE TABLE TruckGroup (
+   id INT IDENTITY(1,1) PRIMARY KEY,
+   ScenarioID INT NOT NULL,
+   Name VARCHAR(50),
+   AssetModel VARCHAR(50),
+   FleetID VARCHAR(50) NOT NULL,
+   unique (ScenarioID,Name, AssetModel, FleetID)
+);
