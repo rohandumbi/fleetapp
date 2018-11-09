@@ -12,11 +12,16 @@ namespace fleetapp.ViewModels
     public class HubAllocationViewModel : Screen
     {
         public BindableCollection<HubAllocationModel> HubAllocations { get; set; }
-
-        public HubAllocationViewModel()
+        private HubAllocationDataAccess da;
+        void LoadHubAllocation()
         {
-            HubAllocationDataAccess da = new HubAllocationDataAccess();
             HubAllocations = new BindableCollection<HubAllocationModel>(da.GetHubAllocations());
         }
+        public HubAllocationViewModel()
+        {
+            da = new HubAllocationDataAccess();
+            
+        }
     }
+
 }

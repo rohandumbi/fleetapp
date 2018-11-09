@@ -47,6 +47,8 @@ CREATE TABLE HubAllocation (
    ProjectID INT NOT NULL,
    HubID INT NOT NULL,
    AssetModel VARCHAR(50),
+   IsManned BIT,
+   IsAHS BIT,
    unique (ProjectID, HubID, AssetModel)
 );
 

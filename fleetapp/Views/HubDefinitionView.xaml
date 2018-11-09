@@ -24,11 +24,12 @@
         <TextBox x:Name="HubName" Grid.Row="1" Grid.Column="1" Width="150" Margin="0 0 5 10"/>
         <Button x:Name="AddHub" Grid.Row="1" Grid.Column="2" Width="75" Margin="0 0 0 10">Add Hub</Button>
 
-
-        <DataGrid x:Name="HubDefinitions" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Hub Name" Binding="{Binding Path=Name}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListView x:Name="HubDefinitions" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>
