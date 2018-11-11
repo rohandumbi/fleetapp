@@ -15,8 +15,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <DataGrid x:Name="HubAllocations" AlternatingRowBackground="LightCyan" CanUserAddRows="True"
-                  AutoGenerateColumns="False">
+        <DataGrid x:Name="HubAllocations" AlternatingRowBackground="LightCyan" CanUserAddRows="False"
+                  AutoGenerateColumns="False" Grid.Row="2">
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Asset Model" Binding="{Binding Path=AssetModel}" />
                 <DataGridTextColumn Header="Hub Name" Binding="{Binding Path=HubName}" />

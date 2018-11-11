@@ -11,12 +11,13 @@ namespace fleetapp.ViewModels
 {
     public class TruckHoursViewModel : Screen
     {
-        //public BindableCollection<HubAllocationModel> HubAllocations { get; set; }
+        TruckHousDataAccess da;
+        public BindableCollection<TruckHoursModel> TruckHours { get; set; }
 
         public TruckHoursViewModel()
         {
-            //HubAllocationDataAccess da = new HubAllocationDataAccess();
-            //HubAllocations = new BindableCollection<HubAllocationModel>(da.GetHubAllocations());
+            da = new TruckHousDataAccess();
+            TruckHours = new BindableCollection<TruckHoursModel>(da.GetTruckHours());
         }
     }
 }

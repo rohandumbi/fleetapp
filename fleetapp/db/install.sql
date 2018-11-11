@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Project;
+DROP TABLE Project;
 
 CREATE TABLE Project (
    id INT IDENTITY(1,1) PRIMARY KEY,
@@ -8,7 +8,7 @@ CREATE TABLE Project (
    ModifiedDate DATETIME,
    UNIQUE (Name)
 );
-DROP TABLE IF EXISTS Scenario; 
+DROP TABLE Scenario; 
 
 CREATE TABLE Scenario (
    id INT IDENTITY(1,1) PRIMARY KEY,
@@ -19,7 +19,7 @@ CREATE TABLE Scenario (
    unique (ProjectID, Name)
 );
 
-DROP TABLE IF EXISTS Fleet; 
+DROP TABLE Fleet; 
 
 CREATE TABLE Fleet (
    id INT IDENTITY(1,1) PRIMARY KEY,
@@ -30,7 +30,7 @@ CREATE TABLE Fleet (
    unique (ProjectID, FleetID)
 );
 
-DROP TABLE IF EXISTS Hub; 
+DROP TABLE Hub; 
 
 CREATE TABLE Hub (
    id INT IDENTITY(1,1) PRIMARY KEY,
@@ -40,7 +40,7 @@ CREATE TABLE Hub (
 );
 
 
-DROP TABLE IF EXISTS HubAllocation; 
+DROP TABLE HubAllocation; 
 
 CREATE TABLE HubAllocation (
    id INT IDENTITY(1,1) PRIMARY KEY,
@@ -53,7 +53,7 @@ CREATE TABLE HubAllocation (
 );
 
 
-DROP TABLE IF EXISTS TruckPayload; 
+DROP TABLE TruckPayload; 
 
 CREATE TABLE TruckPayload (
    id INT IDENTITY(1,1) PRIMARY KEY,
@@ -64,7 +64,7 @@ CREATE TABLE TruckPayload (
    unique (ScenarioID, AssetModel, MaterialType)
 );
 
-DROP TABLE IF EXISTS TruckGroup; 
+DROP TABLE TruckGroup; 
 
 CREATE TABLE TruckGroup (
    id INT IDENTITY(1,1) PRIMARY KEY,
@@ -73,4 +73,25 @@ CREATE TABLE TruckGroup (
    AssetModel VARCHAR(50),
    FleetID VARCHAR(50) NOT NULL,
    unique (ScenarioID,Name, AssetModel, FleetID)
+);
+
+DROP TABLE TruckHours; 
+
+CREATE TABLE TruckHours (
+   id INT IDENTITY(1,1) PRIMARY KEY,
+   ScenarioID INT NOT NULL,
+   AssetModel VARCHAR(50),
+   GroupName VARCHAR(50),
+   Hub VARCHAR(50),
+   Mode VARCHAR(50),
+   unique (ScenarioID,AssetModel, GroupName, Hub, Mode)
+);
+
+DROP TABLE TruckHoursYearMapping; 
+
+CREATE TABLE TruckHourYearMapping (
+   TruckHourID INT,
+   Year INT,
+   Value NUMERIC,
+   unique (TruckHoursID,Year)
 );
