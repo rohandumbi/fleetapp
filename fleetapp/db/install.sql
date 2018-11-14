@@ -25,7 +25,7 @@ CREATE TABLE Fleet (
    id INT IDENTITY(1,1) PRIMARY KEY,
    ProjectID INT NOT NULL,
    FleetID VARCHAR(50) NOT NULL,
-   AssestType VARCHAR(50),
+   AssetType VARCHAR(50),
    AssetModel VARCHAR(50),
    unique (ProjectID, FleetID)
 );
@@ -87,7 +87,7 @@ CREATE TABLE TruckHours (
    unique (ScenarioID,AssetModel, GroupName, Hub, Mode)
 );
 
-DROP TABLE TruckHoursYearMapping; 
+DROP TABLE TruckHourYearMapping; 
 
 CREATE TABLE TruckHourYearMapping (
    TruckHourID INT,
