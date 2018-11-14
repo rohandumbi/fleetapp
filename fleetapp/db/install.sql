@@ -95,3 +95,44 @@ CREATE TABLE TruckHourYearMapping (
    Value NUMERIC,
    unique (TruckHoursID,Year)
 );
+
+DROP TABLE MinePlan; 
+
+CREATE TABLE MinePlan (
+   Id INT IDENTITY(1,1) PRIMARY KEY,
+   ScenarioID INT NOT NULL,
+   Hub VARCHAR(50),
+   Physical VARCHAR(50),
+   unique (ScenarioID, Hub, Physical)
+);
+
+DROP TABLE MinePlanYearMapping; 
+
+CREATE TABLE MinePlanYearMapping (
+   MinePlanID INT,
+   Year INT,
+   Value NUMERIC,
+   unique (MinePlanID,Year)
+);
+
+DROP TABLE TruckTypeMinePlan; 
+
+CREATE TABLE TruckTypeMinePlan (
+   Id INT IDENTITY(1,1) PRIMARY KEY,
+   ScenarioID INT NOT NULL,
+   Hub VARCHAR(50),
+   Physical VARCHAR(50),
+   TruckType VARCHAR(50),
+   MinePlanPayload INT,
+   unique (ScenarioID, Hub, Physical, TruckType)
+);
+
+DROP TABLE TruckTypeMinePlanYearMapping; 
+
+CREATE TABLE TruckTypeMinePlanYearMapping (
+   TruckTypeMinePlanID INT,
+   Year INT,
+   Value NUMERIC,
+   unique (TruckTypeMinePlanID,Year)
+);
+
