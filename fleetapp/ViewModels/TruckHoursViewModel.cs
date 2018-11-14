@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -34,6 +35,16 @@ namespace fleetapp.ViewModels
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Group Name", Binding = new Binding("GroupName") });
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Hub", Binding = new Binding("Hub") });
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Mode", Binding = new Binding("Mode") });
+
+            foreach (var map in this.TruckHours[0].mapping.Select((value, i) => new { i, value }))
+            {
+                var value = map.value;
+                var index = map.i;
+                int CurrentYear = value.Year;
+                String BindingString = "mapping[" + index.ToString() + "].Value";
+                Console.WriteLine(BindingString);
+                this.TruckHoursColumns.Add(new DataGridTextColumn { Header = CurrentYear, Binding = new Binding(BindingString) });
+            }
         }
     }
 }
