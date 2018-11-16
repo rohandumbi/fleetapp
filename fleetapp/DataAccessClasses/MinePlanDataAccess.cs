@@ -11,7 +11,7 @@ namespace fleetapp.DataAccessClasses
 {
     public class MinePlanDataAccess : BaseDataAccess
     {
-        public List<MinePlanModel> GetTruckHours()
+        public List<MinePlanModel> GetMinePlans()
         {
             using (IDbConnection connection = getConnection())
             {
