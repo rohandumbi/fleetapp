@@ -11,12 +11,13 @@ namespace fleetapp.ViewModels
 {
     public class TruckGroupsViewModel : Screen
     {
-        //public BindableCollection<HubAllocationModel> HubAllocations { get; set; }
+        private TruckGroupDataAccess _truckGroupDataAccess;
+        public BindableCollection<TruckGroupModel> TruckGroups { get; set; }
 
         public TruckGroupsViewModel()
         {
-            //HubAllocationDataAccess da = new HubAllocationDataAccess();
-            //HubAllocations = new BindableCollection<HubAllocationModel>(da.GetHubAllocations());
+            _truckGroupDataAccess = new TruckGroupDataAccess();
+            TruckGroups = new BindableCollection<TruckGroupModel>(_truckGroupDataAccess.GetTruckGroups());
         }
     }
 }

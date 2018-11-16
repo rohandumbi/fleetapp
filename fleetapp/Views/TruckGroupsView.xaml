@@ -7,25 +7,32 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" FontSize="24" Text="Truck Groups" Margin="0,0,0,10"/>
+        <DataGrid x:Name="TruckGroups" 
+                  Grid.Row="2" 
+                  Grid.Column="1" 
+                  Grid.ColumnSpan="3"  
+                  CanUserAddRows="False" 
+                  Margin="10,0,0,10"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Asset Model" Binding="{Binding Path=AssetModel}" />
+                <DataGridTextColumn Header="Group Name" Binding="{Binding Path=Name}" />
+                <DataGridTextColumn Header="Fleet ID" Binding="{Binding Path=FleetID}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
