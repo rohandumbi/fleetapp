@@ -107,6 +107,7 @@
     <Compile Include="Models\TruckPayloadModel.cs" />
     <Compile Include="Models\TruckTypeMinePlanModel.cs" />
     <Compile Include="ViewModels\FleetListViewModel.cs" />
+    <Compile Include="ViewModels\TruckTypeMinePlanViewModel .cs" />
     <Compile Include="ViewModels\MinePlanViewModel.cs" />
     <Compile Include="ViewModels\TruckHoursViewModel.cs" />
     <Compile Include="ViewModels\TruckGroupsViewModel.cs" />
@@ -153,6 +154,9 @@
     </Compile>
     <Compile Include="Views\TruckPayloadsView.xaml.cs">
       <DependentUpon>TruckPayloadsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TruckTypeMinePlanView.xaml.cs">
+      <DependentUpon>TruckTypeMinePlanView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +241,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TruckPayloadsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TruckTypeMinePlanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,6 +15,7 @@ namespace fleetapp.ViewModels
         private String _truckPayloadButtonForeground;
         private String _truckGroupButtonForeground;
         private String _minePlanButtonForeground;
+        private String _truckMinePlanButtonForeground;
         private String _truckHourButtonForeground;
 
         public string MachineParameterButtonForeground
@@ -57,6 +58,16 @@ namespace fleetapp.ViewModels
             }
         }
 
+        public string TruckMinePlanButtonForeground
+        {
+            get { return _truckMinePlanButtonForeground; }
+            set
+            {
+                _truckMinePlanButtonForeground = value;
+                NotifyOfPropertyChange(() => TruckMinePlanButtonForeground);
+            }
+        }
+
         public string TruckHourButtonForeground
         {
             get { return _truckHourButtonForeground; }
@@ -80,6 +91,7 @@ namespace fleetapp.ViewModels
             TruckPayloadButtonForeground = "#FF0E1A1F";
             TruckGroupButtonForeground = "#FF0E1A1F";
             MinePlanButtonForeground = "#FF0E1A1F";
+            TruckMinePlanButtonForeground = "#FF0E1A1F";
             TruckHourButtonForeground = "#FF0E1A1F";
         }
 
@@ -117,6 +129,11 @@ namespace fleetapp.ViewModels
                         NotifyOfPropertyChange(() => TruckHourButtonForeground);
                         ShowTruckHoursScreen();
                         break;
+                    case "Truck Mine Plan":
+                        TruckMinePlanButtonForeground = "#FF189AD3";
+                        NotifyOfPropertyChange(() => TruckMinePlanButtonForeground);
+                        ShowTruckMinePlanScreen();
+                        break;
                     default:
                         ShowMachineParametersScreen();
                         break;
@@ -141,6 +158,11 @@ namespace fleetapp.ViewModels
         private void ShowMinePlanScreen()
         {
             ActivateItem(new MinePlanViewModel());
+        }
+
+        private void ShowTruckMinePlanScreen()
+        {
+            ActivateItem(new TruckTypeMinePlanViewModel());
         }
 
         private void ShowTruckHoursScreen()

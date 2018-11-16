@@ -11,7 +11,7 @@ namespace fleetapp.Models
         public int Id { get; set; }
         public String Hub { get; set; }
         public String Physical { get; set; }
-        public int TruckType { get; set; }
+        public String TruckType { get; set; }
         public int MinePlanPayload { get; set; }
         public List<TruckTypeMinePlanYearMappingModel> mapping { get; set; }
 

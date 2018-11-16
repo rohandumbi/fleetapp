@@ -39,6 +39,8 @@
             </Button>
             <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Mine Plan" Foreground="{Binding MinePlanButtonForeground}">
             </Button>
+            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Truck Mine Plan" Foreground="{Binding TruckMinePlanButtonForeground}">
+            </Button>
             <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Truck Hours" Foreground="{Binding TruckHourButtonForeground}">
             </Button>
         </StackPanel>
