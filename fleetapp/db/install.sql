@@ -93,7 +93,7 @@ CREATE TABLE TruckHourYearMapping (
    TruckHourId INT,
    Year INT,
    Value NUMERIC,
-   unique (TruckHoursId,Year)
+   unique (TruckHourId,Year)
 );
 
 DROP TABLE MinePlan; 
