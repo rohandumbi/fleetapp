@@ -15,10 +15,10 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                var TruckHours = connection.Query<TruckHoursModel>($"select * from TruckHours where ScenarioID = { Context.ScenarioID }").ToList();
+                var TruckHours = connection.Query<TruckHoursModel>($"select * from TruckHours where ScenarioID = { Context.ScenarioId }").ToList();
                 foreach (var TruckHour in TruckHours)
                 {
-                    TruckHour.mapping = connection.Query<TruckHoursYearMappingModel>($"select * from TruckHourYearMapping where TruckHourID = { TruckHour.id }").ToList();
+                    TruckHour.TruckHoursYearMapping = connection.Query<TruckHoursYearMappingModel>($"select * from TruckHourYearMapping where TruckHourID = { TruckHour.Id }").ToList();
                 }
                 return TruckHours;
             }

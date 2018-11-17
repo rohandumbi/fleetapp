@@ -36,7 +36,7 @@ namespace fleetapp.ViewModels
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Hub", Binding = new Binding("Hub") });
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Mode", Binding = new Binding("Mode") });
 
-            foreach (var map in this.TruckHours[0].mapping.Select((value, i) => new { i, value }))
+            foreach (var map in this.TruckHours[0].TruckHoursYearMapping.Select((value, i) => new { i, value }))
             {
                 var value = map.value;
                 var index = map.i;

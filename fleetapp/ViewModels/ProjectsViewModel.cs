@@ -42,7 +42,7 @@ namespace fleetapp.ViewModels
         public ProjectModel SelectedItem
         {
             set {
-                Context.ProjectID = value.id;
+                Context.ProjectId = value.Id;
                 _eventAggregator.PublishOnUIThread("loaded:project");
             }
         }

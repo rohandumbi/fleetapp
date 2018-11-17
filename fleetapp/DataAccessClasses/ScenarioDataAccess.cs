@@ -18,7 +18,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection()) 
             {
-                return connection.Query<ScenarioModel>($"select * from Scenario where ProjectID = { Context.ProjectID } ").ToList();
+                return connection.Query<ScenarioModel>($"select * from Scenario where ProjectId = { Context.ProjectId } ").ToList();
             }
         }
 
@@ -27,7 +27,7 @@ namespace fleetapp.DataAccessClasses
             using (IDbConnection connection = getConnection())
             {
                 String insertQuery = $"insert into Scenario (ProjectID, Name, StartYear, TimePeriod ) " +
-                    $"values ('{ Context.ProjectID }', '{ scenarioName }', { startYear } , { timePeriod } )";
+                    $"values ('{ Context.ProjectId }', '{ scenarioName }', { startYear } , { timePeriod } )";
                 connection.Execute(insertQuery);
             }
             return true;

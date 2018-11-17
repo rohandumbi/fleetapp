@@ -13,12 +13,12 @@ namespace fleetapp.Models
         public String Physical { get; set; }
         public String TruckType { get; set; }
         public int MinePlanPayload { get; set; }
-        public List<TruckTypeMinePlanYearMappingModel> mapping { get; set; }
+        public List<TruckTypeMinePlanYearMappingModel> TruckTypeMinePlanYearMapping { get; set; }
 
     }
     public class TruckTypeMinePlanYearMappingModel
     {
-        public int TruckTypeMinePlanID { get; set; }
+        public int TruckTypeMinePlanId { get; set; }
         public int Year { get; set; }
         public Decimal Value { get; set; }
     }

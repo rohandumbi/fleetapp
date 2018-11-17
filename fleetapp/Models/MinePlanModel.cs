@@ -16,7 +16,7 @@ namespace fleetapp.Models
 
     public class MinePlanYearMappingModel
     {
-        public int MinePlanID { get; set; }
+        public int MinePlanId { get; set; }
         public int Year { get; set; }
         public Decimal Value { get; set; }
     }

@@ -15,7 +15,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                var MinePlans = connection.Query<MinePlanModel>($"select * from MinePlan where ScenarioID = { Context.ScenarioID }").ToList();
+                var MinePlans = connection.Query<MinePlanModel>($"select * from MinePlan where ScenarioID = { Context.ScenarioId }").ToList();
                 foreach (var MinePlan in MinePlans)
                 {
                     MinePlan.mapping = connection.Query<MinePlanYearMappingModel>($"select * from MinePlanYearMapping where MinePlanID = { MinePlan.Id }").ToList();

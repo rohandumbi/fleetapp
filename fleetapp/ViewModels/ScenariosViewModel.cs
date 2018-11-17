@@ -58,7 +58,7 @@ namespace fleetapp.ViewModels
         {
             set
             {
-                Context.ScenarioID = value.id;
+                Context.ScenarioId = value.Id;
                 _eventAggregator.PublishOnUIThread("loaded:scenario");
             }
         }

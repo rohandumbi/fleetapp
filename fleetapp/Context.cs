@@ -8,7 +8,7 @@ namespace fleetapp
 {
     public class Context
     {
-        public static int ProjectID = -1;
-        public static int ScenarioID = -1;
+        public static int ProjectId = -1;
+        public static int ScenarioId = -1;
     }
 }

@@ -49,7 +49,7 @@ namespace fleetapp.ViewModels
             return lines.Select(line =>
             {
                 string[] data = line.Split(',');
-                return new FleetModel { ProjectID = Context.ProjectID, AssetType = data[0], AssetModel = data[1], FleetID = data[2] };
+                return new FleetModel { ProjectId = Context.ProjectId, AssetType = data[0], AssetModel = data[1], FleetId = data[2] };
             });
         }
     }

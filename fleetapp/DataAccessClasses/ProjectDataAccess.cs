@@ -26,8 +26,8 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                String insertQuery = $"insert into Project (Name, Description, CreatedDate, ModifiedDate) " +
-                    $"values ('{ projectName }', '{ projectDescription }', GETDATE(), GETDATE() )";
+                String insertQuery = $"insert into Project (Name, Description, CreatedDate, ModifiedDate) OUTPUT INSERTED.Id" +
+                    $" VALUES(@ProjectName, @ProjectDescription, GETDATE(), GETDATE())";
                 connection.Execute(insertQuery);
             }
 

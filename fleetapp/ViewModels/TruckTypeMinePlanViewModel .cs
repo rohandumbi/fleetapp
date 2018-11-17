@@ -35,7 +35,7 @@ namespace fleetapp.ViewModels
             this.TruckTypeMinePlansColumns.Add(new DataGridTextColumn { Header = "Truck Type", Binding = new Binding("TruckType") });
             this.TruckTypeMinePlansColumns.Add(new DataGridTextColumn { Header = "Mine Plan Payload", Binding = new Binding("MinePlanPayload") });
 
-            foreach (var map in this.TruckTypeMinePlans[0].mapping.Select((value, i) => new { i, value }))
+            foreach (var map in this.TruckTypeMinePlans[0].TruckTypeMinePlanYearMapping.Select((value, i) => new { i, value }))
             {
                 var value = map.value;
                 var index = map.i;

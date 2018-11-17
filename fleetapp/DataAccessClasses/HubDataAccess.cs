@@ -15,7 +15,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                return connection.Query<HubModel>($"select * from hub where ProjectID = { Context.ProjectID }").ToList();
+                return connection.Query<HubModel>($"select * from hub where ProjectID = { Context.ProjectId }").ToList();
             }
         }
 
@@ -23,7 +23,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                String insertQuery = $"insert into Hub (ProjectID, Name) values ({ Context.ProjectID }, '{ HubName}')";
+                String insertQuery = $"insert into Hub (ProjectID, Name) values ({ Context.ProjectId }, '{ HubName}')";
                 connection.Execute(insertQuery);
             }
         }

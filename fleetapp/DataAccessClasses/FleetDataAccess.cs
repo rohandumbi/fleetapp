@@ -15,7 +15,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                return connection.Query<FleetModel>($"select * from Fleet where ProjectID = { Context.ProjectID }").ToList();
+                return connection.Query<FleetModel>($"select * from Fleet where ProjectID = { Context.ProjectId }").ToList();
             }
         }
 
@@ -26,7 +26,7 @@ namespace fleetapp.DataAccessClasses
                 foreach (var Fleet in Fleets)
                 {
                     String insertQuery = $"insert into Fleet (ProjectID, AssetType, AssetModel, FleetID) " +
-                    $"values ({ Context.ProjectID }, '{ Fleet.AssetType }', '{ Fleet.AssetModel }' , '{ Fleet.FleetID }' )";
+                    $"values ({ Context.ProjectId }, '{ Fleet.AssetType }', '{ Fleet.AssetModel }' , '{ Fleet.FleetId }' )";
                     connection.Execute(insertQuery);
                 }                 
             }
@@ -38,7 +38,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                connection.Query<FleetModel>($"delete from Fleet where ProjectID = { Context.ProjectID }");
+                connection.Query<FleetModel>($"delete from Fleet where ProjectID = { Context.ProjectId }");
             }
         }
     }

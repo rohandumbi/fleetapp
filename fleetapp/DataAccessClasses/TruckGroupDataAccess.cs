@@ -15,7 +15,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                return connection.Query<TruckGroupModel>($"select * from TruckGroup where ScenarioID = { Context.ScenarioID }").ToList();
+                return connection.Query<TruckGroupModel>($"select * from TruckGroup where ScenarioID = { Context.ScenarioId }").ToList();
             }
         }
     }

@@ -8,8 +8,8 @@ namespace fleetapp.Models
 {
     public class TruckPayloadModel
     {
-        public int id { get; set; }
-        public int ScenarioID { get; set; }
+        public int Id { get; set; }
+        public int ScenarioId { get; set; }
         public String AssetModel { get; set; }
         public String MaterialType { get; set; }
         public int Payload { get; set; }
