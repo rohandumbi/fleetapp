@@ -22,16 +22,19 @@ namespace fleetapp.DataAccessClasses
             }
         }
 
-        public Boolean InsertProject(String projectName, String projectDescription)
+        public void InsertProject(ProjectModel newProject)
         {
+
             using (IDbConnection connection = getConnection())
             {
-                String insertQuery = $"insert into Project (Name, Description, CreatedDate, ModifiedDate) OUTPUT INSERTED.Id" +
-                    $" VALUES(@ProjectName, @ProjectDescription, GETDATE(), GETDATE())";
-                connection.Execute(insertQuery);
+                String insertQuery = $"insert into Project (Name, Description, CreatedDate, ModifiedDate)" +
+                    $" OUTPUT INSERTED.Id  " +
+                    $" VALUES(@Name, @Description, GETDATE(), GETDATE())";
+                newProject.Id = connection.QuerySingle<int>(insertQuery, new {
+                     newProject.Name,
+                     newProject.Description
+                });
             }
-
-            return true;
         }
     }
     

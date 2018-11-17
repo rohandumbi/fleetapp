@@ -75,9 +75,9 @@ CREATE TABLE TruckGroup (
    unique (ScenarioId, Name, AssetModel, FleetId)
 );
 
-DROP TABLE TruckHours; 
+DROP TABLE TruckHour; 
 
-CREATE TABLE TruckHours (
+CREATE TABLE TruckHour (
    Id INT IDENTITY(1,1) PRIMARY KEY,
    ScenarioId INT NOT NULL,
    AssetModel VARCHAR(50),

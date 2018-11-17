@@ -15,13 +15,13 @@ namespace fleetapp.ViewModels
 {
     public class TruckHoursViewModel : Screen
     {
-        TruckHousDataAccess da;
-        public BindableCollection<TruckHoursModel> TruckHours { get; set; }
+        TruckHourDataAccess da;
+        public BindableCollection<TruckHourModel> TruckHours { get; set; }
 
         public TruckHoursViewModel()
         {
-            da = new TruckHousDataAccess();
-            TruckHours = new BindableCollection<TruckHoursModel>(da.GetTruckHours());
+            da = new TruckHourDataAccess();
+            TruckHours = new BindableCollection<TruckHourModel>(da.GetTruckHours());
             this.TruckHoursColumns = new ObservableCollection<DataGridColumn>();
             this.GenerateDefaultColumns();
         }
@@ -36,7 +36,7 @@ namespace fleetapp.ViewModels
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Hub", Binding = new Binding("Hub") });
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Mode", Binding = new Binding("Mode") });
 
-            foreach (var map in this.TruckHours[0].TruckHoursYearMapping.Select((value, i) => new { i, value }))
+            foreach (var map in this.TruckHours[0].TruckHourYearMapping.Select((value, i) => new { i, value }))
             {
                 var value = map.value;
                 var index = map.i;

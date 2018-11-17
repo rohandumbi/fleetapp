@@ -15,7 +15,27 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                return connection.Query<TruckPayloadModel>($"select * from TruckPayload where ScenarioID = { Context.ScenarioId }").ToList();
+                return connection.Query<TruckPayloadModel>($"select * from TruckPayload where ScenarioId = { Context.ScenarioId }").ToList();
+            }
+        }
+
+        public void InsertTruckPayload(TruckPayloadModel newTruckPayload)
+        {
+
+            using (IDbConnection connection = getConnection())
+            {
+                String insertQuery = $"insert into TruckPayload (ScenarioId, AssetModel, MaterialType, Payload)" +
+                    $" OUTPUT INSERTED.Id  " +
+                    $" VALUES(@ScenarioId, @AssetModel, @MaterialType, @Payload)";
+
+                newTruckPayload.Id = connection.QuerySingle<int>(insertQuery, new
+                {
+                    newTruckPayload.ScenarioId,
+                    newTruckPayload.AssetModel,
+                    newTruckPayload.MaterialType,
+                    newTruckPayload.Payload
+                });
+
             }
         }
     }

@@ -8,7 +8,7 @@ namespace fleetapp.Models
 {
     public class TruckGroupModel
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public int ScenarioId { get; set; }
         public String Name { get; set; }
         public String AssetModel { get; set; }

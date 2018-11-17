@@ -33,7 +33,7 @@ namespace fleetapp.ViewModels
                 new DataGridTextColumn { Header = "Hub", Binding = new Binding("Hub") });
             this.MinePlansColumns.Add(new DataGridTextColumn { Header = "Physical", Binding = new Binding("Physical") });
 
-            foreach (var map in this.MinePlans[0].mapping.Select((value, i) => new { i, value }))
+            foreach (var map in this.MinePlans[0].MinePlanYearMapping.Select((value, i) => new { i, value }))
             {
                 var value = map.value;
                 var index = map.i;

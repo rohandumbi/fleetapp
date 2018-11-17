@@ -15,12 +15,44 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                var MinePlans = connection.Query<MinePlanModel>($"select * from MinePlan where ScenarioID = { Context.ScenarioId }").ToList();
+                var MinePlans = connection.Query<MinePlanModel>($"select * from MinePlan where ScenarioId = { Context.ScenarioId }").ToList();
                 foreach (var MinePlan in MinePlans)
                 {
-                    MinePlan.mapping = connection.Query<MinePlanYearMappingModel>($"select * from MinePlanYearMapping where MinePlanID = { MinePlan.Id }").ToList();
+                    MinePlan.MinePlanYearMapping = connection.Query<MinePlanYearMappingModel>($"select * from MinePlanYearMapping where MinePlanId = { MinePlan.Id }").ToList();
                 }
                 return MinePlans;
+            }
+        }
+
+        public void InsertMinePlan(MinePlanModel newMinePlan)
+        {
+
+            using (IDbConnection connection = getConnection())
+            {
+                String insertQuery = $"insert into MinePlan (ScenarioId, Hub, Physical)" +
+                    $" OUTPUT INSERTED.Id  " +
+                    $" VALUES(@ScenarioId, @Hub, @Physical)";
+
+                String insertMappingQuery = $"insert into MinePlanYearMapping (MinePlanId, Year, Value)" +
+                    $" VALUES(@MinePlanId, @Year, @Value)";
+
+                newMinePlan.Id = connection.QuerySingle<int>(insertQuery, new
+                {
+                    newMinePlan.ScenarioId,
+                    newMinePlan.Hub,
+                    newMinePlan.Physical
+                });
+
+                foreach (MinePlanYearMappingModel MinePlanYearMapping in newMinePlan.MinePlanYearMapping)
+                {
+                    MinePlanYearMapping.MinePlanId = newMinePlan.Id;
+                    connection.QuerySingle(insertMappingQuery, new
+                    {
+                        MinePlanYearMapping.MinePlanId,
+                        MinePlanYearMapping.Year,
+                        MinePlanYearMapping.Value
+                    });
+                }
             }
         }
     }

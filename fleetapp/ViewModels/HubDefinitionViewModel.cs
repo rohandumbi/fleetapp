@@ -33,8 +33,13 @@ namespace fleetapp.ViewModels
 
         public void AddHub()
         {
-            _hubDataAccess.InsertHub(_newHubName);
-            LoadHubs();
+            HubModel newHub = new HubModel
+            {
+                ProjectId = Context.ProjectId,
+                Name = _newHubName           
+            };
+            _hubDataAccess.InsertHub(newHub);
+            HubDefinitions.Add(newHub);
             NotifyOfPropertyChange("HubDefinitions");
         }
         

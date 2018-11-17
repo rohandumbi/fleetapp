@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace fleetapp.Models
 {
-    public class TruckHoursModel
+    public class TruckHourModel
     {
         public int Id { get; set; }
         public int ScenarioId { get; set; }
@@ -14,10 +14,10 @@ namespace fleetapp.Models
         public String GroupName { get; set; }
         public String Hub { get; set; }
         public String Mode { get; set; }
-        public List<TruckHoursYearMappingModel> TruckHoursYearMapping { get; set; }
+        public List<TruckHourYearMappingModel> TruckHourYearMapping { get; set; }
     }
 
-    public class TruckHoursYearMappingModel
+    public class TruckHourYearMappingModel
     {
         public int TruckHoursId { get; set; }
         public int Year { get; set; }

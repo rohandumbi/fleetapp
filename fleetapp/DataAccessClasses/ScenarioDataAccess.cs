@@ -22,15 +22,22 @@ namespace fleetapp.DataAccessClasses
             }
         }
 
-        public Boolean InsertScenario(String scenarioName, int startYear, int timePeriod)
+        public void InsertScenario(ScenarioModel newScenario)
         {
             using (IDbConnection connection = getConnection())
             {
                 String insertQuery = $"insert into Scenario (ProjectID, Name, StartYear, TimePeriod ) " +
-                    $"values ('{ Context.ProjectId }', '{ scenarioName }', { startYear } , { timePeriod } )";
-                connection.Execute(insertQuery);
+                    $" OUTPUT INSERTED.Id  " +
+                    $" values ( @ProjectId, @Name, @StartYear, @TimePeriod)";
+                newScenario.Id = connection.QuerySingle<int>(insertQuery, new
+                {
+                    newScenario.ProjectId,
+                    newScenario.Name,
+                    newScenario.StartYear,
+                    newScenario.TimePeriod
+                });
             }
-            return true;
+            
         }
     }
     

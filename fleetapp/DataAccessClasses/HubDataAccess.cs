@@ -19,12 +19,12 @@ namespace fleetapp.DataAccessClasses
             }
         }
 
-        public void InsertHub(String HubName)
+        public void InsertHub(HubModel newHub)
         {
             using (IDbConnection connection = getConnection())
             {
-                String insertQuery = $"insert into Hub (ProjectID, Name) values ({ Context.ProjectId }, '{ HubName}')";
-                connection.Execute(insertQuery);
+                String insertQuery = $"insert into Hub (ProjectID, Name) OUTPUT INSERTED.Id  values ( @ProjectId, @Name )";
+                newHub.Id = connection.QuerySingle<int>(insertQuery, new { newHub.ProjectId, newHub.Name });
             }
         }
     }

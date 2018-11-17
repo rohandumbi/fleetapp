@@ -94,7 +94,7 @@
     <Compile Include="DataAccessClasses\TruckGroupDataAccess.cs" />
     <Compile Include="DataAccessClasses\TruckTypeMinePlanDataAccess.cs" />
     <Compile Include="DataAccessClasses\MinePlanDataAccess.cs" />
-    <Compile Include="DataAccessClasses\TruckHousDataAccess.cs" />
+    <Compile Include="DataAccessClasses\TruckHourDataAccess.cs" />
     <Compile Include="DataAccessClasses\TruckPayloadDataAccess.cs" />
     <Compile Include="Models\FleetModel.cs" />
     <Compile Include="Models\HubAllocationModel.cs" />
@@ -103,7 +103,7 @@
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\ScenarioModel.cs" />
     <Compile Include="Models\TruckGroupModel.cs" />
-    <Compile Include="Models\TruckHoursModel.cs" />
+    <Compile Include="Models\TruckHourModel.cs" />
     <Compile Include="Models\TruckPayloadModel.cs" />
     <Compile Include="Models\TruckTypeMinePlanModel.cs" />
     <Compile Include="ViewModels\FleetListViewModel.cs" />

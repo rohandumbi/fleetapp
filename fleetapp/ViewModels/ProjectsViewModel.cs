@@ -49,8 +49,13 @@ namespace fleetapp.ViewModels
 
         public void CreateProject ()
         {
-            _projectDAO.InsertProject(_projectName, _projectDescription);
-            LoadProjects();
+            ProjectModel newProject = new ProjectModel
+            {
+                Name = _projectName,
+                Description = _projectDescription
+            };
+            _projectDAO.InsertProject(newProject);
+            Projects.Add(newProject);
             NotifyOfPropertyChange("Projects");
         }
     }

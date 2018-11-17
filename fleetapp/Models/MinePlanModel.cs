@@ -9,9 +9,10 @@ namespace fleetapp.Models
     public class MinePlanModel
     {
         public int Id { get; set; }
+        public int ScenarioId { get; set; }
         public String Hub { get; set; }
         public String Physical { get; set; }
-        public List<MinePlanYearMappingModel> mapping { get; set; }
+        public List<MinePlanYearMappingModel> MinePlanYearMapping { get; set; }
     }
 
     public class MinePlanYearMappingModel

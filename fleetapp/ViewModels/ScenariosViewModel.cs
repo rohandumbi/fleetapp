@@ -49,8 +49,15 @@ namespace fleetapp.ViewModels
 
         public void CreateScenario()
         {
-            _scenarioDataAccess.InsertScenario(_scenarioName, _startYear, _timePeriod);
-            LoadScenarios();
+            ScenarioModel newScenario = new ScenarioModel
+            {
+                ProjectId = Context.ProjectId,
+                Name = _scenarioName,
+                StartYear = _startYear,
+                TimePeriod = _timePeriod
+            };
+            _scenarioDataAccess.InsertScenario(newScenario);
+            Scenarios.Add(newScenario);
             NotifyOfPropertyChange("Scenarios");
         }
 

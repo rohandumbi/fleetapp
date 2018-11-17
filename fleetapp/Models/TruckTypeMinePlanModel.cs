@@ -9,6 +9,7 @@ namespace fleetapp.Models
     public class TruckTypeMinePlanModel
     {
         public int Id { get; set; }
+        public int ScenarioId { get; set; }
         public String Hub { get; set; }
         public String Physical { get; set; }
         public String TruckType { get; set; }
