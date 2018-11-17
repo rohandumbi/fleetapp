@@ -19,7 +19,7 @@ namespace fleetapp.Models
 
     public class TruckHourYearMappingModel
     {
-        public int TruckHoursId { get; set; }
+        public int TruckHourId { get; set; }
         public int Year { get; set; }
         public Decimal Value { get; set; }
     }

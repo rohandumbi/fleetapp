@@ -15,7 +15,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                var TruckHours = connection.Query<TruckHourModel>($"select * from TruckHours where ScenarioID = { Context.ScenarioId }").ToList();
+                var TruckHours = connection.Query<TruckHourModel>($"select * from TruckHour where ScenarioID = { Context.ScenarioId }").ToList();
                 foreach (var TruckHour in TruckHours)
                 {
                     TruckHour.TruckHourYearMapping = connection.Query<TruckHourYearMappingModel>($"select * from TruckHourYearMapping where TruckHourID = { TruckHour.Id }").ToList();
@@ -29,11 +29,11 @@ namespace fleetapp.DataAccessClasses
 
             using (IDbConnection connection = getConnection())
             {
-                String insertQuery = $"insert into TruckHours (ScenarioId, AssetModel, GroupName, Hub, Mode)" +
+                String insertQuery = $"insert into TruckHour (ScenarioId, AssetModel, GroupName, Hub, Mode)" +
                     $" OUTPUT INSERTED.Id  " +
                     $" VALUES(@ScenarioId, @AssetModel, @GroupName, @Hub, @Mode)";
 
-                String insertMappingQuery = $"insert into TruckHoursYearMapping (TruckHoursId, Year, Value)" +
+                String insertMappingQuery = $"insert into TruckHourYearMapping (TruckHourId, Year, Value)" +
                     $" VALUES(@TruckHoursId, @Year, @Value)";
 
                 newTruckHour.Id = connection.QuerySingle<int>(insertQuery, new
@@ -46,10 +46,10 @@ namespace fleetapp.DataAccessClasses
                 });
 
                 foreach(TruckHourYearMappingModel TruckHoursYearMapping in newTruckHour.TruckHourYearMapping) {
-                    TruckHoursYearMapping.TruckHoursId = newTruckHour.Id;
+                    TruckHoursYearMapping.TruckHourId = newTruckHour.Id;
                     connection.QuerySingle(insertMappingQuery, new
                     {
-                        TruckHoursYearMapping.TruckHoursId,
+                        TruckHoursYearMapping.TruckHourId,
                         TruckHoursYearMapping.Year,
                         TruckHoursYearMapping.Value
                     });
