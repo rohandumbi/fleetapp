@@ -24,9 +24,12 @@ DROP TABLE Fleet;
 CREATE TABLE Fleet (
    Id INT IDENTITY(1,1) PRIMARY KEY,
    ProjectId INT NOT NULL,
+   AssetNumber INT NOT NULL,
    FleetId VARCHAR(50) NOT NULL,
    AssetType VARCHAR(50),
    AssetModel VARCHAR(50),
+   InitialAge INT,
+   FinalAge INT,
    unique (ProjectId, FleetId)
 );
 

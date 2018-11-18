@@ -45,11 +45,23 @@ namespace fleetapp.ViewModels
         private IEnumerable<FleetModel> ReadCSV(string fileName)
         {
             string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(fileName, ".csv"));
-
+            var _assetNumber = 0;
             return lines.Select(line =>
             {
                 string[] data = line.Split(',');
-                return new FleetModel { ProjectId = Context.ProjectId, AssetType = data[0], AssetModel = data[1], FleetId = data[2] };
+                _assetNumber += 1;
+                return new FleetModel
+                {
+                    ProjectId = Context.ProjectId,
+                    AssetNumber = _assetNumber,
+                    AssetType = data[0],
+                    AssetModel = data[1],
+                    FleetId = data[2],
+                    InitialAge = Int32.Parse(data[3]),
+                    FinalAge = Int32.Parse(data[4])
+                };
+
+                
             });
         }
     }
