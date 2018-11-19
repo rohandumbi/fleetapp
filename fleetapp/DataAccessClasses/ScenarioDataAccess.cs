@@ -12,13 +12,20 @@ namespace fleetapp.DataAccessClasses
 {
     
     public class ScenarioDataAccess : BaseDataAccess
-    {
-        
+    {      
         public List<ScenarioModel> GetScenarios()
         {
             using (IDbConnection connection = getConnection()) 
             {
                 return connection.Query<ScenarioModel>($"select * from Scenario where ProjectId = { Context.ProjectId } ").ToList();
+            }
+        }
+
+        public ScenarioModel GetScenario(int Id)
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                return connection.QuerySingle<ScenarioModel>($"select * from Scenario where Id = { Id } ");
             }
         }
 

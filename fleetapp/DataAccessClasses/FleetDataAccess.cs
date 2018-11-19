@@ -19,6 +19,14 @@ namespace fleetapp.DataAccessClasses
             }
         }
 
+        public List<String> GetAssetModels()
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                return connection.Query<String>($"select distinct AssetModel from Fleet where ProjectId = { Context.ProjectId }").ToList();
+            }
+        }
+
         public Boolean InsertFleets(IEnumerable<FleetModel> Fleets)
         {
             using (IDbConnection connection = getConnection())
