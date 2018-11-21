@@ -28,7 +28,10 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Asset Type" Binding="{Binding Path=AssetType}" />
                 <DataGridTextColumn Header="Asset Model" Binding="{Binding Path=AssetModel}" />
-                <DataGridTextColumn Header="Fleet ID" Binding="{Binding Path=FleetID}" />
+                <DataGridTextColumn Header="Fleet ID" Binding="{Binding Path=FleetId}" />
+                <DataGridTextColumn Header="Asset Number" Binding="{Binding Path=AssetNumber}" />
+                <DataGridTextColumn Header="Initial Age" Binding="{Binding Path=InitialAge}" />
+                <DataGridTextColumn Header="Final Age" Binding="{Binding Path=FinalAge}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
