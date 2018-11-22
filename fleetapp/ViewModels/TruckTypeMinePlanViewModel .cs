@@ -15,12 +15,16 @@ namespace fleetapp.ViewModels
     public class TruckTypeMinePlanViewModel : Screen
     {
         private TruckTypeMinePlanDataAccess da;
+        private ScenarioDataAccess sda;
         public BindableCollection<TruckTypeMinePlanModel> TruckTypeMinePlans { get; set; }
+        public ScenarioModel Scenario;
 
         public TruckTypeMinePlanViewModel()
         {
             da = new TruckTypeMinePlanDataAccess();
+            sda = new ScenarioDataAccess();
             TruckTypeMinePlans = new BindableCollection<TruckTypeMinePlanModel>(da.GetTruckTypeMinePlans());
+            Scenario = sda.GetScenario(Context.ScenarioId);
             this.TruckTypeMinePlansColumns = new ObservableCollection<DataGridColumn>();
             this.GenerateDefaultColumns();
         }
@@ -35,12 +39,10 @@ namespace fleetapp.ViewModels
             this.TruckTypeMinePlansColumns.Add(new DataGridTextColumn { Header = "Truck Type", Binding = new Binding("TruckType") });
             this.TruckTypeMinePlansColumns.Add(new DataGridTextColumn { Header = "Mine Plan Payload", Binding = new Binding("MinePlanPayload") });
 
-            foreach (var map in this.TruckTypeMinePlans[0].TruckTypeMinePlanYearMapping.Select((value, i) => new { i, value }))
+            for (int i=0; i<Scenario.TimePeriod; i++)
             {
-                var value = map.value;
-                var index = map.i;
-                int CurrentYear = value.Year;
-                String BindingString = "mapping[" + index.ToString() + "].Value";
+                int CurrentYear = Scenario.StartYear + i;
+                String BindingString = "TruckTypeMinePlanYearMapping[" + i + "].Value";
                 Console.WriteLine(BindingString);
                 this.TruckTypeMinePlansColumns.Add(new DataGridTextColumn { Header = CurrentYear, Binding = new Binding(BindingString) });
             }
