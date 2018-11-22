@@ -86,12 +86,14 @@
     <Compile Include="AttachedBehaviors\DataGridColumnsBehavior.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DataAccessClasses\BaseDataAccess.cs" />
+    <Compile Include="DataAccessClasses\TruckHubPriorityDataAccess.cs" />
     <Compile Include="DataAccessClasses\FleetDataAccess.cs" />
     <Compile Include="DataAccessClasses\HubAllocationDataAccess.cs" />
     <Compile Include="DataAccessClasses\HubDataAccess.cs" />
     <Compile Include="DataAccessClasses\ScenarioDataAccess.cs" />
     <Compile Include="DataAccessClasses\ProjectDataAccess.cs" />
     <Compile Include="DataAccessClasses\TruckGroupDataAccess.cs" />
+    <Compile Include="DataAccessClasses\MachineParameterDataAccess.cs" />
     <Compile Include="DataAccessClasses\TruckTypeMinePlanDataAccess.cs" />
     <Compile Include="DataAccessClasses\MinePlanDataAccess.cs" />
     <Compile Include="DataAccessClasses\TruckHourDataAccess.cs" />
@@ -103,7 +105,9 @@
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\ScenarioModel.cs" />
     <Compile Include="Models\TruckGroupModel.cs" />
+    <Compile Include="Models\MachineParameterModel.cs" />
     <Compile Include="Models\TruckHourModel.cs" />
+    <Compile Include="Models\TruckHubPriorityModel.cs" />
     <Compile Include="Models\TruckPayloadModel.cs" />
     <Compile Include="Models\TruckTypeMinePlanModel.cs" />
     <Compile Include="ViewModels\FleetListViewModel.cs" />

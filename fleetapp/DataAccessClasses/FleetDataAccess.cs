@@ -27,14 +27,14 @@ namespace fleetapp.DataAccessClasses
             }
         }
 
-        public Boolean InsertFleets(IEnumerable<FleetModel> Fleets)
+        public void InsertFleets(IEnumerable<FleetModel> Fleets)
         {
             using (IDbConnection connection = getConnection())
             {
                 foreach (var Fleet in Fleets)
                 {
-                    String insertQuery = $"insert into Fleet (ProjectID, AssetNumber, AssetType, AssetModel, FleetId, InitialAge, FinalAge) " +
-                    $"values ( @ProjectID, @AssetNumber, @AssetType, @AssetModel, @FleetId, @InitialAge, @FinalAge)";
+                    String insertQuery = $"insert into Fleet (ProjectID, AssetNumber, AssetType, AssetModel, FleetId, InitialAge, FinalAge, Priority) " +
+                    $"values ( @ProjectID, @AssetNumber, @AssetType, @AssetModel, @FleetId, @InitialAge, @FinalAge, @Priority)";
                     connection.Query(insertQuery, new
                     {
                         Fleet.ProjectId,
@@ -43,12 +43,11 @@ namespace fleetapp.DataAccessClasses
                         Fleet.AssetModel,
                         Fleet.FleetId,
                         Fleet.InitialAge,
-                        Fleet.FinalAge
+                        Fleet.FinalAge,
+                        Fleet.Priority
                     });
                 }                 
             }
-
-            return true;
         }
 
         public void DeleteAll()

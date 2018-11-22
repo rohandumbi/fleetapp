@@ -30,6 +30,7 @@ CREATE TABLE Fleet (
    AssetModel VARCHAR(50),
    InitialAge INT,
    FinalAge INT,
+   Priority INT,
    unique (ProjectId, FleetId)
 );
 
@@ -42,6 +43,16 @@ CREATE TABLE Hub (
    unique (ProjectId, Name)
 );
 
+DROP TABLE TruckHubPriority; 
+
+CREATE TABLE TruckHubPriority (
+   Id INT IDENTITY(1,1) PRIMARY KEY,
+   ProjectId INT NOT NULL,
+   AssetModel VARCHAR(50),
+   Hub VARCHAR(50),
+   Priority INT,
+   unique (ProjectId, AssetModel, Hub)
+);
 
 DROP TABLE HubAllocation; 
 
@@ -76,6 +87,33 @@ CREATE TABLE TruckGroup (
    AssetModel VARCHAR(50),
    FleetId VARCHAR(50) NOT NULL,
    unique (ScenarioId, Name, AssetModel, FleetId)
+);
+
+DROP TABLE MachineParameter; 
+
+CREATE TABLE MachineParameter (
+   Id INT IDENTITY(1,1) PRIMARY KEY,
+   ScenarioId INT NOT NULL,
+   AssetModel VARCHAR(50),
+   Hub VARCHAR(50),
+   Mode VARCHAR(50),
+   unique (ScenarioId,AssetModel, Hub, Mode)
+);
+
+DROP TABLE MachineParameterYearMapping; 
+
+CREATE TABLE MachineParameterYearMapping (
+   MachineParameterId INT,
+   Year INT,
+   StartDate DATETIME,
+   Days INT,
+   SchEU NUMERIC,
+   Npot NUMERIC,
+   UtEu NUMERIC,
+   Payload INT,
+   EngineHours NUMERIC,
+   UsableHours NUMERIC,
+   unique (MachineParameterId,Year)
 );
 
 DROP TABLE TruckHour; 
@@ -124,10 +162,9 @@ CREATE TABLE TruckTypeMinePlan (
    Id INT IDENTITY(1,1) PRIMARY KEY,
    ScenarioId INT NOT NULL,
    Hub VARCHAR(50),
-   Physical VARCHAR(50),
    TruckType VARCHAR(50),
    MinePlanPayload INT,
-   unique (ScenarioId, Hub, Physical, TruckType)
+   unique (ScenarioId, Hub, TruckType)
 );
 
 DROP TABLE TruckTypeMinePlanYearMapping; 

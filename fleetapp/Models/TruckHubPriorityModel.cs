@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 
 namespace fleetapp.Models
 {
-    public class FleetModel
+    public class TruckHubPriorityModel
     {
         public int Id { get; set; }
         public int ProjectId { get; set; }
-        public int AssetNumber { get; set; }
-        public String AssetType { get; set; }
         public String AssetModel { get; set; }
-        public String FleetId { get; set; }
-        public int InitialAge { get; set; }
-        public int FinalAge { get; set; }
+        public String Hub { get; set; }
         public int Priority { get; set; }
     }
 }

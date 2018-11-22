@@ -30,9 +30,9 @@ namespace fleetapp.DataAccessClasses
 
             using (IDbConnection connection = getConnection())
             {
-                String insertQuery = $"insert into TruckTypeMinePlan (ScenarioId, Hub, Physical, TruckType, MinePlanPayload)" +
+                String insertQuery = $"insert into TruckTypeMinePlan (ScenarioId, Hub, TruckType, MinePlanPayload)" +
                     $" OUTPUT INSERTED.Id  " +
-                    $" VALUES(@ScenarioId, @Hub, @Physical, @TruckType, @MinePlanPayload)";
+                    $" VALUES(@ScenarioId, @Hub, @TruckType, @MinePlanPayload)";
 
                 String insertMappingQuery = $"insert into TruckTypeMinePlanYearMapping (TruckTypeMinePlanId, Year, Value)" +
                     $" VALUES(@TruckTypeMinePlanId, @Year, @Value)";
@@ -41,7 +41,6 @@ namespace fleetapp.DataAccessClasses
                 {
                     newTruckTypeMinePlan.ScenarioId,
                     newTruckTypeMinePlan.Hub,
-                    newTruckTypeMinePlan.Physical,
                     newTruckTypeMinePlan.TruckType,
                     newTruckTypeMinePlan.MinePlanPayload
                 });
