@@ -51,7 +51,6 @@ namespace fleetapp.ViewModels
         {
             this.TruckTypeMinePlansColumns.Add(
                 new DataGridTextColumn { Header = "Hub", Binding = new Binding("Hub") });
-            this.TruckTypeMinePlansColumns.Add(new DataGridTextColumn { Header = "Physical", Binding = new Binding("Physical") });
             this.TruckTypeMinePlansColumns.Add(new DataGridTextColumn { Header = "Truck Type", Binding = new Binding("TruckType") });
             this.TruckTypeMinePlansColumns.Add(new DataGridTextColumn { Header = "Mine Plan Payload", Binding = new Binding("MinePlanPayload") });
 

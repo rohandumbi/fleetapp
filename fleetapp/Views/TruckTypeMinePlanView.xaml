@@ -8,34 +8,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
         <TextBox x:Name="TruckMinePlanFile" Grid.Row="1" Grid.Column="1" Width="150" Margin="0 0 5 10" PreviewMouseDown="TruckMinePlanFile_MouseDown"/>
         <Button x:Name="ImportFile" Grid.Row="1" Grid.Column="2" Width="75" Margin="0 0 0 10">Import File</Button>
-        <DataGrid  Grid.Column="2"
+        <DataGrid  Grid.Column="1"
                    Grid.Row="2" 
-                   Grid.ColumnSpan="3"
-                   Margin="10,0,0,10" 
+                   Grid.ColumnSpan="3" 
                    ItemsSource="{Binding TruckTypeMinePlans}"
                    attachedBehaviors:DataGridColumnsBehavior.BindableColumns="{Binding TruckTypeMinePlansColumns}"
-                   CanUserAddRows="False" 
+                   CanUserAddRows="True" 
                    IsReadOnly="True" 
                    AutoGenerateColumns="False"/>
 
