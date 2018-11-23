@@ -60,8 +60,6 @@ namespace fleetapp.ViewModels
                     InitialAge = Int32.Parse(data[3]),
                     FinalAge = Int32.Parse(data[4])
                 };
-
-                
             });
         }
     }

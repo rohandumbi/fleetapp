@@ -18,6 +18,7 @@ namespace fleetapp.ViewModels
         private ScenarioDataAccess sda;
         public BindableCollection<TruckTypeMinePlanModel> TruckTypeMinePlans { get; set; }
         public ScenarioModel Scenario;
+        private String _truckMinePlanFileName;
 
         public TruckTypeMinePlanViewModel()
         {
@@ -27,6 +28,21 @@ namespace fleetapp.ViewModels
             Scenario = sda.GetScenario(Context.ScenarioId);
             this.TruckTypeMinePlansColumns = new ObservableCollection<DataGridColumn>();
             this.GenerateDefaultColumns();
+        }
+
+        public String TruckMinePlanFile
+        {
+            set { _truckMinePlanFileName = value; }
+        }
+
+        public void ImportFile()
+        {
+            //IEnumerable<FleetModel> Fleets = ReadCSV(_truckMinePlanFileName);
+            //da.DeleteAll();
+            //da.InsertFleets(Fleets);
+            //LoadFleetList();
+            //NotifyOfPropertyChange("Fleets");
+            Console.WriteLine("Import CSV");
         }
 
         public ObservableCollection<DataGridColumn> TruckTypeMinePlansColumns { get; private set; }
