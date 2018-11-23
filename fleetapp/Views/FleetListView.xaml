@@ -23,14 +23,15 @@
 
         <TextBox x:Name="FleetFile" Grid.Row="1" Grid.Column="1" Width="150" Margin="0 0 5 10" PreviewMouseDown="FleetFile_MouseDown"/>
         <Button x:Name="ImportFile" Grid.Row="1" Grid.Column="2" Width="75" Margin="0 0 0 10">Import File</Button>
-        <DataGrid x:Name="Fleets" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" AlternatingRowBackground="LightCyan" CanUserAddRows="True"
+        <DataGrid x:Name="Fleets" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" AlternatingRowBackground="LightCyan" CanUserAddRows="False"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Asset Type" Binding="{Binding Path=AssetType}" />
-                <DataGridTextColumn Header="Asset Model" Binding="{Binding Path=AssetModel}" />
-                <DataGridTextColumn Header="Fleet ID" Binding="{Binding Path=FleetId}" />
-                <DataGridTextColumn Header="Initial Age" Binding="{Binding Path=InitialAge}" />
-                <DataGridTextColumn Header="Final Age" Binding="{Binding Path=FinalAge}" />
+                <DataGridTextColumn Header="Asset Type" Binding="{Binding Path=AssetType}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Asset Model" Binding="{Binding Path=AssetModel}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Fleet ID" Binding="{Binding Path=FleetId}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Initial Age" Binding="{Binding Path=InitialAge}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Final Age" Binding="{Binding Path=FinalAge}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Priority" Binding="{Binding Path=Priority}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

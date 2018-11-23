@@ -58,7 +58,8 @@ namespace fleetapp.ViewModels
                     AssetModel = data[1],
                     FleetId = data[2],
                     InitialAge = Int32.Parse(data[3]),
-                    FinalAge = Int32.Parse(data[4])
+                    FinalAge = Int32.Parse(data[4]),
+                    Priority = 1
                 };
             });
         }
