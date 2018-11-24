@@ -65,11 +65,11 @@ namespace fleetapp.LP
                         if (coeff == 0) continue;
                         if(HubAllocation.IsManned)
                         {
-                            line = line + " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
+                            line = line + " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
                         }
                         if (HubAllocation.IsAHS)
                         {
-                            line = line + " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
+                            line = line + " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
                         }
                         if(line.Length > lineMaxLength)
                         {
@@ -107,14 +107,16 @@ namespace fleetapp.LP
                         if (HubAllocation.IsManned)
                         {
                             var engineHours = ctx.getEngineHours(Hub.Name, Fleet.AssetModel, "Manned", i);
-                            String variable = @"x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
+                            engineHours = Math.Round(engineHours, 3);
+                            String variable = @"x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
                             sw.WriteLine(variable+ " >= 0");
                             sw.WriteLine(variable + " <= "+ engineHours);
                         }
                         if (HubAllocation.IsAHS)
                         {
                             var engineHours = ctx.getEngineHours(Hub.Name, Fleet.AssetModel, "AHS", i);
-                            String variable = @"x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
+                            engineHours = Math.Round(engineHours, 3);
+                            String variable = @"x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
                             sw.WriteLine(variable + " >= 0");
                             sw.WriteLine(variable + " <= " + engineHours);
                         }
@@ -126,38 +128,47 @@ namespace fleetapp.LP
         private void WriteRequiredHourConstraints(StreamWriter sw)
         {
             sw.WriteLine("\\required hours constraint for each hub");
-            String line = "";
-            int lineMaxLength = 200;
-            foreach (var HubAllocation in ctx.HubAllocations)
+
+            foreach (var Hub in ctx.Hubs)
             {
-                List<FleetModel> Fleets = ctx.getFleetsByAssetModel(HubAllocation.AssetModel);
-                HubModel Hub = ctx.getHubById(HubAllocation.HubId);
                 int TimePeriod = ctx.Scenario.TimePeriod;
 
                 for (var i = 1; i <= TimePeriod; i++)
                 {
-                    foreach (var Fleet in Fleets)
+                    List<HubAllocationModel> HubAllocations = new List<HubAllocationModel>();
+                    foreach(var HubAllocation in ctx.HubAllocations)
                     {
-                        var requiredHours = ctx.getRequiredHours(Hub.Name, Fleet.AssetModel, i);
-                        if (HubAllocation.IsManned)
+                        if(HubAllocation.HubId == Hub.Id)
                         {
-                            var coeff = ctx.getRequiredHoursCoeff(Hub.Name, Fleet.AssetModel, "Manned", i);
-                            String variable = " + "+ coeff +"x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
-                            line = line + variable ;
-                           
+                            HubAllocations.Add(HubAllocation);
                         }
-                        if (HubAllocation.IsAHS)
+                    }
+                    foreach (var HubAllocation in HubAllocations)
+                    {
+                        String line = "";
+                        List<FleetModel> Fleets = ctx.getFleetsByAssetModel(HubAllocation.AssetModel);
+                        var requiredHours = ctx.getRequiredHours(Hub.Name, HubAllocation.AssetModel, i);
+                        if (requiredHours == 0) continue;
+                        foreach (var Fleet in Fleets)
                         {
-                            var coeff = ctx.getRequiredHoursCoeff(Hub.Name, Fleet.AssetModel, "AHS", i);
-                            String variable = " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
-                            line = line + variable;
+                            
+                            if (HubAllocation.IsManned)
+                            {
+                                var coeff = ctx.getRequiredHoursCoeff(Hub.Name, Fleet.AssetModel, "Manned", i);
+                                coeff = Math.Round(coeff, 3);
+                                String variable = " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
+                                line = line + variable;
+
+                            }
+                            if (HubAllocation.IsAHS)
+                            {
+                                var coeff = ctx.getRequiredHoursCoeff(Hub.Name, Fleet.AssetModel, "AHS", i);
+                                coeff = Math.Round(coeff, 3);
+                                String variable = " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
+                                line = line + variable;
+                            }
                         }
-                        if(line.Length > lineMaxLength)
-                        {
-                            sw.WriteLine(line);
-                            line = "";
-                        }
-                        sw.WriteLine(" <= "+ requiredHours);
+                        sw.WriteLine(line +" <= " + requiredHours);
                     }
 
                 }
@@ -180,11 +191,11 @@ namespace fleetapp.LP
                     {
                         if (HubAllocation.IsManned)
                         {
-                            line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
+                            line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
                         }
                         if (HubAllocation.IsAHS)
                         {
-                            line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
+                            line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
                         }
                         if (line.Length > lineMaxLength)
                         {
@@ -203,7 +214,6 @@ namespace fleetapp.LP
         {
             sw.WriteLine("\\machine across all hub per year constraint");
 
-            String line = "";
             int TimePeriod = ctx.Scenario.TimePeriod;
             for (var i = 1; i <= TimePeriod; i++)
             {
@@ -218,29 +228,28 @@ namespace fleetapp.LP
                             HubAllocations.Add(HubAllocation);
                         }
                     }
-
-                    //HubModel Hub = ctx.getHubById(HubAllocation.HubId);
+                    if (HubAllocations.Count == 0) continue;
 
                     foreach (var Fleet in Fleets)
                     {
+                        String line = "";
                         foreach (var HubAllocation in HubAllocations)
                         {
                             HubModel Hub = ctx.getHubById(HubAllocation.HubId);
                             if (HubAllocation.IsManned)
                             {
                                 var engineHours = ctx.getEngineHours(Hub.Name, AssetModel, "Manned", i);
-                                line = line + ( 1/ engineHours ) + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
+                                line = line + " + " + ( 1/ engineHours ) + " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
                             }
                             if (HubAllocation.IsAHS)
                             {
                                 var engineHours = ctx.getEngineHours(Hub.Name, AssetModel, "AHS", i);
-                                line = line + (1 / engineHours) +  " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
+                                line = line + " + " + (1 / engineHours) +  " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
                             }
                         }
-                      
+                        
                         line = line + " <= 1 ";
                         sw.WriteLine(line);
-                        line = "";
                     }
                 }
             }
