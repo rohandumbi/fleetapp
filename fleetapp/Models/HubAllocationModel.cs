@@ -11,7 +11,7 @@ namespace fleetapp.Models
         public int Id { get; set; }
         public int ProjectId { get; set; }
         public int HubId { get; set; }
-        public String AssestModel { get; set; }
+        public String AssetModel { get; set; }
         public Boolean IsManned { get; set; }
         public Boolean IsAHS { get; set; }
     }

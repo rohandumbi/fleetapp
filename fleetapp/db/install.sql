@@ -107,12 +107,12 @@ CREATE TABLE MachineParameterYearMapping (
    Year INT,
    StartDate DATETIME,
    Days INT,
-   SchEU NUMERIC,
-   Npot NUMERIC,
-   UtEu NUMERIC,
+   SchEU DECIMAL(18, 10),
+   Npot  DECIMAL(18, 10),
+   UtEu  DECIMAL(18, 10),
    Payload INT,
-   EngineHours NUMERIC,
-   UsableHours NUMERIC,
+   EngineHours  DECIMAL(18, 10),
+   UsableHours  DECIMAL(18, 10),
    unique (MachineParameterId,Year)
 );
 
@@ -172,7 +172,7 @@ DROP TABLE TruckTypeMinePlanYearMapping;
 CREATE TABLE TruckTypeMinePlanYearMapping (
    TruckTypeMinePlanId INT,
    Year INT,
-   Value NUMERIC,
+   Value DECIMAL(18,10),
    unique (TruckTypeMinePlanId,Year)
 );
 

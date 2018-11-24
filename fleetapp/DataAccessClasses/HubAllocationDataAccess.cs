@@ -30,7 +30,7 @@ namespace fleetapp.DataAccessClasses
                 {
                     newHubAllocation.ProjectId,
                     newHubAllocation.HubId,
-                    newHubAllocation.AssestModel,
+                    newHubAllocation.AssetModel,
                     newHubAllocation.IsManned,
                     newHubAllocation.IsAHS
                 });

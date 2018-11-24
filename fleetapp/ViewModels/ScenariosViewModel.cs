@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using fleetapp.DataAccessClasses;
 using fleetapp.Models;
+using fleetapp.LP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,8 +67,16 @@ namespace fleetapp.ViewModels
             set
             {
                 Context.ScenarioId = value.Id;
-                _eventAggregator.PublishOnUIThread("loaded:scenario");
             }
+        }
+
+        public void LoadScenario()
+        {
+            _eventAggregator.PublishOnUIThread("loaded:scenario");
+        }
+        public void RunScheduler()
+        {
+            new EquationGenerator().generate();
         }
 
     }

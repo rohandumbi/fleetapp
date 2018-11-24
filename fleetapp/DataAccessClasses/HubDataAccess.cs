@@ -15,7 +15,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                return connection.Query<HubModel>($"select * from hub where ProjectID = { Context.ProjectId }").ToList();
+                return connection.Query<HubModel>($"select ROW_NUMBER() OVER( ORDER BY Id asc ) AS 'HubNumber',* from hub where ProjectID = { Context.ProjectId }").ToList();
             }
         }
 

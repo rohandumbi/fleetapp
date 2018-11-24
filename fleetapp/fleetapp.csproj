@@ -98,6 +98,8 @@
     <Compile Include="DataAccessClasses\MinePlanDataAccess.cs" />
     <Compile Include="DataAccessClasses\TruckHourDataAccess.cs" />
     <Compile Include="DataAccessClasses\TruckPayloadDataAccess.cs" />
+    <Compile Include="LP\Constraint.cs" />
+    <Compile Include="LP\Variable.cs" />
     <Compile Include="Models\FleetModel.cs" />
     <Compile Include="Models\HubAllocationModel.cs" />
     <Compile Include="Models\HubModel.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Models\TruckHubPriorityModel.cs" />
     <Compile Include="Models\TruckPayloadModel.cs" />
     <Compile Include="Models\TruckTypeMinePlanModel.cs" />
+    <Compile Include="LP\EquationGenerator.cs" />
     <Compile Include="ViewModels\FleetListViewModel.cs" />
     <Compile Include="ViewModels\TruckTypeMinePlanViewModel .cs" />
     <Compile Include="ViewModels\MinePlanViewModel.cs" />
@@ -193,7 +196,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\" />
     <Folder Include="Localization\" />
   </ItemGroup>
   <ItemGroup>

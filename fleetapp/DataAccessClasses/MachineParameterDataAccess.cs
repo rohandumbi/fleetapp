@@ -18,7 +18,7 @@ namespace fleetapp.DataAccessClasses
                 var MachineParameters = connection.Query<MachineParameterModel>($"select * from MachineParameter where ScenarioID = { Context.ScenarioId }").ToList();
                 foreach (var MachineParameter in MachineParameters)
                 {
-                    MachineParameter.MachineParameterYearMapping = connection.Query<MachineParameterYearMappingModel>($"select * from MachineParameterYearMapping where MachineParameterYearId = { MachineParameter.Id }").ToList();
+                    MachineParameter.MachineParameterYearMapping = connection.Query<MachineParameterYearMappingModel>($"select * from MachineParameterYearMapping where MachineParameterId = { MachineParameter.Id }").ToList();
                 }
                 return MachineParameters;
             }
@@ -57,7 +57,7 @@ namespace fleetapp.DataAccessClasses
                         MachineParameterYearMapping.UtEu,
                         MachineParameterYearMapping.Payload,
                         MachineParameterYearMapping.EngineHours,
-                        MachineParameterYearMapping.UsaleHours
+                        MachineParameterYearMapping.UsableHours
                     });
                 }
             }

@@ -1,0 +1,249 @@
+﻿using fleetapp.DataAccessClasses;
+using fleetapp.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace fleetapp.LP
+{
+    public class EquationGenerator
+    {
+        private const double pvif = 0.1; 
+        private const int MODE_MANNED = 0;
+        private const int MODE_AHS = 1;
+
+        Context ctx;
+
+
+        public void generate()
+        {
+            ctx = new Context();
+            FileStream fs = CreateFile();
+            
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                sw.WriteLine("minimize");
+                WriteObjectiveFunction(sw);
+                sw.WriteLine("Subject to");
+                WriteConstraints(sw);
+                sw.WriteLine("end");
+            }
+
+            
+        }
+
+        private FileStream CreateFile()
+        {
+            Directory.CreateDirectory(@"C:\\FleetApp");
+            String fileName = @"C:\\FleetApp\\fleetapp-dump.lp";
+            
+            return File.Create(fileName);
+        }
+        
+
+        private void WriteObjectiveFunction(StreamWriter sw)
+        {
+            String line = "";
+            int lineMaxLength = 200;
+            foreach(var HubAllocation in ctx.HubAllocations)
+            {
+                List<FleetModel> Fleets = ctx.getFleetsByAssetModel(HubAllocation.AssetModel);
+                HubModel Hub = ctx.getHubById(HubAllocation.HubId);
+                int HubPriority = ctx.getHubPriority(Hub.Name, HubAllocation.AssetModel);
+                int TimePeriod = ctx.Scenario.TimePeriod;
+                
+                for(var i=1; i<= TimePeriod; i++)
+                {
+                    double pvif = 0.1;
+                    double coeff = pvif * (1 / Math.Pow(Convert.ToDouble(1 + i), Convert.ToDouble(i))) * HubPriority;
+                    foreach (var Fleet in Fleets)
+                    {
+                        coeff = Math.Round(coeff * Fleet.Priority, 3);
+                        if (coeff == 0) continue;
+                        if(HubAllocation.IsManned)
+                        {
+                            line = line + " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
+                        }
+                        if (HubAllocation.IsAHS)
+                        {
+                            line = line + " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
+                        }
+                        if(line.Length > lineMaxLength)
+                        {
+                            sw.WriteLine(line);
+                            line = "";
+                        }
+                    }
+                   
+                }
+            }
+        }
+
+        private void WriteConstraints(StreamWriter sw)
+        {
+            WriteEngineHourConstraints(sw);
+            WriteRequiredHourConstraints(sw);
+            WriteMachineAgeConstraints(sw);
+            WriteMachineAcrossHubConstraints(sw);
+        }
+
+        private void WriteEngineHourConstraints(StreamWriter sw)
+        {
+            sw.WriteLine("\\engine hours constraint");
+
+            foreach (var HubAllocation in ctx.HubAllocations)
+            {
+                List<FleetModel> Fleets = ctx.getFleetsByAssetModel(HubAllocation.AssetModel);
+                HubModel Hub = ctx.getHubById(HubAllocation.HubId);
+                int TimePeriod = ctx.Scenario.TimePeriod;
+
+                for (var i = 1; i <= TimePeriod; i++)
+                {
+                    foreach (var Fleet in Fleets)
+                    {
+                        if (HubAllocation.IsManned)
+                        {
+                            var engineHours = ctx.getEngineHours(Hub.Name, Fleet.AssetModel, "Manned", i);
+                            String variable = @"x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
+                            sw.WriteLine(variable+ " >= 0");
+                            sw.WriteLine(variable + " <= "+ engineHours);
+                        }
+                        if (HubAllocation.IsAHS)
+                        {
+                            var engineHours = ctx.getEngineHours(Hub.Name, Fleet.AssetModel, "AHS", i);
+                            String variable = @"x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
+                            sw.WriteLine(variable + " >= 0");
+                            sw.WriteLine(variable + " <= " + engineHours);
+                        }
+                    }
+
+                }
+            }
+        }
+        private void WriteRequiredHourConstraints(StreamWriter sw)
+        {
+            sw.WriteLine("\\required hours constraint for each hub");
+            String line = "";
+            int lineMaxLength = 200;
+            foreach (var HubAllocation in ctx.HubAllocations)
+            {
+                List<FleetModel> Fleets = ctx.getFleetsByAssetModel(HubAllocation.AssetModel);
+                HubModel Hub = ctx.getHubById(HubAllocation.HubId);
+                int TimePeriod = ctx.Scenario.TimePeriod;
+
+                for (var i = 1; i <= TimePeriod; i++)
+                {
+                    foreach (var Fleet in Fleets)
+                    {
+                        var requiredHours = ctx.getRequiredHours(Hub.Name, Fleet.AssetModel, i);
+                        if (HubAllocation.IsManned)
+                        {
+                            var coeff = ctx.getRequiredHoursCoeff(Hub.Name, Fleet.AssetModel, "Manned", i);
+                            String variable = " + "+ coeff +"x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
+                            line = line + variable ;
+                           
+                        }
+                        if (HubAllocation.IsAHS)
+                        {
+                            var coeff = ctx.getRequiredHoursCoeff(Hub.Name, Fleet.AssetModel, "AHS", i);
+                            String variable = " + " + coeff + "x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
+                            line = line + variable;
+                        }
+                        if(line.Length > lineMaxLength)
+                        {
+                            sw.WriteLine(line);
+                            line = "";
+                        }
+                        sw.WriteLine(" <= "+ requiredHours);
+                    }
+
+                }
+            }
+        }
+        private void WriteMachineAgeConstraints(StreamWriter sw)
+        {
+            sw.WriteLine("\\machine age constraint");
+
+            String line = "";
+            int lineMaxLength = 200;
+            foreach (var HubAllocation in ctx.HubAllocations)
+            {
+                List<FleetModel> Fleets = ctx.getFleetsByAssetModel(HubAllocation.AssetModel);
+                HubModel Hub = ctx.getHubById(HubAllocation.HubId);
+                int TimePeriod = ctx.Scenario.TimePeriod;
+                foreach (var Fleet in Fleets)
+                {
+                    for (var i = 1; i <= TimePeriod; i++)
+                    {
+                        if (HubAllocation.IsManned)
+                        {
+                            line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
+                        }
+                        if (HubAllocation.IsAHS)
+                        {
+                            line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
+                        }
+                        if (line.Length > lineMaxLength)
+                        {
+                            sw.WriteLine(line);
+                            line = "";
+                        }
+                    }
+                    line = line + " <= " + (Fleet.FinalAge - Fleet.InitialAge);
+                    sw.WriteLine(line);
+                    line = "";
+                }
+            }
+
+        }
+        private void WriteMachineAcrossHubConstraints(StreamWriter sw)
+        {
+            sw.WriteLine("\\machine across all hub per year constraint");
+
+            String line = "";
+            int TimePeriod = ctx.Scenario.TimePeriod;
+            for (var i = 1; i <= TimePeriod; i++)
+            {
+                foreach (var AssetModel in ctx.AssetModels)
+                {
+                    List<FleetModel> Fleets = ctx.getFleetsByAssetModel(AssetModel);
+                    List<HubAllocationModel> HubAllocations = new List<HubAllocationModel>();
+                    foreach (var HubAllocation in ctx.HubAllocations)
+                    {
+                        if (HubAllocation.AssetModel.Equals(AssetModel))
+                        {
+                            HubAllocations.Add(HubAllocation);
+                        }
+                    }
+
+                    //HubModel Hub = ctx.getHubById(HubAllocation.HubId);
+
+                    foreach (var Fleet in Fleets)
+                    {
+                        foreach (var HubAllocation in HubAllocations)
+                        {
+                            HubModel Hub = ctx.getHubById(HubAllocation.HubId);
+                            if (HubAllocation.IsManned)
+                            {
+                                var engineHours = ctx.getEngineHours(Hub.Name, AssetModel, "Manned", i);
+                                line = line + ( 1/ engineHours ) + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M1t" + i;
+                            }
+                            if (HubAllocation.IsAHS)
+                            {
+                                var engineHours = ctx.getEngineHours(Hub.Name, AssetModel, "AHS", i);
+                                line = line + (1 / engineHours) +  " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "M2t" + i;
+                            }
+                        }
+                      
+                        line = line + " <= 1 ";
+                        sw.WriteLine(line);
+                        line = "";
+                    }
+                }
+            }
+        }
+    }
+}
