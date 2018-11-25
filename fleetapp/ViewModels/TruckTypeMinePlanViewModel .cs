@@ -30,6 +30,7 @@ namespace fleetapp.ViewModels
             Scenario = _ScenarioDataAccess.GetScenario(Context.ScenarioId);
             this.TruckTypeMinePlansColumns = new ObservableCollection<DataGridColumn>();
             this.GenerateDefaultColumns();
+            this.LoadFTruckTypeMinePlanList();
         }
 
         private void LoadFTruckTypeMinePlanList()
