@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace fleetapp.ViewModels
 {
@@ -35,6 +36,12 @@ namespace fleetapp.ViewModels
 
         public void ImportFile()
         {
+            if(String.IsNullOrEmpty(_fleetFileName))
+            {
+                Console.WriteLine("Please select a file");
+                MessageBox.Show("Please select a file!");
+                return;
+            }
             IEnumerable<FleetModel> Fleets = ReadCSV(_fleetFileName);
             _fleetDataAccess.DeleteAll();
             _fleetDataAccess.InsertFleets(Fleets);
@@ -45,9 +52,11 @@ namespace fleetapp.ViewModels
         private IEnumerable<FleetModel> ReadCSV(string fileName)
         {
             string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(fileName, ".csv"));
+            lines = lines.Skip(1).ToArray();
             var _assetNumber = 0;
             return lines.Select(line =>
             {
+                
                 string[] data = line.Split(',');
                 _assetNumber += 1;
                 return new FleetModel
