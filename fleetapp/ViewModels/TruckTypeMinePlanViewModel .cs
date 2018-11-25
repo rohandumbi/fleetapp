@@ -9,25 +9,32 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using System.IO;
 
 namespace fleetapp.ViewModels
 {
     public class TruckTypeMinePlanViewModel : Screen
     {
-        private TruckTypeMinePlanDataAccess da;
-        private ScenarioDataAccess sda;
+        private TruckTypeMinePlanDataAccess _TruckTypeMinePlanDataAccess;
+        private ScenarioDataAccess _ScenarioDataAccess;
         public BindableCollection<TruckTypeMinePlanModel> TruckTypeMinePlans { get; set; }
         public ScenarioModel Scenario;
         private String _truckMinePlanFileName;
 
         public TruckTypeMinePlanViewModel()
         {
-            da = new TruckTypeMinePlanDataAccess();
-            sda = new ScenarioDataAccess();
-            TruckTypeMinePlans = new BindableCollection<TruckTypeMinePlanModel>(da.GetTruckTypeMinePlans());
-            Scenario = sda.GetScenario(Context.ScenarioId);
+            _TruckTypeMinePlanDataAccess = new TruckTypeMinePlanDataAccess();
+            _ScenarioDataAccess = new ScenarioDataAccess();
+           
+            Scenario = _ScenarioDataAccess.GetScenario(Context.ScenarioId);
             this.TruckTypeMinePlansColumns = new ObservableCollection<DataGridColumn>();
             this.GenerateDefaultColumns();
+        }
+
+        private void LoadFTruckTypeMinePlanList()
+        {
+            TruckTypeMinePlans = new BindableCollection<TruckTypeMinePlanModel>(_TruckTypeMinePlanDataAccess.GetTruckTypeMinePlans());
+
         }
 
         public String TruckMinePlanFile
@@ -37,12 +44,11 @@ namespace fleetapp.ViewModels
 
         public void ImportFile()
         {
-            //IEnumerable<FleetModel> Fleets = ReadCSV(_truckMinePlanFileName);
-            //da.DeleteAll();
-            //da.InsertFleets(Fleets);
-            //LoadFleetList();
-            //NotifyOfPropertyChange("Fleets");
-            Console.WriteLine("Import CSV");
+            IEnumerable<TruckTypeMinePlanModel> newTruckTypeMinePlans = ReadCSV(_truckMinePlanFileName);
+            _TruckTypeMinePlanDataAccess.DeleteAll();
+            _TruckTypeMinePlanDataAccess.InsertTruckTypeMinePlans(newTruckTypeMinePlans);
+            LoadFTruckTypeMinePlanList();
+            NotifyOfPropertyChange("TruckTypeMinePlans");
         }
 
         public ObservableCollection<DataGridColumn> TruckTypeMinePlansColumns { get; private set; }
@@ -61,6 +67,38 @@ namespace fleetapp.ViewModels
                 Console.WriteLine(BindingString);
                 this.TruckTypeMinePlansColumns.Add(new DataGridTextColumn { Header = CurrentYear, Binding = new Binding(BindingString) });
             }
+        }
+
+        private IEnumerable<TruckTypeMinePlanModel> ReadCSV(string fileName)
+        {
+            string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(fileName, ".csv"));
+            String[] Headers = lines[0].Split(',');
+            lines = lines.Skip(1).ToArray();          
+            var _assetNumber = 0;
+            return lines.Select(line =>
+            {
+                string[] data = line.Split(',');
+                _assetNumber += 1;
+                TruckTypeMinePlanModel newTruckTypeMinePlan = new TruckTypeMinePlanModel
+                {
+                    ScenarioId = Context.ScenarioId,
+                    Hub = data[0],
+                    TruckType = data[1],
+                    MinePlanPayload = Int32.Parse(data[2])
+                };
+                newTruckTypeMinePlan.TruckTypeMinePlanYearMapping = new List<TruckTypeMinePlanYearMappingModel>();
+                for (var i= 3; i<line.Length; i++)
+                {
+                    TruckTypeMinePlanYearMappingModel TruckTypeMinePlanYearMapping = new TruckTypeMinePlanYearMappingModel
+                    {
+                        Year = Int32.Parse(Headers[i]),
+                        Value = Decimal.Parse(data[i])
+                    };
+                    newTruckTypeMinePlan.TruckTypeMinePlanYearMapping.Add(TruckTypeMinePlanYearMapping);
+
+                }
+                return newTruckTypeMinePlan;
+            });
         }
     }
 }

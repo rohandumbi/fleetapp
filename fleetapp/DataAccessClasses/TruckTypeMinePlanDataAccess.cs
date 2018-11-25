@@ -25,7 +25,7 @@ namespace fleetapp.DataAccessClasses
             }
         }
 
-        public void InsertTruckTypeMinePlan(TruckTypeMinePlanModel newTruckTypeMinePlan)
+        public void InsertTruckTypeMinePlans(IEnumerable<TruckTypeMinePlanModel> newTruckTypeMinePlans)
         {
 
             using (IDbConnection connection = getConnection())
@@ -37,24 +37,37 @@ namespace fleetapp.DataAccessClasses
                 String insertMappingQuery = $"insert into TruckTypeMinePlanYearMapping (TruckTypeMinePlanId, Year, Value)" +
                     $" VALUES(@TruckTypeMinePlanId, @Year, @Value)";
 
-                newTruckTypeMinePlan.Id = connection.QuerySingle<int>(insertQuery, new
+                foreach(var newTruckTypeMinePlan in newTruckTypeMinePlans)
                 {
-                    newTruckTypeMinePlan.ScenarioId,
-                    newTruckTypeMinePlan.Hub,
-                    newTruckTypeMinePlan.TruckType,
-                    newTruckTypeMinePlan.MinePlanPayload
-                });
-
-                foreach (TruckTypeMinePlanYearMappingModel TruckTypeMinePlanYearMapping in newTruckTypeMinePlan.TruckTypeMinePlanYearMapping)
-                {
-                    TruckTypeMinePlanYearMapping.TruckTypeMinePlanId = newTruckTypeMinePlan.Id;
-                    connection.QuerySingle(insertMappingQuery, new
+                    newTruckTypeMinePlan.Id = connection.QuerySingle<int>(insertQuery, new
                     {
-                        TruckTypeMinePlanYearMapping.TruckTypeMinePlanId,
-                        TruckTypeMinePlanYearMapping.Year,
-                        TruckTypeMinePlanYearMapping.Value
+                        newTruckTypeMinePlan.ScenarioId,
+                        newTruckTypeMinePlan.Hub,
+                        newTruckTypeMinePlan.TruckType,
+                        newTruckTypeMinePlan.MinePlanPayload
                     });
+
+                    foreach (TruckTypeMinePlanYearMappingModel TruckTypeMinePlanYearMapping in newTruckTypeMinePlan.TruckTypeMinePlanYearMapping)
+                    {
+                        TruckTypeMinePlanYearMapping.TruckTypeMinePlanId = newTruckTypeMinePlan.Id;
+                        connection.QuerySingle(insertMappingQuery, new
+                        {
+                            TruckTypeMinePlanYearMapping.TruckTypeMinePlanId,
+                            TruckTypeMinePlanYearMapping.Year,
+                            TruckTypeMinePlanYearMapping.Value
+                        });
+                    }
                 }
+                
+            }
+        }
+        public void DeleteAll()
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                connection.Execute($"delete from TruckTypeMinePlanYearMapping where TruckTypeMinePlanId" +
+                    $" in ( select Id from TruckTypeMinePlan where ScenarioId = { Context.ScenarioId } )");
+                connection.Execute($"delete from TruckTypeMinePlan where ScenarioId = { Context.ScenarioId } ");
             }
         }
     }
