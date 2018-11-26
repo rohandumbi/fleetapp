@@ -1,3 +1,4 @@
+IF OBJECT_ID('Project', 'U') IS NOT NULL 
 DROP TABLE Project;
 
 CREATE TABLE Project (
@@ -8,6 +9,8 @@ CREATE TABLE Project (
    ModifiedDate DATETIME,
    UNIQUE (Name)
 );
+
+IF OBJECT_ID('Scenario', 'U') IS NOT NULL 
 DROP TABLE Scenario; 
 
 CREATE TABLE Scenario (
@@ -19,6 +22,7 @@ CREATE TABLE Scenario (
    unique (ProjectId, Name)
 );
 
+IF OBJECT_ID('Fleet', 'U') IS NOT NULL 
 DROP TABLE Fleet; 
 
 CREATE TABLE Fleet (
@@ -34,6 +38,7 @@ CREATE TABLE Fleet (
    unique (ProjectId, FleetId)
 );
 
+IF OBJECT_ID('Hub', 'U') IS NOT NULL
 DROP TABLE Hub; 
 
 CREATE TABLE Hub (
@@ -43,6 +48,7 @@ CREATE TABLE Hub (
    unique (ProjectId, Name)
 );
 
+IF OBJECT_ID('TruckHubPriority', 'U') IS NOT NULL
 DROP TABLE TruckHubPriority; 
 
 CREATE TABLE TruckHubPriority (
@@ -54,6 +60,7 @@ CREATE TABLE TruckHubPriority (
    unique (ProjectId, AssetModel, Hub)
 );
 
+IF OBJECT_ID('HubAllocation', 'U') IS NOT NULL
 DROP TABLE HubAllocation; 
 
 CREATE TABLE HubAllocation (
@@ -66,7 +73,7 @@ CREATE TABLE HubAllocation (
    unique (ProjectId, HubId, AssetModel)
 );
 
-
+IF OBJECT_ID('TruckPayload', 'U') IS NOT NULL
 DROP TABLE TruckPayload; 
 
 CREATE TABLE TruckPayload (
@@ -78,6 +85,7 @@ CREATE TABLE TruckPayload (
    unique (ScenarioId, AssetModel, MaterialType)
 );
 
+IF OBJECT_ID('TruckGroup', 'U') IS NOT NULL
 DROP TABLE TruckGroup; 
 
 CREATE TABLE TruckGroup (
@@ -89,6 +97,7 @@ CREATE TABLE TruckGroup (
    unique (ScenarioId, Name, AssetModel, FleetId)
 );
 
+IF OBJECT_ID('MachineParameter', 'U') IS NOT NULL
 DROP TABLE MachineParameter; 
 
 CREATE TABLE MachineParameter (
@@ -100,6 +109,7 @@ CREATE TABLE MachineParameter (
    unique (ScenarioId,AssetModel, Hub, Mode)
 );
 
+IF OBJECT_ID('MachineParameterYearMapping', 'U') IS NOT NULL
 DROP TABLE MachineParameterYearMapping; 
 
 CREATE TABLE MachineParameterYearMapping (
@@ -116,6 +126,7 @@ CREATE TABLE MachineParameterYearMapping (
    unique (MachineParameterId,Year)
 );
 
+IF OBJECT_ID('TruckHour', 'U') IS NOT NULL
 DROP TABLE TruckHour; 
 
 CREATE TABLE TruckHour (
@@ -128,6 +139,7 @@ CREATE TABLE TruckHour (
    unique (ScenarioId,AssetModel, GroupName, Hub, Mode)
 );
 
+IF OBJECT_ID('TruckHourYearMapping', 'U') IS NOT NULL
 DROP TABLE TruckHourYearMapping; 
 
 CREATE TABLE TruckHourYearMapping (
@@ -137,6 +149,7 @@ CREATE TABLE TruckHourYearMapping (
    unique (TruckHourId,Year)
 );
 
+IF OBJECT_ID('MinePlan', 'U') IS NOT NULL
 DROP TABLE MinePlan; 
 
 CREATE TABLE MinePlan (
@@ -147,6 +160,7 @@ CREATE TABLE MinePlan (
    unique (ScenarioId, Hub, Physical)
 );
 
+IF OBJECT_ID('MinePlanYearMapping', 'U') IS NOT NULL
 DROP TABLE MinePlanYearMapping; 
 
 CREATE TABLE MinePlanYearMapping (
@@ -156,6 +170,7 @@ CREATE TABLE MinePlanYearMapping (
    unique (MinePlanId, Year)
 );
 
+IF OBJECT_ID('TruckTypeMinePlan', 'U') IS NOT NULL
 DROP TABLE TruckTypeMinePlan; 
 
 CREATE TABLE TruckTypeMinePlan (
@@ -167,6 +182,7 @@ CREATE TABLE TruckTypeMinePlan (
    unique (ScenarioId, Hub, TruckType)
 );
 
+IF OBJECT_ID('TruckTypeMinePlanYearMapping', 'U') IS NOT NULL
 DROP TABLE TruckTypeMinePlanYearMapping; 
 
 CREATE TABLE TruckTypeMinePlanYearMapping (
@@ -175,4 +191,3 @@ CREATE TABLE TruckTypeMinePlanYearMapping (
    Value DECIMAL(18,10),
    unique (TruckTypeMinePlanId,Year)
 );
-

@@ -14,5 +14,6 @@ namespace fleetapp.Models
         public String AssetModel { get; set; }
         public Boolean IsManned { get; set; }
         public Boolean IsAHS { get; set; }
+        public String HubName { get; set; }
     }
 }

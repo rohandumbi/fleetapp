@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.IO;
+using System.Windows;
 
 namespace fleetapp.ViewModels
 {
@@ -30,6 +31,7 @@ namespace fleetapp.ViewModels
             Scenario = _ScenarioDataAccess.GetScenario(Context.ScenarioId);
             this.TruckTypeMinePlansColumns = new ObservableCollection<DataGridColumn>();
             this.GenerateDefaultColumns();
+            this.LoadFTruckTypeMinePlanList();
         }
 
         private void LoadFTruckTypeMinePlanList()
@@ -40,11 +42,18 @@ namespace fleetapp.ViewModels
 
         public String TruckMinePlanFile
         {
+            get { return _truckMinePlanFileName; }
             set { _truckMinePlanFileName = value; }
         }
 
         public void ImportFile()
         {
+            if (String.IsNullOrEmpty(_truckMinePlanFileName))
+            {
+                Console.WriteLine("Please select a file");
+                MessageBox.Show("Please select a file!");
+                return;
+            }
             IEnumerable<TruckTypeMinePlanModel> newTruckTypeMinePlans = ReadCSV(_truckMinePlanFileName);
             _TruckTypeMinePlanDataAccess.DeleteAll();
             _TruckTypeMinePlanDataAccess.InsertTruckTypeMinePlans(newTruckTypeMinePlans);
@@ -86,7 +95,7 @@ namespace fleetapp.ViewModels
                     MinePlanPayload = Int32.Parse(data[2])
                 };
                 newTruckTypeMinePlan.TruckTypeMinePlanYearMapping = new List<TruckTypeMinePlanYearMappingModel>();
-                for (var i= 3; i<line.Length; i++)
+                for (var i= 3; i<data.Length; i++)
                 {
                     TruckTypeMinePlanYearMappingModel TruckTypeMinePlanYearMapping = new TruckTypeMinePlanYearMappingModel
                     {
