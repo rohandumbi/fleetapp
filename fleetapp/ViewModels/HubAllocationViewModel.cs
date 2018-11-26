@@ -16,17 +16,8 @@ namespace fleetapp.ViewModels
         void LoadHubAllocation()
         {
             HubAllocations = new BindableCollection<HubAllocationModel>(_hubAllocationDataAccess.GetHubAllocations());
-            UpdateHubNames();
         }
 
-        private void UpdateHubNames()
-        {
-            foreach (HubAllocationModel HubAllocation in HubAllocations)
-            {
-                HubAllocation.HubName = "dummy_hubname";
-            }
-            NotifyOfPropertyChange("HubAllocations");
-        }
         public HubAllocationViewModel()
         {
             _hubAllocationDataAccess = new HubAllocationDataAccess();
