@@ -17,9 +17,10 @@ namespace fleetapp.ViewModels
     {
         private TruckTypeMinePlanDataAccess _TruckTypeMinePlanDataAccess;
         private ScenarioDataAccess _ScenarioDataAccess;
+        private String _truckMinePlanFileName;
         public BindableCollection<TruckTypeMinePlanModel> TruckTypeMinePlans { get; set; }
         public ScenarioModel Scenario;
-        private String _truckMinePlanFileName;
+        public ObservableCollection<DataGridColumn> TruckTypeMinePlansColumns { get; private set; }
 
         public TruckTypeMinePlanViewModel()
         {
@@ -51,7 +52,7 @@ namespace fleetapp.ViewModels
             NotifyOfPropertyChange("TruckTypeMinePlans");
         }
 
-        public ObservableCollection<DataGridColumn> TruckTypeMinePlansColumns { get; private set; }
+        
 
         private void GenerateDefaultColumns()
         {
@@ -74,11 +75,9 @@ namespace fleetapp.ViewModels
             string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(fileName, ".csv"));
             String[] Headers = lines[0].Split(',');
             lines = lines.Skip(1).ToArray();          
-            var _assetNumber = 0;
             return lines.Select(line =>
             {
                 string[] data = line.Split(',');
-                _assetNumber += 1;
                 TruckTypeMinePlanModel newTruckTypeMinePlan = new TruckTypeMinePlanModel
                 {
                     ScenarioId = Context.ScenarioId,

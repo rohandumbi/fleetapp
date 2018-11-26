@@ -24,7 +24,7 @@ namespace fleetapp.DataAccessClasses
             }
         }
 
-        public void InsertMachineParameter(MachineParameterModel newMachineParameter)
+        public void InsertMachineParameters(IEnumerable<MachineParameterModel> newMachineParameters)
         {
 
             using (IDbConnection connection = getConnection())
@@ -35,30 +35,33 @@ namespace fleetapp.DataAccessClasses
 
                 String insertMappingQuery = $"insert into MachineParameterYearMapping (MachineParameterId, Year, StartDate, Days, SchEU, Npot, UtEu, Payload, EngineHours, UsableHours)" +
                     $" VALUES(@MachineParameterId, @Year, @StartDate, @Days, @SchEU, @Npot, @UtEu, @Payload, @EngineHours, @UsableHours)";
-
-                newMachineParameter.Id = connection.QuerySingle<int>(insertQuery, new
+                foreach(var newMachineParameter in newMachineParameters)
                 {
-                    newMachineParameter.ScenarioId,
-                    newMachineParameter.AssetModel,
-                    newMachineParameter.Hub,
-                    newMachineParameter.Mode
-                });
-
-                foreach(MachineParameterYearMappingModel MachineParameterYearMapping in newMachineParameter.MachineParameterYearMapping) {
-                    MachineParameterYearMapping.MachineParameterId = newMachineParameter.Id;
-                    connection.QuerySingle(insertMappingQuery, new
+                    newMachineParameter.Id = connection.QuerySingle<int>(insertQuery, new
                     {
-                        MachineParameterYearMapping.MachineParameterId,
-                        MachineParameterYearMapping.Year,
-                        MachineParameterYearMapping.StartDate,
-                        MachineParameterYearMapping.Days,
-                        MachineParameterYearMapping.SchEU,
-                        MachineParameterYearMapping.Npot,
-                        MachineParameterYearMapping.UtEu,
-                        MachineParameterYearMapping.Payload,
-                        MachineParameterYearMapping.EngineHours,
-                        MachineParameterYearMapping.UsableHours
+                        newMachineParameter.ScenarioId,
+                        newMachineParameter.AssetModel,
+                        newMachineParameter.Hub,
+                        newMachineParameter.Mode
                     });
+
+                    foreach (MachineParameterYearMappingModel MachineParameterYearMapping in newMachineParameter.MachineParameterYearMapping)
+                    {
+                        MachineParameterYearMapping.MachineParameterId = newMachineParameter.Id;
+                        connection.QuerySingle(insertMappingQuery, new
+                        {
+                            MachineParameterYearMapping.MachineParameterId,
+                            MachineParameterYearMapping.Year,
+                            MachineParameterYearMapping.StartDate,
+                            MachineParameterYearMapping.Days,
+                            MachineParameterYearMapping.SchEU,
+                            MachineParameterYearMapping.Npot,
+                            MachineParameterYearMapping.UtEu,
+                            MachineParameterYearMapping.Payload,
+                            MachineParameterYearMapping.EngineHours,
+                            MachineParameterYearMapping.UsableHours
+                        });
+                    }
                 }
             }
         }

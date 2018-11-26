@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace fleetapp.Views
         public MachineParametersView()
         {
             InitializeComponent();
+        }
+        private void MachineParameterFile_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+                MachineParameterFile.Text = openFileDialog.FileName;
         }
     }
 }
