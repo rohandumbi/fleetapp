@@ -48,7 +48,7 @@ namespace fleetapp.DataAccessClasses
                     foreach (MachineParameterYearMappingModel MachineParameterYearMapping in newMachineParameter.MachineParameterYearMapping)
                     {
                         MachineParameterYearMapping.MachineParameterId = newMachineParameter.Id;
-                        connection.QuerySingle(insertMappingQuery, new
+                        connection.Execute(insertMappingQuery, new
                         {
                             MachineParameterYearMapping.MachineParameterId,
                             MachineParameterYearMapping.Year,

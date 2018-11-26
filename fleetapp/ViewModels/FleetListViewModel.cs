@@ -38,15 +38,23 @@ namespace fleetapp.ViewModels
         {
             if(String.IsNullOrEmpty(_fleetFileName))
             {
-                Console.WriteLine("Please select a file");
                 MessageBox.Show("Please select a file!");
                 return;
             }
-            IEnumerable<FleetModel> Fleets = ReadCSV(_fleetFileName);
-            _fleetDataAccess.DeleteAll();
-            _fleetDataAccess.InsertFleets(Fleets);
-            LoadFleetList();
-            NotifyOfPropertyChange("Fleets");
+            try
+            {
+                IEnumerable<FleetModel> Fleets = ReadCSV(_fleetFileName);
+                _fleetDataAccess.DeleteAll();
+                _fleetDataAccess.InsertFleets(Fleets);
+                LoadFleetList();
+                NotifyOfPropertyChange("Fleets");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                MessageBox.Show("Could not import the file. Please verify the file again.");
+                return;
+            }          
         }
 
         private IEnumerable<FleetModel> ReadCSV(string fileName)

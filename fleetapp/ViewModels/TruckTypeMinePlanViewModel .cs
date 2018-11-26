@@ -50,15 +50,23 @@ namespace fleetapp.ViewModels
         {
             if (String.IsNullOrEmpty(_truckMinePlanFileName))
             {
-                Console.WriteLine("Please select a file");
                 MessageBox.Show("Please select a file!");
                 return;
             }
-            IEnumerable<TruckTypeMinePlanModel> newTruckTypeMinePlans = ReadCSV(_truckMinePlanFileName);
-            _TruckTypeMinePlanDataAccess.DeleteAll();
-            _TruckTypeMinePlanDataAccess.InsertTruckTypeMinePlans(newTruckTypeMinePlans);
-            LoadFTruckTypeMinePlanList();
-            NotifyOfPropertyChange("TruckTypeMinePlans");
+            try
+            {
+                IEnumerable<TruckTypeMinePlanModel> newTruckTypeMinePlans = ReadCSV(_truckMinePlanFileName);
+                _TruckTypeMinePlanDataAccess.DeleteAll();
+                _TruckTypeMinePlanDataAccess.InsertTruckTypeMinePlans(newTruckTypeMinePlans);
+                LoadFTruckTypeMinePlanList();
+                NotifyOfPropertyChange("TruckTypeMinePlans");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                MessageBox.Show("Could not import the file. Please verify the file again.");
+                return;
+            }
         }
 
         
