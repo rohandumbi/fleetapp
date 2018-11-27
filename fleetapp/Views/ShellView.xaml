@@ -39,6 +39,8 @@
             </Button>
             <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" Content="Hub Definition" Foreground="{Binding HubDefinitionButtonForeground}">
             </Button>
+            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" Content="Truck Hub Priority" Foreground="{Binding HubPriorityButtonForeground}">
+            </Button>
             <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" Content="Hub Allocation" Foreground="{Binding HubAllocationButtonForeground}">
             </Button>
             <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" IsEnabled="{Binding IsProjectSelected}" Content="Scenario" Foreground="{Binding ScenarioButtonForeground}">

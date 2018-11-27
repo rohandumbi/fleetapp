@@ -33,10 +33,10 @@
             </StackPanel.Resources>
             <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Machine Parameters" Foreground="{Binding MachineParameterButtonForeground}">
             </Button>
-            <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Truck Payloads" Foreground="{Binding TruckPayloadButtonForeground}">
+            <!--<Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Truck Payloads" Foreground="{Binding TruckPayloadButtonForeground}">
             </Button>
             <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Truck Groups" Foreground="{Binding TruckGroupButtonForeground}">
-            </Button>
+            </Button>-->
             <!--<Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Mine Plan" Foreground="{Binding MinePlanButtonForeground}">
             </Button>-->
             <Button cal:Message.Attach="[Event Click] = [Action ClickTab($source)]" Content="Truck Mine Plan" Foreground="{Binding TruckMinePlanButtonForeground}">

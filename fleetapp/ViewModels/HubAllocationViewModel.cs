@@ -23,7 +23,6 @@ namespace fleetapp.ViewModels
             _hubAllocationDataAccess = new HubAllocationDataAccess();
             LoadHubAllocation();
 
-
         }
         public void CreateHubAllocation()
         {

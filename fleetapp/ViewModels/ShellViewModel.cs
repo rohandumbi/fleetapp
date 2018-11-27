@@ -16,6 +16,7 @@ namespace fleetapp.ViewModels
         private String _hubDefinitionButtonForeground;
         private String _hubAllocationButtonForeground;
         private String _scenarioButtonForeground;
+        private String _hubPriorityButtonForeground;
         private bool _isProjectSelected;
 
         private readonly IEventAggregator _eventAggregator;
@@ -37,6 +38,16 @@ namespace fleetapp.ViewModels
             {
                 _projectButtonForeground = value;
                 NotifyOfPropertyChange(() => ProjectButtonForeground);
+            }
+        }
+
+        public string HubPriorityButtonForeground
+        {
+            get { return _hubPriorityButtonForeground; }
+            set
+            {
+                _hubPriorityButtonForeground = value;
+                NotifyOfPropertyChange(() => HubPriorityButtonForeground);
             }
         }
 
@@ -94,6 +105,7 @@ namespace fleetapp.ViewModels
         {
             ProjectButtonForeground = "#FF0E1A1F";
             FleetListButtonForeground = "#FF0E1A1F";
+            HubPriorityButtonForeground = "#FF0E1A1F";
             HubDefinitionButtonForeground = "#FF0E1A1F";
             HubAllocationButtonForeground = "#FF0E1A1F";
             ScenarioButtonForeground = "#FF0E1A1F";
@@ -103,6 +115,7 @@ namespace fleetapp.ViewModels
         {
             FleetListButtonForeground = "#D3D3D3";
             HubDefinitionButtonForeground = "#D3D3D3";
+            HubPriorityButtonForeground = "#D3D3D3";
             HubAllocationButtonForeground = "#D3D3D3";
             ScenarioButtonForeground = "#D3D3D3";
         }
@@ -131,6 +144,11 @@ namespace fleetapp.ViewModels
                         NotifyOfPropertyChange(() => HubDefinitionButtonForeground);
                         ShowHubDefinitionScreen();
                         break;
+                    case "Truck Hub Priority":
+                        HubPriorityButtonForeground = "#FF189AD3";
+                        NotifyOfPropertyChange(() => HubPriorityButtonForeground);
+                        ShowTruckHubPriorityScreen();
+                        break;
                     case "Hub Allocation":
                         HubAllocationButtonForeground = "#FF189AD3";
                         NotifyOfPropertyChange(() => HubAllocationButtonForeground);
@@ -155,6 +173,11 @@ namespace fleetapp.ViewModels
         private void ShowFleetListScreen()
         {
             ActivateItem(new FleetListViewModel());
+        }
+
+        private void ShowTruckHubPriorityScreen()
+        {
+            ActivateItem(new TruckHubPriorityViewModel());
         }
 
         private void ShowHubDefinitionScreen()
