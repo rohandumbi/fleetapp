@@ -3,6 +3,7 @@ using fleetapp.DataAccessClasses;
 using fleetapp.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,10 @@ namespace fleetapp.ViewModels
             HubModels = new List<HubModel>(_hubDataAccess.GetHubs());
             HubNames = new BindableCollection<string>(GetHubNames());
             AssetModels = new BindableCollection<string>(_fleetDataAccess.GetAssetModels());
+            foreach(HubAllocationModel hubAllocation in HubAllocations)
+            {
+                hubAllocation.PropertyChanged += hubAllocation_PropertyChanged;
+            }
         }
 
         private List<String> GetHubNames()
@@ -44,6 +49,14 @@ namespace fleetapp.ViewModels
                 hubNames.Add(hub.Name);
             }
             return hubNames;
+        }
+
+        private void hubAllocation_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Do stuff with fleet here
+            HubAllocationModel updatedModel = (HubAllocationModel)sender;
+            _hubAllocationDataAccess.UpdateHubAllocation(updatedModel);
+            NotifyOfPropertyChange(() => HubAllocations);
         }
 
         public HubAllocationViewModel()

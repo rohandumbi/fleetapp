@@ -16,18 +16,7 @@ namespace fleetapp.ViewModels
     {
         private FleetDataAccess _fleetDataAccess;
         private String _fleetFileName;
-        private BindableCollection<FleetModel> _fleets;
-        //public BindableCollection<FleetModel> Fleets { get; set; }
-
-        public BindableCollection<FleetModel> Fleets
-        {
-            get { return _fleets; }
-            set
-            {
-                _fleets = value;
-                NotifyOfPropertyChange(() => Fleets);
-            }
-        }
+        public BindableCollection<FleetModel> Fleets { get; set; }
 
         public FleetListViewModel()
         {
@@ -50,7 +39,6 @@ namespace fleetapp.ViewModels
             FleetModel updatedFleetModel = (FleetModel)sender;
             _fleetDataAccess.UpdateFleet(updatedFleetModel);
             NotifyOfPropertyChange(()=>Fleets);
-            //MessageBox.Show("Property changed priority: " + updatedFleetModel.Priority);
         }
 
         public String FleetFile
