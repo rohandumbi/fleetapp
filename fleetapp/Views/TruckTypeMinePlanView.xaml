@@ -27,6 +27,7 @@
                    Grid.Row="2" 
                    Grid.ColumnSpan="3" 
                    ItemsSource="{Binding TruckTypeMinePlans}"
+                   AlternatingRowBackground="LightCyan" 
                    attachedBehaviors:DataGridColumnsBehavior.BindableColumns="{Binding TruckTypeMinePlansColumns}"
                    CanUserAddRows="True" 
                    IsReadOnly="True" 

@@ -3,6 +3,7 @@ using fleetapp.DataAccessClasses;
 using fleetapp.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,18 @@ namespace fleetapp.ViewModels
             HubModels = new List<HubModel>(_hubDataAccess.GetHubs());
             HubNames = new BindableCollection<string>(GetHubNames());
             AssetModels = new BindableCollection<string>(_fleetDataAccess.GetAssetModels());
+            foreach (TruckHubPriorityModel truckHubPriority in TruckHubPriorities)
+            {
+                truckHubPriority.PropertyChanged += truckHubPriority_PropertyChanged;
+            }
+        }
+
+        private void truckHubPriority_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Do stuff with fleet here
+            TruckHubPriorityModel updatedTruckHubPriorityModel = (TruckHubPriorityModel)sender;
+            _truckHubPriorityDataAccess.UpdateTruckHubPriority(updatedTruckHubPriorityModel);
+            NotifyOfPropertyChange(() => TruckHubPriorities);
         }
 
         private List<String> GetHubNames()

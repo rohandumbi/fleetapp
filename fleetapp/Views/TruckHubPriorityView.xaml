@@ -49,8 +49,8 @@
                   AutoGenerateColumns="False" Grid.Row="2">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Truck" Binding="{Binding Path=AssetModel}" />
-                <DataGridTextColumn Header="Hub Name" Binding="{Binding Path=Hub}" />
+                <DataGridTextColumn Header="Truck" Binding="{Binding Path=AssetModel}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Hub Name" Binding="{Binding Path=Hub}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Priority" Binding="{Binding Path=Priority}" />
             </DataGrid.Columns>
         </DataGrid>
