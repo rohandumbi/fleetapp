@@ -70,13 +70,12 @@ namespace fleetapp.ViewModels
         {
             MachineParameterColumns.Add(new DataGridTextColumn { Header = "AssetModel", Binding = new Binding("AssetModel") });
             MachineParameterColumns.Add(new DataGridTextColumn { Header = "Hub", Binding = new Binding("Hub") });
-            this.MachineParameterColumns.Add(new DataGridTextColumn { Header = "Mode", Binding = new Binding("Mode") });
+            MachineParameterColumns.Add(new DataGridTextColumn { Header = "Mode", Binding = new Binding("Mode") });
 
             for (int i = 0; i < Scenario.TimePeriod; i++)
             {
                 int CurrentYear = Scenario.StartYear + i;
                 String BindingString = "MachineParameterYearMapping[" + i + "].Value";
-                Console.WriteLine(BindingString);
                 MachineParameterColumns.Add(new DataGridTextColumn { Header = CurrentYear, Binding = new Binding(BindingString) });
             }
         }

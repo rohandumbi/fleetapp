@@ -24,9 +24,9 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                String insertQuery = $"insert into HubAllocation (ProjectId, HubId, AssestModel, IsManned, IsAHS)" +
+                String insertQuery = $"insert into HubAllocation (ProjectId, HubId, AssetModel, IsManned, IsAHS)" +
                     $" OUTPUT INSERTED.Id  " +
-                    $" VALUES(@ProjectId, @HubId, @AssestModel, @IsManned, @IsAHS)";
+                    $" VALUES(@ProjectId, @HubId, @AssetModel, @IsManned, @IsAHS)";
                 newHubAllocation.Id = connection.QuerySingle<int>(insertQuery, new
                 {
                     newHubAllocation.ProjectId,
