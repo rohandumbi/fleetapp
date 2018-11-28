@@ -3,6 +3,7 @@ using fleetapp.DataAccessClasses;
 using fleetapp.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,18 @@ namespace fleetapp.ViewModels
     {
         private FleetDataAccess _fleetDataAccess;
         private String _fleetFileName;
-        public BindableCollection<FleetModel> Fleets { get; set; }
+        private BindableCollection<FleetModel> _fleets;
+        //public BindableCollection<FleetModel> Fleets { get; set; }
+
+        public BindableCollection<FleetModel> Fleets
+        {
+            get { return _fleets; }
+            set
+            {
+                _fleets = value;
+                NotifyOfPropertyChange(() => Fleets);
+            }
+        }
 
         public FleetListViewModel()
         {
@@ -26,7 +38,19 @@ namespace fleetapp.ViewModels
         private void LoadFleetList()
         {
             Fleets = new BindableCollection<FleetModel>(_fleetDataAccess.GetFleets());
+            foreach (FleetModel fleet in Fleets)
+            {
+                fleet.PropertyChanged += fleet_PropertyChanged;
+            }
+        }
 
+        private void fleet_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Do stuff with fleet here
+            FleetModel updatedFleetModel = (FleetModel)sender;
+            _fleetDataAccess.UpdateFleet(updatedFleetModel);
+            NotifyOfPropertyChange(()=>Fleets);
+            //MessageBox.Show("Property changed priority: " + updatedFleetModel.Priority);
         }
 
         public String FleetFile
