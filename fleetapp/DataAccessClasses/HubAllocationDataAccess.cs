@@ -37,5 +37,23 @@ namespace fleetapp.DataAccessClasses
                 });
             }
         }
+
+        public void UpdateHubAllocation(HubAllocationModel HubAllocation)
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                String updateQuery = $"update HubAllocation set AssetModel = @AssetModel, HubId = @HubId," +
+                    $" IsManned= @IsManned, IsAHS = @IsAHS where Id = @Id";
+
+                connection.Execute(updateQuery, new
+                {
+                    HubAllocation.HubId,
+                    HubAllocation.AssetModel,
+                    HubAllocation.IsManned,
+                    HubAllocation.IsAHS,
+                    HubAllocation.Id
+                });
+            }
+        }
     }
 }

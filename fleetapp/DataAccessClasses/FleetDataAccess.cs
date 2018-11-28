@@ -50,6 +50,19 @@ namespace fleetapp.DataAccessClasses
             }
         }
 
+        public void UpdateFleet(FleetModel Fleet)
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                String updateQuery = $"update Fleet set Priority = @Priority where Id = @Id";
+                connection.Query(updateQuery, new
+                {
+                    Fleet.Priority,
+                    Fleet.Id
+                });
+                
+            }
+        }
         public void DeleteAll()
         {
             using (IDbConnection connection = getConnection())
