@@ -72,7 +72,7 @@ namespace fleetapp.ViewModels
                 MessageBox.Show("Selected Hub does not exist");
                 return;
             }
-            //MessageBox.Show("AssetModel: " + SelectedAssetModel + " Hub Name: " + SelectedHubName + " Hub Id: " + HubId + " isAHS: " + IsAHSSelected + " isManned: " + IsMannedSelected);
+            Console.WriteLine("AssetModel: " + SelectedAssetModel + " Hub Name: " + SelectedHubName + " Hub Id: " + HubId + " isAHS: " + IsAHSSelected + " isManned: " + IsMannedSelected);
             HubAllocationModel newHubAllocation = new HubAllocationModel
             {
                 ProjectId = Context.ProjectId,
