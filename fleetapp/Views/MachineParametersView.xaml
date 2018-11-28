@@ -29,7 +29,8 @@
                    ItemsSource="{Binding MachineParameters}" 
                    attachedBehaviors:DataGridColumnsBehavior.BindableColumns="{Binding MachineParameterColumns}"
                    CanUserAddRows="True" 
-                   IsReadOnly="True" 
+                   IsReadOnly="True"
+                   AlternatingRowBackground="LightCyan" 
                    AutoGenerateColumns="False"/>
 
     </Grid>
