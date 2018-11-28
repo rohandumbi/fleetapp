@@ -76,10 +76,5 @@ namespace fleetapp.DataAccessClasses
                 connection.Execute($"delete from TruckHubPriority where ProjectID = { Context.ProjectId }");
             }
         }
-
-        public void UpdateTruckHubPriority(TruckHubPriorityModel newModel)
-        {
-            // do something
-        }
     }
 }
