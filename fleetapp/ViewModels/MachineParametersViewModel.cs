@@ -21,12 +21,12 @@ namespace fleetapp.ViewModels
         private ScenarioDataAccess _ScenarioDataAccess;
         private String _MachineParameterFileName;
         public ScenarioModel Scenario;
-        public BindableCollection<MachineParameterModel> MachineParameters { get; set; }
+        public BindableCollection<MPPresentationModel> MachineParameters { get; set; }
         public ObservableCollection<DataGridColumn> MachineParameterColumns { get; private set; }
 
         private void LoadMachineParameterList()
         {
-            MachineParameters = new BindableCollection<MachineParameterModel>(_machineParameterDataAccess.GetMachineParameters());
+            MachineParameters = new BindableCollection<MPPresentationModel>(BuildPresentationModel(_machineParameterDataAccess.GetMachineParameters()));
         }
         public MachineParametersViewModel()
         {
@@ -71,15 +71,63 @@ namespace fleetapp.ViewModels
             MachineParameterColumns.Add(new DataGridTextColumn { Header = "AssetModel", Binding = new Binding("AssetModel") });
             MachineParameterColumns.Add(new DataGridTextColumn { Header = "Hub", Binding = new Binding("Hub") });
             MachineParameterColumns.Add(new DataGridTextColumn { Header = "Mode", Binding = new Binding("Mode") });
+            MachineParameterColumns.Add(new DataGridTextColumn { Header = "Type", Binding = new Binding("Type") });
 
             for (int i = 0; i < Scenario.TimePeriod; i++)
             {
                 int CurrentYear = Scenario.StartYear + i;
-                String BindingString = "MachineParameterYearMapping[" + i + "].Value";
+                String BindingString = "MPPresenationYearMapping[" + i + "].Value";
                 MachineParameterColumns.Add(new DataGridTextColumn { Header = CurrentYear, Binding = new Binding(BindingString) });
             }
         }
 
+        private List<MPPresentationModel> BuildPresentationModel(List<MachineParameterModel> MachineParameters)
+        {
+            List<MPPresentationModel> MPPresentationList = new List<MPPresentationModel>();
+            Dictionary<String, String> mapping = new Dictionary<string, string>();
+            mapping.Add("SchEU", "Sch EU % (excl. NPOT)");
+            mapping.Add("Npot", "NPOT");
+            mapping.Add("UtEu", "UT% - EU%");
+            mapping.Add("Payload", "Payload");
+            mapping.Add("EngineHours", "Engine Hours");
+            mapping.Add("UsableHours", "Usable Hours");
+            foreach (var MachineParameter in MachineParameters)
+            {
+                foreach(var key in mapping.Keys)
+                {
+                    MPPresentationModel MPPresentation = new MPPresentationModel
+                    {
+                        Id = MachineParameter.Id,
+                        ScenarioId = MachineParameter.ScenarioId,
+                        AssetModel = MachineParameter.AssetModel,
+                        Hub = MachineParameter.Hub,
+                        Mode = MachineParameter.Mode,
+                        Type = mapping[key]
+                    };
+                    MPPresentation.MPPresenationYearMapping = new List<MPPresenationYearMappingModel>();
+                    foreach (var MachineParameterMapping in MachineParameter.MachineParameterYearMapping)
+                    {
+                        MPPresenationYearMappingModel MPPresenationYearMapping = new MPPresenationYearMappingModel
+                        {
+                            Year = MachineParameterMapping.Year
+                        };
+                        if(key.Equals("Payload"))
+                        {
+                            MPPresenationYearMapping.Value
+                                = (int)(typeof(MachineParameterYearMappingModel).GetProperty(key).GetValue(MachineParameterMapping));
+                        } else
+                        {
+                            MPPresenationYearMapping.Value
+                                = (Decimal)(typeof(MachineParameterYearMappingModel).GetProperty(key).GetValue(MachineParameterMapping));
+                        }
+                        MPPresentation.MPPresenationYearMapping.Add(MPPresenationYearMapping);
+                    }
+                    MPPresentationList.Add(MPPresentation);
+                }
+                
+            }
+            return MPPresentationList;
+        }
         private List<MachineParameterModel> ReadCSV(string fileName)
         {
             List<MachineParameterModel> newMachineParameters = new List<MachineParameterModel>();

@@ -30,4 +30,20 @@ namespace fleetapp.Models
         public Decimal UsableHours { get; set; }
 
     }
+
+    public class MPPresentationModel
+    {
+        public int Id { get; set; }
+        public int ScenarioId { get; set; }
+        public String AssetModel { get; set; }
+        public String Hub { get; set; }
+        public String Mode { get; set; }
+        public String Type { get; set; }
+        public List<MPPresenationYearMappingModel> MPPresenationYearMapping { get; set; }
+    }
+    public class MPPresenationYearMappingModel
+    {      
+        public int Year { get; set; }
+        public Decimal Value { get; set; }
+    }
 }
