@@ -42,14 +42,29 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                String insertQuery = $"insert into TruckHubPriority (ProjectID, AssetModel, Hub, Priority ) " +
-                   $"values ( @ProjectID, @AssetModel, @Hub, @Priority)";
-                connection.Query(insertQuery, new
+                String insertQuery = $"insert into TruckHubPriority (ProjectID, AssetModel, Hub, Priority )" +
+                    $" OUTPUT INSERTED.Id  " +
+                    $" values ( @ProjectID, @AssetModel, @Hub, @Priority) ";
+
+                newTruckHubPriority.Id = connection.QuerySingle<int>(insertQuery, new
                 {
                     newTruckHubPriority.ProjectId,
                     newTruckHubPriority.AssetModel,
                     newTruckHubPriority.Hub,
                     newTruckHubPriority.Priority
+                });
+            }
+        }
+
+        public void UpdateTruckHubPriority(TruckHubPriorityModel TruckHubPriority)
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                String updateQuery = $"update TruckHubPriority set Priority = @Priority where Id = @Id ";
+                connection.Query(updateQuery, new
+                {
+                    TruckHubPriority.Priority,
+                    TruckHubPriority.Id
                 });
             }
         }
