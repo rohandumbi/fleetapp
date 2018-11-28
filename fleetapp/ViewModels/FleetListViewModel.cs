@@ -3,6 +3,7 @@ using fleetapp.DataAccessClasses;
 using fleetapp.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,18 @@ namespace fleetapp.ViewModels
         private void LoadFleetList()
         {
             Fleets = new BindableCollection<FleetModel>(_fleetDataAccess.GetFleets());
+            foreach (FleetModel fleet in Fleets)
+            {
+                fleet.PropertyChanged += fleet_PropertyChanged;
+            }
+        }
 
+        private void fleet_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Do stuff with fleet here
+            FleetModel updatedFleetModel = (FleetModel)sender;
+            _fleetDataAccess.UpdateFleet(updatedFleetModel);
+            NotifyOfPropertyChange(()=>Fleets);
         }
 
         public String FleetFile

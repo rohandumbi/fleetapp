@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:fleetapp.Views"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"   
              mc:Ignorable="d" 
+             xmlns:cal="http://www.caliburnproject.org"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
@@ -23,7 +25,12 @@
 
         <TextBox x:Name="FleetFile" Grid.Row="1" Grid.Column="1" Width="150" Margin="0 0 5 10" PreviewMouseDown="FleetFile_MouseDown"/>
         <Button x:Name="ImportFile" Grid.Row="1" Grid.Column="2" Width="75" Margin="0 0 0 10">Import File</Button>
-        <DataGrid x:Name="Fleets" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" AlternatingRowBackground="LightCyan" CanUserAddRows="False"
+        <DataGrid x:Name="Fleets" 
+                  Grid.Row="2" 
+                  Grid.Column="1" 
+                  Grid.ColumnSpan="3" 
+                  AlternatingRowBackground="LightCyan" 
+                  CanUserAddRows="False"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Asset Type" Binding="{Binding Path=AssetType}" IsReadOnly="True"/>
