@@ -239,12 +239,26 @@ namespace fleetapp.LP
                             if (HubAllocation.IsManned)
                             {
                                 var engineHours = ctx.getEngineHours(Hub.Name, AssetModel, "Manned", i);
-                                line = line + " + " + ( 1/ engineHours ) + " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
+                                if(engineHours != 0)
+                                {
+                                    line = line + " + " + (1 / engineHours) + " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
+                                } else
+                                {
+                                    Console.WriteLine("Manned - HubName :" + Hub.Name + " AssetModel :" + AssetModel + " i :" + i);
+                                }
+                                
                             }
                             if (HubAllocation.IsAHS)
                             {
                                 var engineHours = ctx.getEngineHours(Hub.Name, AssetModel, "AHS", i);
-                                line = line + " + " + (1 / engineHours) +  " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
+                                if (engineHours != 0)
+                                {
+                                    line = line + " + " + (1 / engineHours) + " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("AHS - HubName :" + Hub.Name + " AssetModel :" + AssetModel + " i :" + i);
+                                }
                             }
                         }
                         
