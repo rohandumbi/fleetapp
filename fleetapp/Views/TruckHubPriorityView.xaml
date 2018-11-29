@@ -34,10 +34,10 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="LabelAssetModel" Grid.Row="2" Grid.Column="1" Margin="0 0 5 10" Text="Asset Model:"/>
-                <ComboBox x:Name="AssetModels"  Grid.Row="2" Grid.Column="2" Margin="0 0 5 10" SelectedItem="{Binding SelectedAssetModel}" >
+                <ComboBox x:Name="AssetModels"  Grid.Row="2" Grid.Column="2" Margin="0 0 5 10" Width="150" SelectedItem="{Binding SelectedAssetModel}" >
                 </ComboBox>
                 <TextBlock x:Name="LabelHubName" Grid.Row="2" Grid.Column="3" Margin="0 0 5 10" Text="Hub Name:"/>
-                <ComboBox x:Name="HubNames"  Grid.Row="2" Grid.Column="4" Margin="0 0 5 10" SelectedItem="{Binding SelectedHubName}" >
+                <ComboBox x:Name="HubNames"  Grid.Row="2" Grid.Column="4" Margin="0 0 5 10" Width="150" SelectedItem="{Binding SelectedHubName}" >
                 </ComboBox>
                 <TextBlock x:Name="LabelPriority" Grid.Row="2" Grid.Column="5" Margin="0 0 5 10" Text="Priority:"/>
                 <TextBox x:Name="Priority" Grid.Row="2" Grid.Column="6" Width="150" Margin="0 0 5 10" Text="{Binding SelectedHubPriority}"/>
