@@ -27,5 +27,13 @@ namespace fleetapp.DataAccessClasses
                 newHub.Id = connection.QuerySingle<int>(insertQuery, new { newHub.ProjectId, newHub.Name });
             }
         }
+
+        public void DeletetHub(int HubId)
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                connection.Execute($"delete from Hub where Id = { HubId } ");
+            }
+        }
     }
 }

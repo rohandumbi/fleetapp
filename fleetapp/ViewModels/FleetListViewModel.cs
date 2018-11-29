@@ -75,8 +75,7 @@ namespace fleetapp.ViewModels
             lines = lines.Skip(1).ToArray();
             var _assetNumber = 0;
             return lines.Select(line =>
-            {
-                
+            {               
                 string[] data = line.Split(',');
                 _assetNumber += 1;
                 return new FleetModel
