@@ -55,5 +55,13 @@ namespace fleetapp.DataAccessClasses
                 });
             }
         }
+
+        public void DeleteHubAllocation(int HubAllocationId)
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                connection.Execute($"delete from HubAllocation where Id = { HubAllocationId } ");
+            }
+        }
     }
 }

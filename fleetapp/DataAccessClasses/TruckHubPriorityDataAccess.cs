@@ -69,6 +69,14 @@ namespace fleetapp.DataAccessClasses
             }
         }
 
+        public void DeleteTruckHubPriority(int TruckHubPriorityId)
+        {
+            using (IDbConnection connection = getConnection())
+            {
+                connection.Execute($"delete from TruckHubPriority where Id = { TruckHubPriorityId }");
+            }
+        }
+
         public void DeleteAll()
         {
             using (IDbConnection connection = getConnection())
