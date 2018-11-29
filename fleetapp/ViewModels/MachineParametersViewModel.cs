@@ -177,9 +177,10 @@ namespace fleetapp.ViewModels
                         UtEu = Decimal.Parse(datarows[2][i]),
                         Payload = Int32.Parse(datarows[3][i])
                     };
-                    mapping.Days = (new DateTime(mapping.StartDate.Year, 12, 31)).DayOfYear - mapping.StartDate.DayOfYear;
-                    mapping.EngineHours = (mapping.SchEU + mapping.Npot + mapping.UtEu) * mapping.Days * 24 / 100;
-                    mapping.UsableHours = mapping.SchEU * mapping.Days * 24 / 100;
+                    mapping.Days = (new DateTime(mapping.StartDate.Year, 12, 31)).DayOfYear;
+                    Console.WriteLine(mapping.Days);
+                    mapping.EngineHours = (mapping.SchEU + mapping.Npot + mapping.UtEu) * mapping.Days * 24 ;
+                    mapping.UsableHours = mapping.SchEU * mapping.Days * 24 ;
                     newMachineParameter.MachineParameterYearMapping.Add(mapping);
                 }
                 newMachineParameters.Add(newMachineParameter);
