@@ -84,7 +84,8 @@ namespace fleetapp.ViewModels
                 Priority = Convert.ToInt32(SelectedHubPriority);
             } catch (Exception e)
             {
-                MessageBox.Show("Improper priority value");
+                MessageBox.Show("Improper priority value.");
+                Console.WriteLine(e.Message);
                 return;
             }
             if (Priority == 0) {

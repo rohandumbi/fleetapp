@@ -111,15 +111,9 @@ namespace fleetapp.ViewModels
                         {
                             Year = MachineParameterMapping.Year
                         };
-                        if(key.Equals("Payload"))
-                        {
-                            MPPresenationYearMapping.Value
-                                = (int)(typeof(MachineParameterYearMappingModel).GetProperty(key).GetValue(MachineParameterMapping));
-                        } else
-                        {
-                            MPPresenationYearMapping.Value
-                                = (Decimal)(typeof(MachineParameterYearMappingModel).GetProperty(key).GetValue(MachineParameterMapping));
-                        }
+
+                        MPPresenationYearMapping.Value = (Decimal)(typeof(MachineParameterYearMappingModel).GetProperty(key).GetValue(MachineParameterMapping));
+                        
                         MPPresentation.MPPresenationYearMapping.Add(MPPresenationYearMapping);
                     }
                     MPPresentationList.Add(MPPresentation);
@@ -138,7 +132,7 @@ namespace fleetapp.ViewModels
             for (int i = 2; i < lines.Length; i++)
             {
                 var data = lines[i].Split(',');
-                var key = data[0] + "-" + data[1] + "-" + data[2];
+                var key = data[0] + ":" + data[1] + ":" + data[2];
                 List<String[]> dataList;
                 if (MachineParamterDictionary.ContainsKey(key))
                 {
@@ -156,7 +150,7 @@ namespace fleetapp.ViewModels
                 var item = MachineParamterDictionary.ElementAt(index);
                 var key = item.Key;
                 var datarows = item.Value.ToArray();
-                var keyData = key.Split('-');
+                var keyData = key.Split(':');
                 var newMachineParameter = new MachineParameterModel
                 {
                     ScenarioId = Context.ScenarioId,

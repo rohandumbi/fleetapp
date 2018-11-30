@@ -16,8 +16,8 @@ namespace fleetapp.Models
         public String AssetType { get; set; }
         public String AssetModel { get; set; }
         public String FleetId { get; set; }
-        public int InitialAge { get; set; }
-        public int FinalAge { get; set; }
+        public Decimal InitialAge { get; set; }
+        public Decimal FinalAge { get; set; }
         public int Priority
         {
             get { return _priority; }

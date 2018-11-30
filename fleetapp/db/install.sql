@@ -32,8 +32,8 @@ CREATE TABLE Fleet (
    FleetId VARCHAR(50) NOT NULL,
    AssetType VARCHAR(50),
    AssetModel VARCHAR(50),
-   InitialAge INT,
-   FinalAge INT,
+   InitialAge DECIMAL(18,10),
+   FinalAge DECIMAL(18,10),
    Priority INT,
    unique (ProjectId, FleetId)
 );
@@ -81,7 +81,7 @@ CREATE TABLE TruckPayload (
    ScenarioId INT NOT NULL,
    AssetModel VARCHAR(50),
    MaterialType VARCHAR(10),
-   Payload INT NOT NULL,
+   Payload DECIMAL(18,10) NOT NULL,
    unique (ScenarioId, AssetModel, MaterialType)
 );
 
@@ -120,7 +120,7 @@ CREATE TABLE MachineParameterYearMapping (
    SchEU DECIMAL(18, 10),
    Npot  DECIMAL(18, 10),
    UtEu  DECIMAL(18, 10),
-   Payload INT,
+   Payload DECIMAL(18,10),
    EngineHours  DECIMAL(18, 10),
    UsableHours  DECIMAL(18, 10),
    unique (MachineParameterId,Year)
@@ -145,7 +145,7 @@ DROP TABLE TruckHourYearMapping;
 CREATE TABLE TruckHourYearMapping (
    TruckHourId INT,
    Year INT,
-   Value NUMERIC,
+   Value DECIMAL(18,10),
    unique (TruckHourId,Year)
 );
 
@@ -166,7 +166,7 @@ DROP TABLE MinePlanYearMapping;
 CREATE TABLE MinePlanYearMapping (
    MinePlanId INT,
    Year INT,
-   Value NUMERIC,
+   Value DECIMAL(18,10),
    unique (MinePlanId, Year)
 );
 
@@ -178,7 +178,7 @@ CREATE TABLE TruckTypeMinePlan (
    ScenarioId INT NOT NULL,
    Hub VARCHAR(50),
    TruckType VARCHAR(50),
-   MinePlanPayload INT,
+   MinePlanPayload DECIMAL(18,10),
    unique (ScenarioId, Hub, TruckType)
 );
 

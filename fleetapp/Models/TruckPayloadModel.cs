@@ -12,6 +12,6 @@ namespace fleetapp.Models
         public int ScenarioId { get; set; }
         public String AssetModel { get; set; }
         public String MaterialType { get; set; }
-        public int Payload { get; set; }
+        public Decimal Payload { get; set; }
     }
 }

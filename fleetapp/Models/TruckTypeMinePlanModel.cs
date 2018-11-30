@@ -12,7 +12,7 @@ namespace fleetapp.Models
         public int ScenarioId { get; set; }
         public String Hub { get; set; }
         public String TruckType { get; set; }
-        public int MinePlanPayload { get; set; }
+        public Decimal MinePlanPayload { get; set; }
         public List<TruckTypeMinePlanYearMappingModel> TruckTypeMinePlanYearMapping { get; set; }
 
     }

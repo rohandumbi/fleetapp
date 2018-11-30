@@ -25,7 +25,7 @@ namespace fleetapp.Models
         public Decimal SchEU { get; set; }
         public Decimal Npot { get; set; }
         public Decimal UtEu { get; set; }
-        public int Payload { get; set; }
+        public Decimal Payload { get; set; }
         public Decimal EngineHours { get; set; }
         public Decimal UsableHours { get; set; }
 
