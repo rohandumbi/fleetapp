@@ -50,7 +50,7 @@ namespace fleetapp.DataAccessClasses
 
                 foreach(TruckHourYearMappingModel TruckHourYearMapping in newTruckHour.TruckHourYearMapping) {
                     TruckHourYearMapping.TruckHourId = newTruckHour.Id;
-                    connection.QuerySingle(insertMappingQuery, new
+                    connection.Query(insertMappingQuery, new
                     {
                         TruckHourYearMapping.TruckHourId,
                         TruckHourYearMapping.Year,
