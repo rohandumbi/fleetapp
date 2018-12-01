@@ -63,9 +63,9 @@ namespace fleetapp.ViewModels
         {
             this.TruckHoursColumns.Add(
                 new DataGridTextColumn { Header = "Asset_Model", Binding = new Binding("AssetModel") });
-            this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Group Name", Binding = new Binding("GroupName") });
-            this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Hub", Binding = new Binding("HubName") });
-            this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Mode", Binding = new Binding("Mode") });
+            this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Group Name", Binding = new Binding("GroupName"), IsReadOnly = true });
+            this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Hub", Binding = new Binding("HubName"), IsReadOnly = true });
+            this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Mode", Binding = new Binding("Mode"), IsReadOnly = true });
             for (int i = 0; i < Scenario.TimePeriod; i++)
             {
                 int CurrentYear = Scenario.StartYear + i;
