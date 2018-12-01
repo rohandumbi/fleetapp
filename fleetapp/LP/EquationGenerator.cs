@@ -88,6 +88,7 @@ namespace fleetapp.LP
             WriteRequiredHourConstraints(sw);
             WriteMachineAgeConstraints(sw);
             WriteMachineAcrossHubConstraints(sw);
+            WriteTruckHourConstraints(sw);
         }
 
         private void WriteEngineHourConstraints(StreamWriter sw)
@@ -263,6 +264,42 @@ namespace fleetapp.LP
                         }
                         
                         line = line + " <= 1 ";
+                        sw.WriteLine(line);
+                    }
+                }
+            }
+        }
+
+        private void WriteTruckHourConstraints(StreamWriter sw)
+        {
+            sw.WriteLine("\\Truck hour constraint");
+
+            foreach (var TruckHour in ctx.TruckHours)
+            {
+                List<FleetModel> fleets = ctx.getFleetsByAssetModel(TruckHour.AssetModel);
+                var Hub = ctx.getHubById(TruckHour.HubId);
+                int TimePeriod = ctx.Scenario.TimePeriod;
+                int mode = (TruckHour.Mode == "Manned") ? 1 : 2;
+                for (var i = 1; i <= TimePeriod; i++)
+                {
+                    Decimal value = -1;
+                    foreach(var TruckHourMapping in TruckHour.TruckHourYearMapping)
+                    {
+                        if(TruckHourMapping.Year == (ctx.Scenario.StartYear + i))
+                        {
+                            value = TruckHourMapping.Value;
+                            break;
+                        }
+                    }
+                    if (value == -1) continue;
+                    String line = "";
+                    foreach(var fleet in fleets)
+                    {
+                        line = line + " + x" + fleet.AssetNumber + "h" + Hub.HubNumber + "m" + mode;
+                    }
+                    if(line.Length > 0)
+                    {
+                        line = line + " <= " + value;
                         sw.WriteLine(line);
                     }
                 }

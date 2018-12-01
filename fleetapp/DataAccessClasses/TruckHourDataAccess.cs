@@ -15,23 +15,26 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                var TruckHours = connection.Query<TruckHourModel>($"select * from TruckHour where ScenarioID = { Context.ScenarioId }").ToList();
+                var TruckHours = connection.Query<TruckHourModel>($"select .a*, b.Name as HubName " +
+                    $"from TruckHour a, Hub b " +
+                    $"where b.Id = a.HubId  and ScenarioID = { Context.ScenarioId }").ToList();
                 foreach (var TruckHour in TruckHours)
                 {
-                    TruckHour.TruckHourYearMapping = connection.Query<TruckHourYearMappingModel>($"select * from TruckHourYearMapping where TruckHourID = { TruckHour.Id }").ToList();
+                    TruckHour.TruckHourYearMapping
+                        = connection.Query<TruckHourYearMappingModel>($"select * from TruckHourYearMapping where TruckHourID = { TruckHour.Id }").ToList();
                 }
                 return TruckHours;
             }
         }
 
-        public void InsertTruckHours(TruckHourModel newTruckHour)
+        public void InsertTruckHour(TruckHourModel newTruckHour)
         {
 
             using (IDbConnection connection = getConnection())
             {
-                String insertQuery = $"insert into TruckHour (ScenarioId, AssetModel, GroupName, Hub, Mode)" +
+                String insertQuery = $"insert into TruckHour (ScenarioId, AssetModel, GroupName, HubId, Mode)" +
                     $" OUTPUT INSERTED.Id  " +
-                    $" VALUES(@ScenarioId, @AssetModel, @GroupName, @Hub, @Mode)";
+                    $" VALUES(@ScenarioId, @AssetModel, @GroupName, @HubId, @Mode)";
 
                 String insertMappingQuery = $"insert into TruckHourYearMapping (TruckHourId, Year, Value)" +
                     $" VALUES(@TruckHoursId, @Year, @Value)";
@@ -41,7 +44,7 @@ namespace fleetapp.DataAccessClasses
                     newTruckHour.ScenarioId,
                     newTruckHour.AssetModel,
                     newTruckHour.GroupName,
-                    newTruckHour.Hub,
+                    newTruckHour.HubId,
                     newTruckHour.Mode
                 });
 
@@ -54,6 +57,39 @@ namespace fleetapp.DataAccessClasses
                         TruckHoursYearMapping.Value
                     });
                 }
+            }
+        }
+
+        public void InsertTruckHourMapping(TruckHourModel TruckHour)
+        {
+
+            using (IDbConnection connection = getConnection())
+            {
+
+                String insertMappingQuery = $"insert into TruckHourYearMapping (TruckHourId, Year, Value)" +
+                    $" VALUES(@TruckHoursId, @Year, @Value)";
+
+                foreach (TruckHourYearMappingModel TruckHoursYearMapping in TruckHour.TruckHourYearMapping)
+                {
+                    TruckHoursYearMapping.TruckHourId = TruckHour.Id;
+                    connection.QuerySingle(insertMappingQuery, new
+                    {
+                        TruckHoursYearMapping.TruckHourId,
+                        TruckHoursYearMapping.Year,
+                        TruckHoursYearMapping.Value
+                    });
+                }
+            }
+        }
+
+        public void DeleteTruckHourMapping(int TruckHourId)
+        {
+
+            using (IDbConnection connection = getConnection())
+            {
+
+                String deleteMappingQuery = $"delete from TruckHourYearMapping where TruckHourId = {TruckHourId} ";
+                connection.Execute(deleteMappingQuery);
             }
         }
     }

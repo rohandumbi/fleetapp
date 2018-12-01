@@ -20,6 +20,7 @@ namespace fleetapp
         public List<TruckHubPriorityModel> TruckHubPriorities;
         public List<MachineParameterModel> MachineParameters;
         public List<TruckTypeMinePlanModel> TruckTypeMinePlans;
+        public List<TruckHourModel> TruckHours;
 
         public List<String> AssetModels;
 
@@ -41,6 +42,7 @@ namespace fleetapp
             TruckHubPriorities = new TruckHubPriorityDataAccess().GetTruckHubPriorities();
             MachineParameters = new MachineParameterDataAccess().GetMachineParameters();
             TruckTypeMinePlans = new TruckTypeMinePlanDataAccess().GetTruckTypeMinePlans();
+            TruckHours = new TruckHourDataAccess().GetTruckHours();
         }
 
         public List<FleetModel> getFleetsByAssetModel(String AssetModel)

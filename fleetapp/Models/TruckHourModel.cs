@@ -12,7 +12,8 @@ namespace fleetapp.Models
         public int ScenarioId { get; set; }
         public String AssetModel { get; set; }
         public String GroupName { get; set; }
-        public String Hub { get; set; }
+        public int HubId { get; set; }
+        public String HubName { get; set; }
         public String Mode { get; set; }
         public List<TruckHourYearMappingModel> TruckHourYearMapping { get; set; }
     }

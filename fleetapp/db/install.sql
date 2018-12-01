@@ -134,7 +134,7 @@ CREATE TABLE TruckHour (
    ScenarioId INT NOT NULL,
    AssetModel VARCHAR(50),
    GroupName VARCHAR(50),
-   Hub VARCHAR(50),
+   HubId INT,
    Mode VARCHAR(50),
    unique (ScenarioId,AssetModel, GroupName, Hub, Mode)
 );
