@@ -17,11 +17,15 @@ namespace fleetapp.ViewModels
     {
         TruckHourDataAccess da;
         public BindableCollection<TruckHourModel> TruckHours { get; set; }
+        private ScenarioDataAccess _ScenarioDataAccess;
+        private ScenarioModel Scenario;
 
         public TruckHoursViewModel()
         {
             da = new TruckHourDataAccess();
             TruckHours = new BindableCollection<TruckHourModel>(da.GetTruckHours());
+            _ScenarioDataAccess = new ScenarioDataAccess();
+            Scenario = _ScenarioDataAccess.GetScenario(Context.ScenarioId);
             this.TruckHoursColumns = new ObservableCollection<DataGridColumn>();
             this.GenerateDefaultColumns();
         }
@@ -35,14 +39,10 @@ namespace fleetapp.ViewModels
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Group Name", Binding = new Binding("GroupName") });
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Hub", Binding = new Binding("Hub") });
             this.TruckHoursColumns.Add(new DataGridTextColumn { Header = "Mode", Binding = new Binding("Mode") });
-
-            foreach (var map in this.TruckHours[0].TruckHourYearMapping.Select((value, i) => new { i, value }))
+            for (int i = 0; i < Scenario.TimePeriod; i++)
             {
-                var value = map.value;
-                var index = map.i;
-                int CurrentYear = value.Year;
-                String BindingString = "mapping[" + index.ToString() + "].Value";
-                Console.WriteLine(BindingString);
+                int CurrentYear = Scenario.StartYear + i;
+                String BindingString = "TruckHourYearMapping[" + i + "].Value";
                 this.TruckHoursColumns.Add(new DataGridTextColumn { Header = CurrentYear, Binding = new Binding(BindingString) });
             }
         }
