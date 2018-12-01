@@ -10,7 +10,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -27,9 +27,39 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <DataGrid  Grid.Column="2"
+        <GroupBox x:Name="groupBox" 
+                  Header="Create New Row" 
+                  Grid.Column="1"
+                  Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10px" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="LabelAssetModel" Grid.Row="2" Grid.Column="1" Margin="0 0 5 10" Text="Asset Model:"/>
+                <ComboBox x:Name="AssetModels"  Width="150" Grid.Row="2" Grid.Column="2" Margin="0 0 5 10" SelectedItem="{Binding SelectedAssetModel}" >
+                </ComboBox>
+                <TextBlock x:Name="LabelHubName" Grid.Row="2" Grid.Column="3" Margin="0 0 5 10" Text="Hub Name:"/>
+                <ComboBox x:Name="HubNames"  Width="150" Grid.Row="2" Grid.Column="4" Margin="0 0 5 10" SelectedItem="{Binding SelectedHubName}" >
+                </ComboBox>
+                <TextBlock x:Name="LabelModeName" Grid.Row="2" Grid.Column="5" Margin="0 0 5 10" Text="Mode:"/>
+                <ComboBox x:Name="ModeNames"  Width="100" Grid.Row="2" Grid.Column="6" Margin="0 0 5 10" SelectedItem="{Binding SelectedMode}" >
+                </ComboBox>
+                <Button x:Name="CreateTruckHour" Grid.Row="2" Grid.Column="8" Width="75" Margin="10 0 5 10">Add</Button>
+            </Grid>
+        </GroupBox>
+        <DataGrid  Grid.Column="1"
                    Grid.Row="2" 
-                   Grid.ColumnSpan="3"
                    Margin="10,0,0,10" 
                    ItemsSource="{Binding TruckHours}"
                    attachedBehaviors:DataGridColumnsBehavior.BindableColumns="{Binding TruckHoursColumns}"

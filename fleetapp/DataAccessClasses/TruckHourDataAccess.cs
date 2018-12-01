@@ -15,7 +15,7 @@ namespace fleetapp.DataAccessClasses
         {
             using (IDbConnection connection = getConnection())
             {
-                var TruckHours = connection.Query<TruckHourModel>($"select .a*, b.Name as HubName " +
+                var TruckHours = connection.Query<TruckHourModel>($"select a.*, b.Name as HubName " +
                     $"from TruckHour a, Hub b " +
                     $"where b.Id = a.HubId  and ScenarioID = { Context.ScenarioId }").ToList();
                 foreach (var TruckHour in TruckHours)
@@ -37,7 +37,7 @@ namespace fleetapp.DataAccessClasses
                     $" VALUES(@ScenarioId, @AssetModel, @GroupName, @HubId, @Mode)";
 
                 String insertMappingQuery = $"insert into TruckHourYearMapping (TruckHourId, Year, Value)" +
-                    $" VALUES(@TruckHoursId, @Year, @Value)";
+                    $" VALUES(@TruckHourId, @Year, @Value)";
 
                 newTruckHour.Id = connection.QuerySingle<int>(insertQuery, new
                 {
@@ -48,13 +48,13 @@ namespace fleetapp.DataAccessClasses
                     newTruckHour.Mode
                 });
 
-                foreach(TruckHourYearMappingModel TruckHoursYearMapping in newTruckHour.TruckHourYearMapping) {
-                    TruckHoursYearMapping.TruckHourId = newTruckHour.Id;
+                foreach(TruckHourYearMappingModel TruckHourYearMapping in newTruckHour.TruckHourYearMapping) {
+                    TruckHourYearMapping.TruckHourId = newTruckHour.Id;
                     connection.QuerySingle(insertMappingQuery, new
                     {
-                        TruckHoursYearMapping.TruckHourId,
-                        TruckHoursYearMapping.Year,
-                        TruckHoursYearMapping.Value
+                        TruckHourYearMapping.TruckHourId,
+                        TruckHourYearMapping.Year,
+                        TruckHourYearMapping.Value
                     });
                 }
             }

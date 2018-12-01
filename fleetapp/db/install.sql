@@ -136,7 +136,7 @@ CREATE TABLE TruckHour (
    GroupName VARCHAR(50),
    HubId INT,
    Mode VARCHAR(50),
-   unique (ScenarioId,AssetModel, GroupName, Hub, Mode)
+   unique (ScenarioId,AssetModel, GroupName, HubId, Mode)
 );
 
 IF OBJECT_ID('TruckHourYearMapping', 'U') IS NOT NULL
