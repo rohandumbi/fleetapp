@@ -67,12 +67,12 @@ namespace fleetapp.DataAccessClasses
             {
 
                 String insertMappingQuery = $"insert into TruckHourYearMapping (TruckHourId, Year, Value)" +
-                    $" VALUES(@TruckHoursId, @Year, @Value)";
+                    $" VALUES(@TruckHourId, @Year, @Value)";
 
                 foreach (TruckHourYearMappingModel TruckHoursYearMapping in TruckHour.TruckHourYearMapping)
                 {
                     TruckHoursYearMapping.TruckHourId = TruckHour.Id;
-                    connection.QuerySingle(insertMappingQuery, new
+                    connection.Query(insertMappingQuery, new
                     {
                         TruckHoursYearMapping.TruckHourId,
                         TruckHoursYearMapping.Year,

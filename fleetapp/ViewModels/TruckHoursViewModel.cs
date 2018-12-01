@@ -4,6 +4,7 @@ using fleetapp.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,14 @@ namespace fleetapp.ViewModels
         {
             da = new TruckHourDataAccess();
             TruckHours = new BindableCollection<TruckHourModel>(da.GetTruckHours());
+            foreach (TruckHourModel truckHourModel in TruckHours)
+            {
+                truckHourModel.PropertyChanged += truckHour_PropertyChanged;
+                foreach (TruckHourYearMappingModel truckHourYearMapping in truckHourModel.TruckHourYearMapping)
+                {
+                    truckHourYearMapping.PropertyChanged += truckHourMapping_PropertyChanged;
+                }
+            }
             _ScenarioDataAccess = new ScenarioDataAccess();
             Scenario = _ScenarioDataAccess.GetScenario(Context.ScenarioId);
             _hubDataAccess = new HubDataAccess();
@@ -45,6 +54,46 @@ namespace fleetapp.ViewModels
             AssetModels = new BindableCollection<string>(_fleetDataAccess.GetAssetModels());
             this.TruckHoursColumns = new ObservableCollection<DataGridColumn>();
             this.GenerateDefaultColumns();
+        }
+
+        private void truckHour_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Do stuff with fleet here
+            //TruckHubPriorityModel updatedTruckHubPriorityModel = (TruckHubPriorityModel)sender;
+            //_truckHubPriorityDataAccess.UpdateTruckHubPriority(updatedTruckHubPriorityModel);
+            //NotifyOfPropertyChange(() => TruckHubPriorities);
+            MessageBox.Show("detected change");
+        }
+
+        private void truckHourMapping_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Do stuff with fleet here
+            //TruckHubPriorityModel updatedTruckHubPriorityModel = (TruckHubPriorityModel)sender;
+            //_truckHubPriorityDataAccess.UpdateTruckHubPriority(updatedTruckHubPriorityModel);
+            //NotifyOfPropertyChange(() => TruckHubPriorities);
+            TruckHourYearMappingModel UpdatedTruckHourYearMappingModel = (TruckHourYearMappingModel)sender;
+            TruckHourModel UpdatedTruckHourModel = GetTruckHourById(UpdatedTruckHourYearMappingModel.TruckHourId);
+            if (UpdatedTruckHourModel == null)
+            {
+                MessageBox.Show("Could not find truck hour to update. Contact administrator");
+                return;
+            }
+            da.DeleteTruckHourMapping(UpdatedTruckHourModel.Id);
+            da.InsertTruckHourMapping(UpdatedTruckHourModel);
+            NotifyOfPropertyChange(() => TruckHours);
+        }
+
+        private TruckHourModel GetTruckHourById(int id)
+        {
+            TruckHourModel model = null;
+            foreach ( TruckHourModel truckHour in TruckHours)
+            {
+                if (truckHour.Id == id)
+                {
+                    model = truckHour;
+                }
+            }
+            return model;
         }
 
         private List<String> GetHubNames()
