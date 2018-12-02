@@ -285,7 +285,7 @@ namespace fleetapp.LP
                     Decimal value = -1;
                     foreach(var TruckHourMapping in TruckHour.TruckHourYearMapping)
                     {
-                        if(TruckHourMapping.Year == (ctx.Scenario.StartYear + i))
+                        if(TruckHourMapping.Year == (ctx.Scenario.StartYear + (i-1)))
                         {
                             value = TruckHourMapping.Value;
                             break;
@@ -295,7 +295,7 @@ namespace fleetapp.LP
                     String line = "";
                     foreach(var fleet in fleets)
                     {
-                        line = line + " + x" + fleet.AssetNumber + "h" + Hub.HubNumber + "m" + mode;
+                        line = line + " + x" + fleet.AssetNumber + "h" + Hub.HubNumber + "m" + mode + "t" + i;
                     }
                     if(line.Length > 0)
                     {
