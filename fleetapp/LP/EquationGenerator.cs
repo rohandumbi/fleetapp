@@ -61,7 +61,7 @@ namespace fleetapp.LP
                     double coeff = pvif * (1 / Math.Pow(Convert.ToDouble(1 + i), Convert.ToDouble(i))) * HubPriority;
                     foreach (var Fleet in Fleets)
                     {
-                        coeff = Math.Round(coeff * Fleet.Priority, 3);
+                        //coeff = Math.Round(coeff * Fleet.Priority, 3);
                         if (coeff == 0) continue;
                         if(HubAllocation.IsManned)
                         {
