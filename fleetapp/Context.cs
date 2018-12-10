@@ -107,14 +107,13 @@ namespace fleetapp
             return 0;
         }
 
-        public Decimal getRequiredHours(String HubName, String AssetModel, int period)
+        public Decimal getRequiredHours(String HubName, int period)
         {
             int StartYear = Scenario.StartYear;
 
             foreach (var TruckTypeMinePlan in TruckTypeMinePlans)
             {
-                if (TruckTypeMinePlan.TruckType.Equals(AssetModel)
-                    && TruckTypeMinePlan.Hub.Equals(HubName))
+                if (TruckTypeMinePlan.Hub.Equals(HubName))
                 {
                     List<TruckTypeMinePlanYearMappingModel> mapping = TruckTypeMinePlan.TruckTypeMinePlanYearMapping;
                     foreach (var obj in mapping)
@@ -145,8 +144,7 @@ namespace fleetapp
                         {
                             foreach (var TruckTypeMinePlan in TruckTypeMinePlans)
                             {
-                                if (TruckTypeMinePlan.TruckType.Equals(AssetModel)
-                                    && TruckTypeMinePlan.Hub.Equals(HubName))
+                                if (TruckTypeMinePlan.Hub.Equals(HubName))
                                 {
                                     return (TruckTypeMinePlan.MinePlanPayload / obj.Payload) * (obj.UsableHours / obj.EngineHours);
                                 }

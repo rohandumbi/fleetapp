@@ -136,6 +136,10 @@ namespace fleetapp.LP
 
                 for (var i = 1; i <= TimePeriod; i++)
                 {
+                    String line = "";
+                    var requiredHours = ctx.getRequiredHours(Hub.Name, i);
+                    if (requiredHours == 0) continue;
+
                     List<HubAllocationModel> HubAllocations = new List<HubAllocationModel>();
                     foreach(var HubAllocation in ctx.HubAllocations)
                     {
@@ -144,12 +148,13 @@ namespace fleetapp.LP
                             HubAllocations.Add(HubAllocation);
                         }
                     }
+                    
                     foreach (var HubAllocation in HubAllocations)
                     {
-                        String line = "";
+                        
                         List<FleetModel> Fleets = ctx.getFleetsByAssetModel(HubAllocation.AssetModel);
-                        var requiredHours = ctx.getRequiredHours(Hub.Name, HubAllocation.AssetModel, i);
-                        if (requiredHours == 0) continue;
+                        
+                        
                         foreach (var Fleet in Fleets)
                         {
                             
@@ -169,9 +174,8 @@ namespace fleetapp.LP
                                 line = line + variable;
                             }
                         }
-                        sw.WriteLine(line +" <= " + requiredHours);
                     }
-
+                 sw.WriteLine(line + " <= " + requiredHours);
                 }
             }
         }
