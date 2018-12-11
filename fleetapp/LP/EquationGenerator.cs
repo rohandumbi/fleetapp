@@ -138,7 +138,7 @@ namespace fleetapp.LP
                 {
                     String line = "";
                     var requiredHours = ctx.getRequiredHours(Hub.Name, i);
-                    if (requiredHours == 0) continue;
+                    //if (requiredHours == 0) continue;
 
                     List<HubAllocationModel> HubAllocations = new List<HubAllocationModel>();
                     foreach(var HubAllocation in ctx.HubAllocations)
