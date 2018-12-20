@@ -57,11 +57,13 @@ namespace fleetapp.LP
                 
                 for(var i=1; i<= TimePeriod; i++)
                 {
-                    double pvif = 0.1;
-                    double coeff = pvif * (1 / Math.Pow(Convert.ToDouble(1 + i), Convert.ToDouble(i))) * HubPriority;
+                    double discount_rate = 0.1;
+                    double pvif = (1 / Math.Pow(Convert.ToDouble(1 + discount_rate), Convert.ToDouble(i)));
+                    double coeff = pvif * HubPriority;
                     foreach (var Fleet in Fleets)
                     {
-                        //coeff = Math.Round(coeff * Fleet.Priority, 3);
+                        coeff = coeff * Fleet.Priority;
+                        coeff = Math.Round(coeff, 6);
                         if (coeff == 0) continue;
                         if(HubAllocation.IsManned)
                         {
@@ -220,6 +222,8 @@ namespace fleetapp.LP
             sw.WriteLine("\\machine across all hub per year constraint");
 
             int TimePeriod = ctx.Scenario.TimePeriod;
+            int mf = 1000; // This is multiplying factor to ensure values are not lost when rounding
+
             for (var i = 1; i <= TimePeriod; i++)
             {
                 foreach (var AssetModel in ctx.AssetModels)
@@ -244,9 +248,12 @@ namespace fleetapp.LP
                             if (HubAllocation.IsManned)
                             {
                                 var engineHours = ctx.getEngineHours(Hub.Name, AssetModel, "Manned", i);
-                                if(engineHours != 0)
+                                
+                                if (engineHours != 0)
                                 {
-                                    line = line + " + " + (1 / engineHours) + " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
+                                    var coeff = (1 * mf / engineHours);
+                                    coeff = Math.Round(coeff, 6);
+                                    line = line + " + " + coeff + " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
                                 } else
                                 {
                                     Console.WriteLine("Manned - HubName :" + Hub.Name + " AssetModel :" + AssetModel + " i :" + i);
@@ -256,9 +263,12 @@ namespace fleetapp.LP
                             if (HubAllocation.IsAHS)
                             {
                                 var engineHours = ctx.getEngineHours(Hub.Name, AssetModel, "AHS", i);
+                                
                                 if (engineHours != 0)
                                 {
-                                    line = line + " + " + (1 / engineHours) + " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
+                                    var coeff = (1 * mf / engineHours);
+                                    coeff = Math.Round(coeff, 6);
+                                    line = line + " + " + coeff + " x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
                                 }
                                 else
                                 {
@@ -267,7 +277,7 @@ namespace fleetapp.LP
                             }
                         }
                         
-                        line = line + " <= 1 ";
+                        line = line + " <=  " + (1* mf );
                         sw.WriteLine(line);
                     }
                 }
