@@ -185,34 +185,41 @@ namespace fleetapp.LP
         {
             sw.WriteLine("\\machine age constraint");
 
-            String line = "";
-            int lineMaxLength = 200;
-            foreach (var HubAllocation in ctx.HubAllocations)
+            int TimePeriod = ctx.Scenario.TimePeriod;
+
+            foreach (var AssetModel in ctx.AssetModels)
             {
-                List<FleetModel> Fleets = ctx.getFleetsByAssetModel(HubAllocation.AssetModel);
-                HubModel Hub = ctx.getHubById(HubAllocation.HubId);
-                int TimePeriod = ctx.Scenario.TimePeriod;
+                List<FleetModel> Fleets = ctx.getFleetsByAssetModel(AssetModel);
+                List<HubAllocationModel> HubAllocations = new List<HubAllocationModel>();
+                foreach (var HubAllocation in ctx.HubAllocations)
+                {
+                    if (HubAllocation.AssetModel.Equals(AssetModel))
+                    {
+                        HubAllocations.Add(HubAllocation);
+                    }
+                }
+                if (HubAllocations.Count == 0) continue;
+
                 foreach (var Fleet in Fleets)
                 {
+                    String line = "";
                     for (var i = 1; i <= TimePeriod; i++)
                     {
-                        if (HubAllocation.IsManned)
+                        foreach (var HubAllocation in HubAllocations)
                         {
-                            line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
-                        }
-                        if (HubAllocation.IsAHS)
-                        {
-                            line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
-                        }
-                        if (line.Length > lineMaxLength)
-                        {
-                            sw.WriteLine(line);
-                            line = "";
+                            HubModel Hub = ctx.getHubById(HubAllocation.HubId);
+                            if (HubAllocation.IsManned)
+                            {
+                                line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m1t" + i;
+                            }
+                            if (HubAllocation.IsAHS)
+                            {
+                                line = line + " + x" + Fleet.AssetNumber + "h" + Hub.HubNumber + "m2t" + i;
+                            }
                         }
                     }
                     line = line + " <= " + (Fleet.FinalAge - Fleet.InitialAge);
                     sw.WriteLine(line);
-                    line = "";
                 }
             }
 
